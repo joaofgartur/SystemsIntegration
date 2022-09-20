@@ -20,7 +20,7 @@ public class Student {
     String telephone;
 
     @XmlAttribute
-    char gender;
+    String gender;
 
     @XmlAttribute
     String birthDate;
@@ -31,11 +31,14 @@ public class Student {
     @XmlAttribute
     String address;
 
+    Professor professor;
+
     /*** Constructors ***/
     public Student() {
     }
 
-    public Student(String id, String name, String telephone, char gender, String birthDate, String registrationDate, String address) {
+    public Student(String id, String name, String telephone, String gender, String birthDate,
+                   String registrationDate, String address) {
         this.id = id;
         this.name = name;
         this.telephone = telephone;
@@ -69,11 +72,11 @@ public class Student {
         this.telephone = telephone;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -99,6 +102,14 @@ public class Student {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
 
     @Override

@@ -1,10 +1,8 @@
 package uc.mei.is;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @XmlRootElement
@@ -13,32 +11,32 @@ public class Professor {
     @XmlAttribute
     String id;
 
-    @XmlAttribute
+    @XmlElement
     String name;
 
-    @XmlAttribute
+    @XmlElement
     String birthDate;
 
-    @XmlAttribute
+    @XmlElement
     String telephone;
 
-    @XmlAttribute
+    @XmlElement
     String address;
 
-    @XmlAttribute
+    @XmlElement
     List<Student> studentList;
 
     /*** Constructors ***/
     public Professor() {
     }
 
-    public Professor(String id, String name, String birthDate, String telephone, String address, List<Student> studentList) {
+    public Professor(String id, String name, String birthDate, String telephone, String address) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
         this.telephone = telephone;
         this.address = address;
-        this.studentList = studentList;
+        this.studentList = new ArrayList<Student>();
     }
 
     public String getId() {
@@ -97,7 +95,6 @@ public class Professor {
                 ", birthDate='" + birthDate + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", address='" + address + '\'' +
-                ", studentList=" + studentList +
                 '}';
     }
 }
