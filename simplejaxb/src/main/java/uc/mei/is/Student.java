@@ -1,37 +1,30 @@
 package uc.mei.is;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 
-@XmlRootElement
-// order of the fields in XML
-// @XmlType(propOrder = {"price", "name"})
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Student {
-    @XmlAttribute
-    String id;
 
     @XmlAttribute
-    String name;
+    private String id;
 
-    @XmlAttribute
-    String telephone;
+    @XmlElement
+    private String name;
 
-    @XmlAttribute
-    String gender;
+    @XmlElement
+    private String telephone;
 
-    @XmlAttribute
-    String birthDate;
+    @XmlElement
+    private String gender;
 
-    @XmlAttribute
-    String registrationDate;
+    @XmlElement
+    private String birthDate;
 
-    @XmlAttribute
-    String address;
+    @XmlElement
+    private String registrationDate;
 
-    Professor professor;
+    @XmlElement
+    private String address;
 
     /*** Constructors ***/
     public Student() {
@@ -102,14 +95,6 @@ public class Student {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
     }
 
     @Override

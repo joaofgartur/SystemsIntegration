@@ -2,29 +2,26 @@ package uc.mei.is;
 
 import jakarta.xml.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso(value = {Student.class})
 public class Professor {
     @XmlAttribute
-    String id;
+    private String id;
 
     @XmlElement
-    String name;
+    private String name;
 
     @XmlElement
-    String birthDate;
+    private String birthDate;
 
     @XmlElement
-    String telephone;
+    private String telephone;
 
     @XmlElement
-    String address;
+    private String address;
 
-    @XmlElement
-    List<Student> studentList;
+    @XmlElement(name="students")
+    StudentsContainer students;
 
     /*** Constructors ***/
     public Professor() {
@@ -36,7 +33,7 @@ public class Professor {
         this.birthDate = birthDate;
         this.telephone = telephone;
         this.address = address;
-        this.studentList = new ArrayList<Student>();
+        this.students = new StudentsContainer();
     }
 
     public String getId() {
@@ -79,22 +76,11 @@ public class Professor {
         this.address = address;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
+    public StudentsContainer getStudents() {
+        return students;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
-    }
-
-    @Override
-    public String toString() {
-        return "Professor{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", birthDate='" + birthDate + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+    public void setStudents(StudentsContainer students) {
+        this.students = students;
     }
 }

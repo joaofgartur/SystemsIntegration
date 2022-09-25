@@ -1,121 +1,48 @@
 package uc.mei.is;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.io.FileOutputStream;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class App {
-    private int numProfessors, maxStudents, totalStudents;
+    private int numProfessors, numStudents;
 
-    public App() {
+    public App(int numProfessors, int numStudents) {
+        this.numProfessors = numProfessors;
+        this.numStudents = numStudents;
         myMain();
     }
 
-    public static void main( String[] args ) {
-        App myApp = new App();
+    public static void main(String[] args ) {
+        App myApp = new App(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
     }
 
     private void myMain() {
-        numProfessors = 3;
-        maxStudents = 10;
-        totalStudents = 0;
+        Generator generator = new Generator();
+        List<Professor> input = generator.generateInput(numProfessors, numStudents);
+        ProfessorsContainer inputContainer = new ProfessorsContainer();
+        inputContainer.setProfessors(input);
 
-        List<Professor> input = generateInput(numProfessors, maxStudents);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String output_file = sdf1.format(timestamp) + ".xml";
 
+        try {
+            JAXBContext contextObj = JAXBContext.newInstance(ProfessorsContainer.class, Professor.class, Student.class);
 
-        for(Professor p: input) {
-            System.out.println(p.toString());
-            for(Student s: p.studentList) {
-                System.out.println("\t" + s.toString());
-            }
-        }
-        System.out.println("Total professors: " + numProfessors + "\n"
-                + "Total students: " + totalStudents);
-    }
+            Marshaller marshallerObj = contextObj.createMarshaller();
+            marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-    private String generateRandomAlphaString(int length) {
-        String AlphaStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz";
-
-        // creating a StringBuffer size of AlphaNumericStr
-
-        StringBuilder s = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            int ch = (int)(AlphaStr.length() * Math.random());
-            s.append(AlphaStr.charAt(ch));
+            FileOutputStream xmlFile = new FileOutputStream(output_file);
+            marshallerObj.marshal(inputContainer, xmlFile);
+        } catch (Exception e) {
+            System.out.println(e.toString());
         }
 
-        return s.toString();
-    }
-
-    private String generateRandomIntString(int length) {
-        String Digits = "0123456789";
-
-        StringBuilder s = new StringBuilder(length);
-
-        for (int i = 0; i < length; i++) {
-            int ch = (int)(Digits.length() * Math.random());
-            s.append(Digits.charAt(ch));
-        }
-
-        return s.toString();
-
-    }
-
-    public static int randBetween(int start, int end) {
-        return start + (int)Math.round(Math.random() * (end - start));
-    }
-
-    private String generateRandomDate() {
-        GregorianCalendar gc = new GregorianCalendar();
-
-        int year = randBetween(1970, 2022);
-        gc.set(Calendar.YEAR, year);
-        int dayOfYear = randBetween(1, gc.getActualMaximum(Calendar.DAY_OF_YEAR));
-        gc.set(Calendar.DAY_OF_YEAR, dayOfYear);
-
-        return  gc.get(Calendar.DAY_OF_MONTH) + "/" + (gc.get(Calendar.MONTH) + 1) + "/" + gc.get(Calendar.YEAR);
-    }
-
-    private List<Professor> generateInput(int numProfessors, int maxStudents) {
-        List<Professor> professors = new ArrayList<>();
-        int nameSize = 10, addressSize = 30, phoneSize = 9, idSize = 4;
-
-        for(int i = 0; i < numProfessors; i++) {
-
-            String profId = generateRandomIntString(idSize);
-            String profName = generateRandomAlphaString(nameSize);
-            String profAddress = generateRandomAlphaString(addressSize);
-            String profPhone = generateRandomIntString(phoneSize);
-            String profBirthDate = generateRandomDate();
-            Professor p = new Professor(profId, profName, profBirthDate, profPhone, profAddress);
-
-            int numStudents = randBetween(1, maxStudents);
-            totalStudents += numStudents;
-            String genders[] = {"Male", "Female", "Other"};
-            for(int j = 0; j < numStudents; j++) {
-
-                int genderChoice = randBetween(0, 2);
-                String studentGender = genders[genderChoice];
-                String studentId = generateRandomIntString(idSize);
-                String studentName = generateRandomAlphaString(nameSize);
-                String studentAddress = generateRandomAlphaString(addressSize);
-                String studentPhone = generateRandomIntString(phoneSize);
-                String studentBirthDate = generateRandomDate();
-                String studentRegistrationDate = generateRandomDate();
-
-                Student s = new Student(studentId, studentName, studentPhone, studentGender, studentBirthDate,
-                        studentRegistrationDate, studentAddress);
-                p.studentList.add(s);
-                s.setProfessor(p);
-
-            }
-
-            professors.add(p);
-        }
-
-        return professors;
     }
 
 }
