@@ -3,6 +3,7 @@ package uc.mei.is;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import uc.mei.is.ProtocolBufferClasses.ProtoSchool;
 
 import java.io.*;
 import java.sql.Timestamp;
@@ -11,7 +12,7 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class App {
-    private int numProfessors, numStudents;
+    private final int numProfessors, numStudents;
     private static final SimpleDateFormat sdf1 = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
 
     public App(int numProfessors, int numStudents) {
@@ -26,60 +27,46 @@ public class App {
 
     private String xmlTracking(School input, String xml_output_file) {
         try {
-            JAXBContext contextObj = JAXBContext.newInstance(School.class, Professor.class, Student.class);
-            /*
-            Marshaller marshallerObj = contextObj.createMarshaller();
-            marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            FileOutputStream xmlFile = new FileOutputStream(xml_output_file);
-
-            //Measure serialization speed
-            long start = System.currentTimeMillis();
-            marshallerObj.marshal(input, xmlFile);
-            long finish = System.currentTimeMillis();
-            long serializationTime = finish - start;*/
 
             long serializationTime = createXMLFile(input, xml_output_file);
 
             File file = new File(xml_output_file);
-            long serializationSize = file.length();
+            long fileSize = file.length();
 
-            long serializationSpeed = serializationSize / serializationTime;
+            long serializationSpeed = fileSize / serializationTime;
 
             //Measure deserialization speed
+            JAXBContext contextObj = JAXBContext.newInstance(School.class, Professor.class, Student.class);
             Unmarshaller jaxbUnmarshaller = contextObj.createUnmarshaller();
+
             long start = System.currentTimeMillis();
             School recoveredInput = (School) jaxbUnmarshaller.unmarshal(file);
             long finish = System.currentTimeMillis();
+
             long deserializationTime = finish - start;
-            long deserializationSpeed = serializationSize / deserializationTime;
+            long deserializationSpeed = fileSize / deserializationTime;
 
             String results = "\tXML results\n"
                     + "---------------------------" + "\n"
                     + "Num of professors: " + numProfessors + "\n"
                     + "Num of students: " + (numProfessors * numStudents) + "\n"
-                    + "File Size: " + serializationSize + " bytes\n"
+                    + "File Size: " + fileSize + " bytes\n"
                     + "Serialization Time: " + serializationTime + " ms\n"
                     + "Serialization Speed: " + serializationSpeed + " bytes/ms\n"
                     + "Deserialization Time: " + deserializationTime + " ms\n"
                     + "Deserialization Speed: " + deserializationSpeed + " bytes/ms\n"
                     + "---------------------------" + "\n";
 
-            saveResultsToFile(xml_output_file, results);
-            System.out.println(results);
-
-            return xml_output_file;
+            return results;
         } catch (Exception e) {
             System.out.println(e.toString());
-
-            return null;
+            return "XML error!";
         }
+
+
     }
 
-    private void gzipTracking(School input, String outputSaveToFile){
-        String titleOutput = "\n------------- XML + GZIP -------------\n";
-        System.out.println(titleOutput);
-        saveResultsToFile(outputSaveToFile,titleOutput);
+    private String gzipTracking(School input, String outputSaveToFile){
 
         long serializationTime = createXMLFile(input, outputSaveToFile);
         String gzipFileName = outputSaveToFile + ".gz";
@@ -112,8 +99,7 @@ public class App {
                 + "Decompress Speed: " + decompressSpeed + " bytes/ms\n"
                 + "---------------------------" + "\n";
 
-        saveResultsToFile(outputSaveToFile,results);
-        System.out.println(results);
+        return results;
     }
 
     private long createXMLFile(School input, String xml_output_file){
@@ -176,17 +162,56 @@ public class App {
         }
 
     }
-    
-    /* Auxiliary Method */
-    private void saveResultsToFile(String fileName, String output){
 
-        fileName = "run_" + fileName.substring(0,  fileName.lastIndexOf('.')) + ".txt";
+    private String protocolTracking(School school, String fileName) {
+        ProtoSchool protoSchool = school.convertToProto();
 
         try {
+            FileOutputStream outputFile = new FileOutputStream(fileName);
+            long start = System.currentTimeMillis();
+            protoSchool.writeTo(outputFile);
+            long finish = System.currentTimeMillis();
+            outputFile.close();
+            long serializationTime = finish - start;
+
             File file = new File(fileName);
+            long fileSize = file.length();
+            long serializationSpeed = fileSize / serializationTime;
+
+            start = System.currentTimeMillis();
+            protoSchool = ProtoSchool.parseFrom(new FileInputStream(fileName));
+            finish = System.currentTimeMillis();
+            long deserializationTime = finish - start;
+            long deserializationSpeed = fileSize / deserializationTime;
+
+            String results = "\tProtocol Buffer results\n"
+                    + "---------------------------" + "\n"
+                    + "Num of professors: " + numProfessors + "\n"
+                    + "Num of students: " + (numProfessors * numStudents) + "\n"
+                    + "File Size: " + fileSize + " bytes\n"
+                    + "Serialization Time: " + serializationTime + " ms\n"
+                    + "Serialization Speed: " + serializationSpeed + " bytes/ms\n"
+                    + "Deserialization Time: " + deserializationTime + " ms\n"
+                    + "Deserialization Speed: " + deserializationSpeed + " bytes/ms\n"
+                    + "---------------------------" + "\n";
+
+            return results;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return "Protocol buffer error!";
+        }
+    }
+
+    /* Auxiliary Method */
+    private void saveResultsToFile(String xmlResults, String gzipResults, String protocolResults, String resultsFile){
+        try {
+            File file = new File(resultsFile);
             file.createNewFile(); // Create if not exists
-            FileWriter myWriter = new FileWriter(fileName, true);
-            myWriter.write(output);
+
+            FileWriter myWriter = new FileWriter(resultsFile, true);
+            myWriter.write(xmlResults);
+            myWriter.write(gzipResults);
+            myWriter.write(protocolResults);
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -194,16 +219,22 @@ public class App {
         }
     }
     
-    
     private void myMain() {
         Generator generator = new Generator();
         School input = generator.generateInput(numProfessors, numStudents);
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String xml_output_file = sdf1.format(timestamp) + ".xml";
 
-        xmlTracking(input, xml_output_file);
-        gzipTracking(input, xml_output_file);
+        String outputFile = sdf1.format(timestamp);
+        String xmlOutputFile = outputFile + ".xml";
+        String protocolOutputFile = outputFile + ".bin";
+        String resultsFile = "run_" + outputFile + ".txt";
+
+        String xmlResults = xmlTracking(input, xmlOutputFile);
+        String gzipResults = gzipTracking(input, xmlOutputFile);
+        String protocolResults = protocolTracking(input, protocolOutputFile);
+
+        saveResultsToFile(xmlResults, gzipResults, protocolResults, resultsFile);
     }
 
 }

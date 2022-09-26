@@ -1,6 +1,10 @@
 package uc.mei.is;
 
 import jakarta.xml.bind.annotation.*;
+import uc.mei.is.ProtocolBufferClasses.ProtoStudent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Student {
@@ -106,6 +110,24 @@ public class Student {
 
     public void setProfessor(String professor) {
         this.professor = professor;
+    }
+
+    public ProtoStudent convertToProto() {
+        ProtoStudent.Builder student =  ProtoStudent.newBuilder();
+
+        student.setId(this.id)
+                .setName(this.name)
+                .setTelephone(this.telephone)
+                .setGender(this.gender)
+                .setBirthDate(this.birthDate)
+                .setRegistrationDate(this.registrationDate)
+                .setAddress(this.address);
+
+        if(this.professor != null) {
+            student.setProfessor(this.professor);
+        }
+
+        return student.build();
     }
 
     @Override

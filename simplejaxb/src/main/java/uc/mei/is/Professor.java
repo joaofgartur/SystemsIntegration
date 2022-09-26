@@ -1,6 +1,7 @@
 package uc.mei.is;
 
 import jakarta.xml.bind.annotation.*;
+import uc.mei.is.ProtocolBufferClasses.ProtoProfessor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,5 +85,21 @@ public class Professor {
 
     public void setStudents(List<String> students) {
         this.students = students;
+    }
+
+    public ProtoProfessor convertToProto() {
+        ProtoProfessor.Builder professor = ProtoProfessor.newBuilder();
+
+        professor.setId(this.id)
+                .setName(this.name)
+                .setBirthDate(this.birthDate)
+                .setTelephone(this.telephone)
+                .setAddress(this.address);
+
+        if(this.students.size() > 0) {
+            professor.addAllStudents(this.students);
+        }
+
+        return professor.build();
     }
 }

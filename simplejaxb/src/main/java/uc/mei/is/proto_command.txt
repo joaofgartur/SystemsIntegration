@@ -1,0 +1,1 @@
+protoc -I="C:\Users\jfgar\OneDrive\Documentos\Mestrado\IS\Work #1\SystemsIntegration\simplejaxb\src\main\java\uc\mei\is" --java_out="C:\Users\jfgar\OneDrive\Documentos\Mestrado\IS\Work #1\SystemsIntegration\simplejaxb\src\main\java" "C:\Users\jfgar\OneDrive\Documentos\Mestrado\IS\Work #1\SystemsIntegration\simplejaxb\src\main\java\uc\mei\is\school.proto"

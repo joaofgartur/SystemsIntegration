@@ -1,6 +1,9 @@
 package uc.mei.is;
 
 import jakarta.xml.bind.annotation.*;
+import uc.mei.is.ProtocolBufferClasses.ProtoProfessor;
+import uc.mei.is.ProtocolBufferClasses.ProtoSchool;
+import uc.mei.is.ProtocolBufferClasses.ProtoStudent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,5 +37,23 @@ public class School {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public ProtoSchool convertToProto() {
+        ProtoSchool.Builder protoSchool = ProtoSchool.newBuilder();
+
+        List<ProtoProfessor> protoProfessors = new ArrayList<>();
+        for(Professor p: this.professors) {
+            protoProfessors.add(p.convertToProto());
+        }
+        protoSchool.addAllProfessors(protoProfessors);
+
+        List<ProtoStudent> protoStudents = new ArrayList<>();
+        for(Student s: this.students) {
+            protoStudents.add(s.convertToProto());
+        }
+        protoSchool.addAllStudents(protoStudents);
+
+        return protoSchool.build();
     }
 }

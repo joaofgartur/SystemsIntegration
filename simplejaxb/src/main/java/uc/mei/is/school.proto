@@ -1,0 +1,32 @@
+syntax = "proto2";
+
+package model;
+
+option java_multiple_files = true;
+option java_package = "uc.mei.is.ProtocolBufferClasses";
+option java_outer_classname = "ProtocolBufferClasses";
+
+message ProtoProfessor {
+  required string id = 1;
+  required string name = 2;
+  required string birthDate = 4;
+  required string telephone = 3;
+  required string address = 5;
+  repeated string students = 6;
+}
+
+message ProtoStudent {
+  required string id = 1;
+  required string name = 2;
+  required string telephone = 3;
+  required string gender = 4;
+  required string birthDate = 5;
+  required string registrationDate = 6;
+  required string address = 7;
+  optional string professor = 8;
+}
+
+message ProtoSchool {
+  repeated ProtoProfessor professors = 1;
+  repeated ProtoStudent students = 2;
+}
