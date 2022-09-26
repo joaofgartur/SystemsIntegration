@@ -58,9 +58,9 @@ public class App {
                     + "---------------------------" + "\n"
                     + "Num of professors: " + numProfessors + "\n"
                     + "Num of students: " + (numProfessors * numStudents) + "\n"
-                    + "Serialization size: " + serializationSize + "\n"
-                    + "Serialization Speed: " + serializationSpeed + "\n"
-                    + "Deserialization Speed: " + deserializationSpeed + "\n"
+                    + "File Size: " + serializationSize + " bytes\n"
+                    + "Serialization Speed: " + serializationSpeed + " bytes/ms\n"
+                    + "Deserialization Speed: " + deserializationSpeed + " bytes/ms\n"
                     + "---------------------------" + "\n";
 
             System.out.println(results);
