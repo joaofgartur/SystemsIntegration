@@ -29,7 +29,7 @@ public class App {
     private String xmlTracking(ProfessorsContainer input, String xml_output_file) {
         try {
             JAXBContext contextObj = JAXBContext.newInstance(ProfessorsContainer.class, Professor.class, Student.class);
-
+            /*
             Marshaller marshallerObj = contextObj.createMarshaller();
             marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
@@ -39,7 +39,9 @@ public class App {
             long start = System.currentTimeMillis();
             marshallerObj.marshal(input, xmlFile);
             long finish = System.currentTimeMillis();
-            long serializationTime = finish - start;
+            long serializationTime = finish - start;*/
+
+            long serializationTime = createXMLFile(input, xml_output_file);
 
             File file = new File(xml_output_file);
             long serializationSize = file.length();
@@ -48,9 +50,9 @@ public class App {
 
             //Measure deserialization speed
             Unmarshaller jaxbUnmarshaller = contextObj.createUnmarshaller();
-            start = System.currentTimeMillis();
+            long start = System.currentTimeMillis();
             ProfessorsContainer recoveredInput = (ProfessorsContainer) jaxbUnmarshaller.unmarshal(file);
-            finish = System.currentTimeMillis();
+            long finish = System.currentTimeMillis();
             long deserializationTime = finish - start;
             long deserializationSpeed = serializationSize / deserializationTime;
 
@@ -59,7 +61,9 @@ public class App {
                     + "Num of professors: " + numProfessors + "\n"
                     + "Num of students: " + (numProfessors * numStudents) + "\n"
                     + "File Size: " + serializationSize + " bytes\n"
+                    + "Serialization Time: " + serializationTime + " ms\n"
                     + "Serialization Speed: " + serializationSpeed + " bytes/ms\n"
+                    + "Deserialization Time: " + deserializationTime + " ms\n"
                     + "Deserialization Speed: " + deserializationSpeed + " bytes/ms\n"
                     + "---------------------------" + "\n";
 
@@ -79,12 +83,12 @@ public class App {
         System.out.println(titleOutput);
         saveResultsToFile(outputSaveToFile,titleOutput);
 
-        String fileName = xmlTracking(input, outputSaveToFile);
-        String gzipFileName = fileName + ".gz";
-        String newXMLFileName = "gzip_" + fileName;
+        long serializationTime = createXMLFile(input, outputSaveToFile);
+        String gzipFileName = outputSaveToFile + ".gz";
+        String newXMLFileName = "gzip_" + outputSaveToFile;
 
         long start = System.currentTimeMillis();
-        compressGzipFile(fileName, gzipFileName);
+        compressGzipFile(outputSaveToFile, gzipFileName);
         long finish = System.currentTimeMillis();
 
         long compressTime = finish - start;
@@ -101,16 +105,36 @@ public class App {
 
         String results = "\tGZIP results\n"
                 + "---------------------------" + "\n"
-                + "Compress Time: " + compressTime + " ms\n"
+                + "Serialization Time: " + serializationTime + " ms\n"
                 + "File Size (GZIP): " + gzipFile.length() + " bytes\n"
+                + "Compress Time: " + compressTime + " ms\n"
                 + "Compress Speed: " + compressSpeed + " bytes/ms\n"
-                + "Decompress Time: " + decompressTime + " ms\n"
                 + "File Size (XML): " + newXMLFile.length() + " bytes\n"
+                + "Decompress Time: " + decompressTime + " ms\n"
                 + "Decompress Speed: " + decompressSpeed + " bytes/ms\n"
                 + "---------------------------" + "\n";
 
         saveResultsToFile(outputSaveToFile,results);
         System.out.println(results);
+    }
+
+    private long createXMLFile(ProfessorsContainer input, String xml_output_file){
+        try{
+            JAXBContext contextObj = JAXBContext.newInstance(ProfessorsContainer.class, Professor.class, Student.class);
+            FileOutputStream xmlFile = new FileOutputStream(xml_output_file);
+
+            Marshaller marshallerObj = contextObj.createMarshaller();
+            marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            long start = System.currentTimeMillis();
+            marshallerObj.marshal(input, xmlFile);
+            long finish = System.currentTimeMillis();
+
+            return finish - start;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            return -1;
+        }
     }
 
     private void compressGzipFile(String file, String gzipFile) {
