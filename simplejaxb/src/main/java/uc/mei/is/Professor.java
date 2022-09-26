@@ -2,8 +2,10 @@ package uc.mei.is;
 
 import jakarta.xml.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlSeeAlso(value = {Student.class})
 public class Professor {
     @XmlAttribute
     private String id;
@@ -21,7 +23,7 @@ public class Professor {
     private String address;
 
     @XmlElement(name="students")
-    StudentsContainer students;
+    private List<String> students;
 
     /*** Constructors ***/
     public Professor() {
@@ -33,7 +35,7 @@ public class Professor {
         this.birthDate = birthDate;
         this.telephone = telephone;
         this.address = address;
-        this.students = new StudentsContainer();
+        this.students = new ArrayList<>();
     }
 
     public String getId() {
@@ -76,11 +78,11 @@ public class Professor {
         this.address = address;
     }
 
-    public StudentsContainer getStudents() {
+    public List<String> getStudents() {
         return students;
     }
 
-    public void setStudents(StudentsContainer students) {
+    public void setStudents(List<String> students) {
         this.students = students;
     }
 }
