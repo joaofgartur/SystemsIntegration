@@ -26,6 +26,9 @@ public class Student {
     @XmlElement
     private String address;
 
+    @XmlElement
+    private String professor;
+
     /*** Constructors ***/
     public Student() {
     }
@@ -97,16 +100,25 @@ public class Student {
         this.address = address;
     }
 
+    public String getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(String professor) {
+        this.professor = professor;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", gender=" + gender +
+                ", gender='" + gender + '\'' +
                 ", birthDate='" + birthDate + '\'' +
                 ", registrationDate='" + registrationDate + '\'' +
                 ", address='" + address + '\'' +
+                ", professor='" + professor + '\'' +
                 '}';
     }
 }

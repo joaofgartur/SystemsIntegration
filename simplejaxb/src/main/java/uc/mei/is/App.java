@@ -5,10 +5,8 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 import java.io.*;
-import java.sql.PseudoColumnUsage;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -26,9 +24,9 @@ public class App {
         App myApp = new App(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
     }
 
-    private String xmlTracking(ProfessorsContainer input, String xml_output_file) {
+    private String xmlTracking(School input, String xml_output_file) {
         try {
-            JAXBContext contextObj = JAXBContext.newInstance(ProfessorsContainer.class, Professor.class, Student.class);
+            JAXBContext contextObj = JAXBContext.newInstance(School.class, Professor.class, Student.class);
             /*
             Marshaller marshallerObj = contextObj.createMarshaller();
             marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -51,7 +49,7 @@ public class App {
             //Measure deserialization speed
             Unmarshaller jaxbUnmarshaller = contextObj.createUnmarshaller();
             long start = System.currentTimeMillis();
-            ProfessorsContainer recoveredInput = (ProfessorsContainer) jaxbUnmarshaller.unmarshal(file);
+            School recoveredInput = (School) jaxbUnmarshaller.unmarshal(file);
             long finish = System.currentTimeMillis();
             long deserializationTime = finish - start;
             long deserializationSpeed = serializationSize / deserializationTime;
@@ -78,7 +76,7 @@ public class App {
         }
     }
 
-    private void gzipTracking(ProfessorsContainer input,  String outputSaveToFile){
+    private void gzipTracking(School input, String outputSaveToFile){
         String titleOutput = "\n------------- XML + GZIP -------------\n";
         System.out.println(titleOutput);
         saveResultsToFile(outputSaveToFile,titleOutput);
@@ -118,9 +116,9 @@ public class App {
         System.out.println(results);
     }
 
-    private long createXMLFile(ProfessorsContainer input, String xml_output_file){
+    private long createXMLFile(School input, String xml_output_file){
         try{
-            JAXBContext contextObj = JAXBContext.newInstance(ProfessorsContainer.class, Professor.class, Student.class);
+            JAXBContext contextObj = JAXBContext.newInstance(School.class, Professor.class, Student.class);
             FileOutputStream xmlFile = new FileOutputStream(xml_output_file);
 
             Marshaller marshallerObj = contextObj.createMarshaller();
@@ -199,15 +197,13 @@ public class App {
     
     private void myMain() {
         Generator generator = new Generator();
-        List<Professor> input = generator.generateInput(numProfessors, numStudents);
-        ProfessorsContainer inputContainer = new ProfessorsContainer();
-        inputContainer.setProfessors(input);
+        School input = generator.generateInput(numProfessors, numStudents);
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String xml_output_file = sdf1.format(timestamp) + ".xml";
 
-        xmlTracking(inputContainer, xml_output_file);
-        gzipTracking(inputContainer, xml_output_file);
+        xmlTracking(input, xml_output_file);
+        gzipTracking(input, xml_output_file);
     }
 
 }

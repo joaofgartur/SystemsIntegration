@@ -6,13 +6,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Generator {
+    private static final int NAMESIZE = 8, ADDRESSSIZE = 16, PHONESIZE = 8, IDSIZE = 4;
 
     public Generator() {};
 
     private String generateRandomAlphaString(int length) {
         String AlphaStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz";
-
-        // creating a StringBuffer size of AlphaNumericStr
 
         StringBuilder s = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -27,14 +26,12 @@ public class Generator {
         String Digits = "0123456789";
 
         StringBuilder s = new StringBuilder(length);
-
         for (int i = 0; i < length; i++) {
             int ch = (int)(Digits.length() * Math.random());
             s.append(Digits.charAt(ch));
         }
 
         return s.toString();
-
     }
 
     public static int randBetween(int start, int end) {
@@ -52,44 +49,46 @@ public class Generator {
         return  gc.get(Calendar.DAY_OF_MONTH) + "/" + (gc.get(Calendar.MONTH) + 1) + "/" + gc.get(Calendar.YEAR);
     }
 
-    public
-    List<Professor> generateInput(int numProfessors, int studentsPerProfessor) {
-        List<Professor> input = new ArrayList<>();
-        int nameSize = 10, addressSize = 30, phoneSize = 9, idSize = 4;
+    public School generateInput(int numProfessors, int numStudents) {
 
+        List<Professor> professors = new ArrayList<>();
         for(int i = 0; i < numProfessors; i++) {
-
-            String profId = generateRandomIntString(idSize);
-            String profName = generateRandomAlphaString(nameSize);
-            String profAddress = generateRandomAlphaString(addressSize);
-            String profPhone = generateRandomIntString(phoneSize);
-            String profBirthDate = generateRandomDate();
-            Professor p = new Professor(profId, profName, profBirthDate, profPhone, profAddress);
-
-            String genders[] = {"Male", "Female", "Other"};
-            List<Student> students = new ArrayList<>();
-            for(int j = 0; j < studentsPerProfessor; j++) {
-
-                int genderChoice = randBetween(0, 2);
-                String studentGender = genders[genderChoice];
-                String studentId = generateRandomIntString(idSize);
-                String studentName = generateRandomAlphaString(nameSize);
-                String studentAddress = generateRandomAlphaString(addressSize);
-                String studentPhone = generateRandomIntString(phoneSize);
-                String studentBirthDate = generateRandomDate();
-                String studentRegistrationDate = generateRandomDate();
-
-                Student s = new Student(studentId, studentName, studentPhone, studentGender, studentBirthDate,
-                        studentRegistrationDate, studentAddress);
-                students.add(s);
-
-            }
-
-            p.getStudents().setStudents(students);
-
-            input.add(p);
+            String id = generateRandomIntString(IDSIZE);
+            String name = generateRandomAlphaString(NAMESIZE);
+            String address = generateRandomAlphaString(ADDRESSSIZE);
+            String phone = generateRandomIntString(PHONESIZE);
+            String birth = generateRandomDate();
+            professors.add(new Professor(id, name, birth, phone, address));
         }
 
-        return input;
+        String[] genders = {"Male", "Female", "Other"};
+        List<Student> students = new ArrayList<>();
+        for(int j = 0; j < numStudents; j++) {
+            int genderChoice = randBetween(0, 2);
+            String gender = genders[genderChoice];
+            String id = generateRandomIntString(IDSIZE);
+            String name = generateRandomAlphaString(NAMESIZE);
+            String address = generateRandomAlphaString(ADDRESSSIZE);
+            String phone = generateRandomIntString(PHONESIZE);
+            String birth = generateRandomDate();
+            String registration = generateRandomDate();
+
+            Student student = new Student(id, name, phone, gender, birth,
+                    registration, address);
+
+            int index = randBetween(-1, professors.size() - 1);
+            if (index >= 0) {
+                student.setProfessor(professors.get(index).getId());
+                professors.get(index).getStudents().add(id);
+            }
+
+            students.add(student);
+        }
+
+        School school = new School();
+        school.setProfessors(professors);
+        school.setStudents(students);
+
+        return school;
     }
 }
