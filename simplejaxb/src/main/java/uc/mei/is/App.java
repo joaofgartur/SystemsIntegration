@@ -54,7 +54,7 @@ public class App {
             long deserializationTime = finish - start;
             long deserializationSpeed = serializationSize / deserializationTime;
 
-            String results = "XML results\n"
+            String results = "\tXML results\n"
                     + "---------------------------" + "\n"
                     + "Num of professors: " + numProfessors + "\n"
                     + "Num of students: " + (numProfessors * numStudents) + "\n"
