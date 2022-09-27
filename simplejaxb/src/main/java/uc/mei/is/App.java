@@ -166,16 +166,7 @@ public class App {
 
     }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    private String protocolTracking(School school, String fileName) {
-        //register time
-=======
     private String protocolTracking(School school, String fileName, int numProfessors, int numStudents) {
->>>>>>> Stashed changes
-=======
-    private String protocolTracking(School school, String fileName, int numProfessors, int numStudents) {
->>>>>>> Stashed changes
         ProtoSchool protoSchool = school.convertToProto();
 
         try {
@@ -246,6 +237,7 @@ public class App {
         int[] studentTests = {10, 100, 1000, 10000};
         for (int numProfessors: professorTests) {
             for(int numStudents: studentTests) {
+                System.out.println("Prof: "+numProfessors+" Students: "+numStudents);
                 School input = generator.generateInput(numProfessors, numStudents);
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -266,8 +258,5 @@ public class App {
 
             }
         }
-
-
     }
-
 }
