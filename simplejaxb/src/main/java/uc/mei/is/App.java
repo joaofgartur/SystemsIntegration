@@ -33,7 +33,7 @@ public class App {
             File file = new File(xml_output_file);
             long fileSize = file.length();
 
-            long serializationSpeed = fileSize / serializationTime;
+            double serializationSpeed = ((double) fileSize) / serializationTime;
 
             //Measure deserialization speed
             JAXBContext contextObj = JAXBContext.newInstance(School.class, Professor.class, Student.class);
@@ -44,7 +44,7 @@ public class App {
             long finish = System.currentTimeMillis();
 
             long deserializationTime = finish - start;
-            long deserializationSpeed = fileSize / deserializationTime;
+            double deserializationSpeed = ((double) fileSize) / deserializationTime;
 
             String results = "\tXML results\n"
                     + "---------------------------" + "\n"
@@ -78,7 +78,7 @@ public class App {
 
         long compressTime = finish - start;
         File gzipFile = new File(gzipFileName);
-        long compressSpeed = compressTime == 0 ? gzipFile.length() : gzipFile.length() / compressTime;
+        double compressSpeed = compressTime == 0 ? gzipFile.length() : ((double) gzipFile.length()) / compressTime;
 
         start = System.currentTimeMillis();
         decompressGzipFile(gzipFileName, newXMLFileName);
@@ -86,7 +86,7 @@ public class App {
 
         long decompressTime = finish - start;
         File newXMLFile = new File(newXMLFileName);
-        long decompressSpeed = newXMLFile.length() / decompressTime;
+        double decompressSpeed = ((double) newXMLFile.length()) / decompressTime;
 
         String results = "\tGZIP results\n"
                 + "---------------------------" + "\n"
@@ -164,6 +164,7 @@ public class App {
     }
 
     private String protocolTracking(School school, String fileName) {
+        //register time
         ProtoSchool protoSchool = school.convertToProto();
 
         try {
@@ -176,18 +177,18 @@ public class App {
 
             File file = new File(fileName);
             long fileSize = file.length();
-            long serializationSpeed = fileSize / serializationTime;
+            double serializationSpeed = ((double) fileSize) / serializationTime;
 
             start = System.currentTimeMillis();
             protoSchool = ProtoSchool.parseFrom(new FileInputStream(fileName));
             finish = System.currentTimeMillis();
             long deserializationTime = finish - start;
-            long deserializationSpeed = fileSize / deserializationTime;
+            double deserializationSpeed = ((double) (fileSize) / deserializationTime);
 
             String results = "\tProtocol Buffer results\n"
                     + "---------------------------" + "\n"
                     + "Num of professors: " + numProfessors + "\n"
-                    + "Num of students: " + (numProfessors * numStudents) + "\n"
+                    + "Num of students: " + numStudents + "\n"
                     + "File Size: " + fileSize + " bytes\n"
                     + "Serialization Time: " + serializationTime + " ms\n"
                     + "Serialization Speed: " + serializationSpeed + " bytes/ms\n"
