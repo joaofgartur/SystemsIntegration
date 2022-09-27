@@ -55,7 +55,7 @@ public class App {
                     + "---------------------------" + "\n";*/
 
             String results = numProfessors+";"+numStudents+";"+fileSize+";"+serializationTime+";"
-                + serializationSpeed+";"+deserializationTime+";"+deserializationSpeed+";\n";
+                + serializationSpeed+";"+deserializationTime+";"+deserializationSpeed+"\n";
 
             return results;
         } catch (Exception e) {
@@ -100,7 +100,7 @@ public class App {
                 + "---------------------------" + "\n";*/
 
         String results = numProfessors+";"+numStudents+";"+serializationTime+";"+compressTime+";"+compressSpeed+";"+(serializationTime+compressTime)
-                +gzipFile.length()+";"+decompressTime+";"+decompressSpeed+";"+newXMLFile.length()+";\n";
+                +";"+gzipFile.length()+";"+decompressTime+";"+decompressSpeed+";"+newXMLFile.length()+"\n";
 
         return results;
     }
@@ -199,7 +199,7 @@ public class App {
                     + "---------------------------" + "\n";*/
 
             String results = numProfessors+";"+numStudents+";"+fileSize+";"+serializationTime+";"+serializationSpeed+";"
-                    +deserializationTime+";"+deserializationSpeed+";\n";
+                    +deserializationTime+";"+deserializationSpeed+"\n";
 
             return results;
         } catch (IOException e) {
@@ -229,9 +229,9 @@ public class App {
         Generator generator = new Generator();
 
         // Create Files
-        saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed;\n", "xml.csv");
-        saveResultsToFile("numProfessors;numStudents;serializationTime;compressTime;compressSpeed;totalTime;gzipSize;decompressTime;decompressSpeed;xmlSize;\n", "gzip.csv");
-        saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed;\n", "protoBuff.csv");
+        saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed\n", "xml.csv");
+        saveResultsToFile("numProfessors;numStudents;serializationTime;compressTime;compressSpeed;totalTime;gzipSize;decompressTime;decompressSpeed;xmlSize\n", "gzip.csv");
+        saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed\n", "protoBuff.csv");
 
         int[] professorTests = {10, 100, 1000, 10000};
         int[] studentTests = {10, 100, 1000, 10000};
