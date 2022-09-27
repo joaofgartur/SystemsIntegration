@@ -1,0 +1,6 @@
+numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed;
+10;10;1432;12;119;12;119;
+10;100;9195;3;3065;9;1021;
+10;1000;87065;5;17413;12;7255;
+10;10000;866485;34;25484;31;27951;
+100;10;6573;1;6573;5;1314;

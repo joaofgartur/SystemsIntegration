@@ -1,0 +1,6 @@
+numProfessors;numStudents;serializationTime;compressTime;compressSpeed;totalTime;gzipSize;decompressTime;decompressSpeed;xmlSize;
+10;10;3;43;29;461263;8;693;5547;
+10;100;6;10;619;166195;7;5232;36630;
+10;1000;14;28;1890;4252943;12;29024;348292;
+10;10000;84;161;3192;245513947;59;58809;3469772;
+100;10;1;49;102;505018;9;2597;23378;

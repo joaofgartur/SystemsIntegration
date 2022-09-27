@@ -12,20 +12,17 @@ import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
 public class App {
-    private final int numProfessors, numStudents;
     private static final SimpleDateFormat sdf1 = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
 
-    public App(int numProfessors, int numStudents) {
-        this.numProfessors = numProfessors;
-        this.numStudents = numStudents;
+    public App() {
         myMain();
     }
 
     public static void main(String[] args ) {
-        App myApp = new App(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+        App myApp = new App();
     }
 
-    private String xmlTracking(School input, String xml_output_file) {
+    private String xmlTracking(School input, String xml_output_file, int numProfessors, int numStudents) {
         try {
 
             long serializationTime = createXMLFile(input, xml_output_file);
@@ -46,16 +43,19 @@ public class App {
             long deserializationTime = finish - start;
             double deserializationSpeed = ((double) fileSize) / deserializationTime;
 
-            String results = "\tXML results\n"
+            /*String results = "\tXML results\n"
                     + "---------------------------" + "\n"
                     + "Num of professors: " + numProfessors + "\n"
-                    + "Num of students: " + (numProfessors * numStudents) + "\n"
+                    + "Num of students: " + numStudents + "\n"
                     + "File Size: " + fileSize + " bytes\n"
                     + "Serialization Time: " + serializationTime + " ms\n"
                     + "Serialization Speed: " + serializationSpeed + " bytes/ms\n"
                     + "Deserialization Time: " + deserializationTime + " ms\n"
                     + "Deserialization Speed: " + deserializationSpeed + " bytes/ms\n"
-                    + "---------------------------" + "\n";
+                    + "---------------------------" + "\n";*/
+
+            String results = numProfessors+";"+numStudents+";"+fileSize+";"+serializationTime+";"
+                + serializationSpeed+";"+deserializationTime+";"+deserializationSpeed+";\n";
 
             return results;
         } catch (Exception e) {
@@ -66,7 +66,7 @@ public class App {
 
     }
 
-    private String gzipTracking(School input, String outputSaveToFile){
+    private String gzipTracking(School input, String outputSaveToFile, int numProfessors, int numStudents){
 
         long serializationTime = createXMLFile(input, outputSaveToFile);
         String gzipFileName = outputSaveToFile + ".gz";
@@ -88,7 +88,7 @@ public class App {
         File newXMLFile = new File(newXMLFileName);
         double decompressSpeed = ((double) newXMLFile.length()) / decompressTime;
 
-        String results = "\tGZIP results\n"
+        /*String results = "\tGZIP results\n"
                 + "---------------------------" + "\n"
                 + "Serialization Time: " + serializationTime + " ms\n"
                 + "File Size (GZIP): " + gzipFile.length() + " bytes\n"
@@ -97,7 +97,10 @@ public class App {
                 + "File Size (XML): " + newXMLFile.length() + " bytes\n"
                 + "Decompress Time: " + decompressTime + " ms\n"
                 + "Decompress Speed: " + decompressSpeed + " bytes/ms\n"
-                + "---------------------------" + "\n";
+                + "---------------------------" + "\n";*/
+
+        String results = numProfessors+";"+numStudents+";"+serializationTime+";"+compressTime+";"+compressSpeed+";"+(serializationTime+compressTime)
+                +gzipFile.length()+";"+decompressTime+";"+decompressSpeed+";"+newXMLFile.length()+";\n";
 
         return results;
     }
@@ -163,8 +166,16 @@ public class App {
 
     }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     private String protocolTracking(School school, String fileName) {
         //register time
+=======
+    private String protocolTracking(School school, String fileName, int numProfessors, int numStudents) {
+>>>>>>> Stashed changes
+=======
+    private String protocolTracking(School school, String fileName, int numProfessors, int numStudents) {
+>>>>>>> Stashed changes
         ProtoSchool protoSchool = school.convertToProto();
 
         try {
@@ -185,7 +196,7 @@ public class App {
             long deserializationTime = finish - start;
             double deserializationSpeed = ((double) (fileSize) / deserializationTime);
 
-            String results = "\tProtocol Buffer results\n"
+            /*String results = "\tProtocol Buffer results\n"
                     + "---------------------------" + "\n"
                     + "Num of professors: " + numProfessors + "\n"
                     + "Num of students: " + numStudents + "\n"
@@ -194,7 +205,10 @@ public class App {
                     + "Serialization Speed: " + serializationSpeed + " bytes/ms\n"
                     + "Deserialization Time: " + deserializationTime + " ms\n"
                     + "Deserialization Speed: " + deserializationSpeed + " bytes/ms\n"
-                    + "---------------------------" + "\n";
+                    + "---------------------------" + "\n";*/
+
+            String results = numProfessors+";"+numStudents+";"+fileSize+";"+serializationTime+";"+serializationSpeed+";"
+                    +deserializationTime+";"+deserializationSpeed+";\n";
 
             return results;
         } catch (IOException e) {
@@ -204,38 +218,56 @@ public class App {
     }
 
     /* Auxiliary Method */
-    private void saveResultsToFile(String xmlResults, String gzipResults, String protocolResults, String resultsFile){
+    private void saveResultsToFile(String content,String resultsFile){
         try {
-            File file = new File(resultsFile);
+            String fullpath = "outputs/" + resultsFile;
+            File file = new File(fullpath);
+            file.getParentFile().mkdirs();
             file.createNewFile(); // Create if not exists
 
-            FileWriter myWriter = new FileWriter(resultsFile, true);
-            myWriter.write(xmlResults);
-            myWriter.write(gzipResults);
-            myWriter.write(protocolResults);
+            FileWriter myWriter = new FileWriter(fullpath, true);
+            myWriter.write(content);
             myWriter.close();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
-    
+
     private void myMain() {
         Generator generator = new Generator();
-        School input = generator.generateInput(numProfessors, numStudents);
 
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        // Create Files
+        saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed;\n", "xml.csv");
+        saveResultsToFile("numProfessors;numStudents;serializationTime;compressTime;compressSpeed;totalTime;gzipSize;decompressTime;decompressSpeed;xmlSize;\n", "gzip.csv");
+        saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed;\n", "protoBuff.csv");
 
-        String outputFile = sdf1.format(timestamp);
-        String xmlOutputFile = outputFile + ".xml";
-        String protocolOutputFile = outputFile + ".bin";
-        String resultsFile = "run_" + outputFile + ".txt";
+        int[] professorTests = {10, 100, 1000, 10000};
+        int[] studentTests = {10, 100, 1000, 10000};
+        for (int numProfessors: professorTests) {
+            for(int numStudents: studentTests) {
+                School input = generator.generateInput(numProfessors, numStudents);
 
-        String xmlResults = xmlTracking(input, xmlOutputFile);
-        String gzipResults = gzipTracking(input, xmlOutputFile);
-        String protocolResults = protocolTracking(input, protocolOutputFile);
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-        saveResultsToFile(xmlResults, gzipResults, protocolResults, resultsFile);
+                String outputFile = sdf1.format(timestamp);
+                String xmlOutputFile = outputFile + ".xml";
+                String protocolOutputFile = outputFile + ".bin";
+                //String resultsFile = outputFile + ".txt";
+
+                String xmlResults = xmlTracking(input, xmlOutputFile, numProfessors, numStudents);
+                String gzipResults = gzipTracking(input, xmlOutputFile, numProfessors, numStudents);
+                String protocolResults = protocolTracking(input, protocolOutputFile, numProfessors, numStudents);
+
+                saveResultsToFile(xmlResults, "xml.csv");
+                saveResultsToFile(gzipResults, "gzip.csv");
+                saveResultsToFile(protocolResults, "protoBuff.csv");
+
+
+            }
+        }
+
+
     }
 
 }
