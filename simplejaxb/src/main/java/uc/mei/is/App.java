@@ -246,9 +246,9 @@ public class App {
 
         // Create Files
         saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed\n", "xml.csv");
-        saveResultsToFile("serializationTime;serializationSpeed;compressTime;compressSpeed;serializationTime+compressTime;totalCompressionSpeed;" +
+        saveResultsToFile("numProfessors;numStudents;serializationTime;serializationSpeed;compressTime;compressSpeed;serializationTime+compressTime;totalCompressionSpeed;" +
                 "deserializationTime;deserializationSpeed+decompressTime;decompressSpeed;deserializationTime+decompressTime;totalDecompressionSpeed" +
-                ";gzipFile.length();newXMLFile.length()", "gzip.csv");
+                ";gzipSize;xmlSize\n", "gzip.csv");
         saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed\n", "protoBuff.csv");
 
         int[] professorTests = {10, 100, 1000, 10000};
