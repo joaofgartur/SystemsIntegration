@@ -72,6 +72,10 @@ public class App {
         String gzipFileName = outputSaveToFile + ".gz";
         String newXMLFileName = "gzip_" + outputSaveToFile;
 
+        File file = new File(outputSaveToFile);
+        long fileSize = file.length();
+        double serializationSpeed = ((double) fileSize) / serializationTime;
+
         long start = System.currentTimeMillis();
         compressGzipFile(outputSaveToFile, gzipFileName);
         long finish = System.currentTimeMillis();
@@ -79,6 +83,8 @@ public class App {
         long compressTime = finish - start;
         File gzipFile = new File(gzipFileName);
         double compressSpeed = compressTime == 0 ? gzipFile.length() : ((double) gzipFile.length()) / compressTime;
+
+        double totalCompressionSpeed = ((double) (serializationTime + compressTime)) / fileSize;
 
         start = System.currentTimeMillis();
         decompressGzipFile(gzipFileName, newXMLFileName);
@@ -88,19 +94,29 @@ public class App {
         File newXMLFile = new File(newXMLFileName);
         double decompressSpeed = ((double) newXMLFile.length()) / decompressTime;
 
-        /*String results = "\tGZIP results\n"
-                + "---------------------------" + "\n"
-                + "Serialization Time: " + serializationTime + " ms\n"
-                + "File Size (GZIP): " + gzipFile.length() + " bytes\n"
-                + "Compress Time: " + compressTime + " ms\n"
-                + "Compress Speed: " + compressSpeed + " bytes/ms\n"
-                + "File Size (XML): " + newXMLFile.length() + " bytes\n"
-                + "Decompress Time: " + decompressTime + " ms\n"
-                + "Decompress Speed: " + decompressSpeed + " bytes/ms\n"
-                + "---------------------------" + "\n";*/
+        long deserializationTime;
+        double deserializationSpeed;
+        try {
+            JAXBContext contextObj = JAXBContext.newInstance(School.class, Professor.class, Student.class);
+            Unmarshaller jaxbUnmarshaller = contextObj.createUnmarshaller();
 
-        String results = numProfessors+";"+numStudents+";"+serializationTime+";"+compressTime+";"+compressSpeed+";"+(serializationTime+compressTime)
-                +";"+gzipFile.length()+";"+decompressTime+";"+decompressSpeed+";"+newXMLFile.length()+"\n";
+            start = System.currentTimeMillis();
+            School recoveredInput = (School) jaxbUnmarshaller.unmarshal(file);
+            finish = System.currentTimeMillis();
+
+            deserializationTime = finish - start;
+            deserializationSpeed = ((double) fileSize) / deserializationTime;
+        }  catch (Exception e) {
+            System.out.println(e.toString());
+            return "XML error!";
+        }
+
+        double totalDecompressionSpeed = ((double) (deserializationTime + decompressTime)) / fileSize;
+
+        String results = numProfessors+";"+numStudents+";"
+                +serializationTime+";"+ serializationSpeed+";"+compressTime+";"+compressSpeed+";"+(serializationTime+compressTime)+";"+totalCompressionSpeed
+                +";"+deserializationTime+";"+ deserializationSpeed+decompressTime+";"+decompressSpeed+";"+(deserializationTime+decompressTime)+";"+totalDecompressionSpeed
+                +";"+gzipFile.length() +";"+newXMLFile.length()+"\n";
 
         return results;
     }
@@ -230,7 +246,9 @@ public class App {
 
         // Create Files
         saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed\n", "xml.csv");
-        saveResultsToFile("numProfessors;numStudents;serializationTime;compressTime;compressSpeed;totalTime;gzipSize;decompressTime;decompressSpeed;xmlSize\n", "gzip.csv");
+        saveResultsToFile("serializationTime;serializationSpeed;compressTime;compressSpeed;serializationTime+compressTime;totalCompressionSpeed;" +
+                "deserializationTime;deserializationSpeed+decompressTime;decompressSpeed;deserializationTime+decompressTime;totalDecompressionSpeed" +
+                ";gzipFile.length();newXMLFile.length()", "gzip.csv");
         saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed\n", "protoBuff.csv");
 
         int[] professorTests = {10, 100, 1000, 10000};
