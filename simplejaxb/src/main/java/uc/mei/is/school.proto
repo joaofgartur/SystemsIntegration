@@ -30,3 +30,5 @@ message ProtoSchool {
   repeated ProtoProfessor professors = 1;
   repeated ProtoStudent students = 2;
 }
+
+

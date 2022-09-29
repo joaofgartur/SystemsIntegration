@@ -183,13 +183,16 @@ public class App {
     }
 
     private String protocolTracking(School school, String fileName, int numProfessors, int numStudents) {
+        long start = System.currentTimeMillis();
         ProtoSchool protoSchool = school.convertToProto();
+        long finish = System.currentTimeMillis();
+        long dataConversionTime = finish - start;
 
         try {
             FileOutputStream outputFile = new FileOutputStream(fileName);
-            long start = System.currentTimeMillis();
+            start = System.currentTimeMillis();
             protoSchool.writeTo(outputFile);
-            long finish = System.currentTimeMillis();
+            finish = System.currentTimeMillis();
             outputFile.close();
             long serializationTime = finish - start;
 
@@ -214,7 +217,7 @@ public class App {
                     + "Deserialization Speed: " + deserializationSpeed + " bytes/ms\n"
                     + "---------------------------" + "\n";*/
 
-            String results = numProfessors+";"+numStudents+";"+fileSize+";"+serializationTime+";"+serializationSpeed+";"
+            String results = numProfessors+";"+numStudents+";"+dataConversionTime+";"+fileSize+";"+serializationTime+";"+serializationSpeed+";"
                     +deserializationTime+";"+deserializationSpeed+"\n";
 
             return results;
@@ -249,7 +252,7 @@ public class App {
         saveResultsToFile("numProfessors;numStudents;serializationTime;serializationSpeed;compressTime;compressSpeed;serializationTime+compressTime;totalCompressionSpeed;" +
                 "deserializationTime;deserializationSpeed+decompressTime;decompressSpeed;deserializationTime+decompressTime;totalDecompressionSpeed" +
                 ";gzipSize;xmlSize\n", "gzip.csv");
-        saveResultsToFile("numProfessors;numStudents;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed\n", "protoBuff.csv");
+        saveResultsToFile("numProfessors;numStudents;dataConversionTime;fileSize;serializationTime;serializationSpeed;deserializationTime;deserializationSpeed\n", "protoBuff.csv");
 
         int[] professorTests = {10, 100, 1000, 10000};
         int[] studentTests = {10, 100, 1000, 10000};
