@@ -1,9 +1,12 @@
+DROP TABLE student;
+DROP TABLE professor;
+
 CREATE TABLE student (
 	id		 SERIAL,
 	name	 VARCHAR(255) NOT NULL,
 	birthdate	 DATE NOT NULL,
 	credits	 INTEGER,
-	averagegrade INTEGER NOT NULL,
+	averageGrade INTEGER NOT NULL,
 	PRIMARY KEY(id)
 );
 
