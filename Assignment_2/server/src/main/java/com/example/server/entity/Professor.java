@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 
 @Data
 public class Professor {
-
     @Id
     private Long id;
     private String name;

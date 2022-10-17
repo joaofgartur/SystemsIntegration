@@ -14,7 +14,7 @@ CREATE TABLE professor (
 );
 
 CREATE TABLE student_professor (
-	id	INTEGER
+	id	INTEGER,
 	student_id	 INTEGER,
 	professor_id INTEGER,
 	--PRIMARY KEY(student_id,professor_id)
