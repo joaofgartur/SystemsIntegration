@@ -30,16 +30,16 @@ ALTER TABLE student_professor ADD CONSTRAINT student_professor_fk2 FOREIGN KEY (
 
 -------- DUMMY DATA -------
 -- Students
-insert into student (id, name, birthdate, credits, averageGrade) values (1, 'Lucille', '04/24/2000', 103, 14);
+insert into student (id, name, birthdate, credits, averageGrade) values (1, 'Lucille', '04/12/2000', 103, 14);
 insert into student (id, name, birthdate, credits, averageGrade) values (2, 'Harrison', '11/10/2003', 4, 15);
-insert into student (id, name, birthdate, credits, averageGrade) values (3, 'Carl', '02/19/2004', 119, 20);
-insert into student (id, name, birthdate, credits, averageGrade) values (4, 'Bryon', '07/28/1998', 86, 15);
-insert into student (id, name, birthdate, credits, averageGrade) values (5, 'Angus', '08/19/2002', 160, 17);
+insert into student (id, name, birthdate, credits, averageGrade) values (3, 'Carl', '02/10/2004', 119, 20);
+insert into student (id, name, birthdate, credits, averageGrade) values (4, 'Bryon', '07/08/1998', 86, 15);
+insert into student (id, name, birthdate, credits, averageGrade) values (5, 'Angus', '08/09/2002', 160, 17);
 insert into student (id, name, birthdate, credits, averageGrade) values (6, 'Berti', '04/11/1999', 107, 17);
-insert into student (id, name, birthdate, credits, averageGrade) values (7, 'Faber', '03/20/1998', 169, 13);
+insert into student (id, name, birthdate, credits, averageGrade) values (7, 'Faber', '03/02/1998', 169, 13);
 insert into student (id, name, birthdate, credits, averageGrade) values (8, 'Hersch', '10/04/2003', 23, 18);
-insert into student (id, name, birthdate, credits, averageGrade) values (9, 'Reggis', '07/24/2000', 146, 12);
-insert into student (id, name, birthdate, credits, averageGrade) values (10, 'Kimberley', '01/03/2003', 60, 9);
+insert into student (id, name, birthdate, credits, averageGrade) values (9, 'Reggis', '07/12/2000', 146, 12);
+insert into student (id, name, birthdate, credits, averageGrade) values (10, 'Kimberley', '01/03/2003', 60, 9); 
 
 -- Professors
 insert into professor (id, name) values (1, 'Ruthe');
