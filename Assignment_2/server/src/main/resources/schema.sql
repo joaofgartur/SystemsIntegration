@@ -39,9 +39,21 @@ insert into student (id, name, birthdate, credits, averageGrade) values (6, 'Ber
 insert into student (id, name, birthdate, credits, averageGrade) values (7, 'Faber', '03/20/1998', 169, 13);
 insert into student (id, name, birthdate, credits, averageGrade) values (8, 'Hersch', '10/04/2003', 23, 18);
 insert into student (id, name, birthdate, credits, averageGrade) values (9, 'Reggis', '07/24/2000', 146, 12);
-insert into student (id, name, birthdate, credits, averageGrade) values (10, 'Kimberley', '01/03/2003', 60, 9); 
+insert into student (id, name, birthdate, credits, averageGrade) values (10, 'Kimberley', '01/03/2003', 60, 9);
 
 -- Professors
 insert into professor (id, name) values (1, 'Ruthe');
 insert into professor (id, name) values (2, 'Salmon');
 insert into professor (id, name) values (3, 'Land');
+
+-- Relation
+insert into student_professor (student_id, professor_id) values (1,1);
+insert into student_professor (student_id, professor_id) values (1,3);
+insert into student_professor (student_id, professor_id) values (2,1);
+insert into student_professor (student_id, professor_id) values (3,1);
+insert into student_professor (student_id, professor_id) values (4,1);
+insert into student_professor (student_id, professor_id) values (5,2);
+insert into student_professor (student_id, professor_id) values (6,2);
+insert into student_professor (student_id, professor_id) values (7,2);
+insert into student_professor (student_id, professor_id) values (8,3);
+insert into student_professor (student_id, professor_id) values (9,3);
