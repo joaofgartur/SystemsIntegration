@@ -1,5 +1,6 @@
-DROP TABLE student;
-DROP TABLE professor;
+DROP TABLE IF EXISTS student_professor;
+DROP TABLE IF EXISTS student;
+DROP TABLE IF EXISTS professor;
 
 CREATE TABLE student (
 	id		 SERIAL,
