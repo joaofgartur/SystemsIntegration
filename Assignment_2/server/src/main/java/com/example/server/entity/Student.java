@@ -12,14 +12,14 @@ public class Student {
     private String name;
     private Date birthdate;
     private int credits;
-    private int avgGrade;
+    private int averageGrade;
 
-    public Student(Long id, String name, Date birthdate, int credits, int avgGrade) {
+    public Student(Long id, String name, Date birthdate, int credits, int averageGrade) {
         this.id = id;
         this.name = name;
         this.birthdate = birthdate;
         this.credits = credits;
-        this.avgGrade = avgGrade;
+        this.averageGrade = averageGrade;
     }
 
     public Long getId() {
@@ -54,12 +54,12 @@ public class Student {
         this.credits = credits;
     }
 
-    public int getAvgGrade() {
-        return avgGrade;
+    public int getAverageGrade() {
+        return averageGrade;
     }
 
-    public void setAvgGrade(int avgGrade) {
-        this.avgGrade = avgGrade;
+    public void setAverageGrade(int averageGrade) {
+        this.averageGrade = averageGrade;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", birthdate=" + birthdate +
                 ", credits=" + credits +
-                ", avgGrade=" + avgGrade +
+                ", avgGrade=" + averageGrade +
                 '}';
     }
 }
