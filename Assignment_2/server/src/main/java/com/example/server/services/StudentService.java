@@ -19,4 +19,21 @@ public class StudentService {
     public Flux<Student> getAllStudents() {
         return studentRepository.findAll();
     }
+
+    public Mono<Student> getStudentById(int studentId) {
+        return studentRepository.findById(studentId);
+    }
+
+    public Mono<Student> updateStudentById(int studentId, Mono<Student> studentMono) {
+        return studentRepository.findById(studentId)
+                .flatMap(student -> studentMono.map(s -> {
+                    student.setId(s.getId());
+                    student.setName(s.getName());
+                    student.setBirthdate(s.getBirthdate());
+                    student.setCredits(s.getCredits());
+                    student.setAverageGrade(s.getAverageGrade());
+                    return student;
+                }))
+                .flatMap(student -> studentRepository.save(student));
+    }
 }
