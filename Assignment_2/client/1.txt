@@ -1,3 +1,11 @@
-Student{id=9, name='Reggis', birthdate=07/12/2000, credits=146, avgGrade=12}
-Student{id=5, name='Angus', birthdate=08/09/2002, credits=160, avgGrade=17}
-Student{id=7, name='Faber', birthdate=03/02/1998, credits=169, avgGrade=13}
+{Name: Lucille, Birthdate: 04/12/2000}
+{Name: Harrison, Birthdate: 11/10/2003}
+{Name: Carl, Birthdate: 02/10/2004}
+{Name: Bryon, Birthdate: 07/08/1998}
+{Name: Angus, Birthdate: 08/09/2002}
+{Name: Berti, Birthdate: 04/11/1999}
+{Name: Faber, Birthdate: 03/02/1998}
+{Name: Hersch, Birthdate: 10/04/2003}
+{Name: Reggis, Birthdate: 07/12/2000}
+{Name: Kimberley, Birthdate: 01/03/2003}
+{Name: joao, Birthdate: 2003-03-01}

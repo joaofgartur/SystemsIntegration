@@ -1,0 +1,11 @@
+Student{id=10, name='Kimberley', birthdate=01/03/2003, credits=60, avgGrade=9}
+Student{id=3, name='Carl', birthdate=02/10/2004, credits=119, avgGrade=20}
+Student{id=7, name='Faber', birthdate=03/02/1998, credits=169, avgGrade=13}
+Student{id=6, name='Berti', birthdate=04/11/1999, credits=107, avgGrade=17}
+Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}
+Student{id=4, name='Bryon', birthdate=07/08/1998, credits=86, avgGrade=15}
+Student{id=9, name='Reggis', birthdate=07/12/2000, credits=146, avgGrade=12}
+Student{id=5, name='Angus', birthdate=08/09/2002, credits=160, avgGrade=17}
+Student{id=8, name='Hersch', birthdate=10/04/2003, credits=23, avgGrade=18}
+Student{id=2, name='Harrison', birthdate=11/10/2003, credits=4, avgGrade=15}
+Student{id=11, name='joao', birthdate=2003-03-01, credits=180, avgGrade=20}
