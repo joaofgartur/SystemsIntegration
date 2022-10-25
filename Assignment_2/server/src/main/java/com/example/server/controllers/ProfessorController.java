@@ -16,8 +16,8 @@ public class ProfessorController {
     private ProfessorService professorService;
 
     @PostMapping("/add")
-    public Mono<Professor> addProfessor(@RequestBody Mono<Professor> professorMono) {
-        return professorMono.flatMap(professorService::addProfessor);
+    public Mono<Professor> addProfessor(@RequestBody Professor professor) {
+        return professorService.addProfessor(professor);
     }
 
     @GetMapping("/{professorId}")

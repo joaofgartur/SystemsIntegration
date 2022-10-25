@@ -16,8 +16,8 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping("/add")
-    public Mono<Student> addStudent(@RequestBody Mono<Student> studentMono) {
-        return studentMono.flatMap(studentService::addStudent);
+    public Mono<Student> addStudent(@RequestBody Student studentMono) {
+        return studentService.addStudent(studentMono);
     }
 
     @GetMapping("/{studentId}")

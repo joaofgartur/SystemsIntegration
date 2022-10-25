@@ -27,7 +27,6 @@ public class StudentService {
     public Mono<Student> updateStudentById(int studentId, Mono<Student> studentMono) {
         return studentRepository.findById(studentId)
                 .flatMap(student -> studentMono.map(s -> {
-                    student.setId(s.getId());
                     student.setName(s.getName());
                     student.setBirthdate(s.getBirthdate());
                     student.setCredits(s.getCredits());

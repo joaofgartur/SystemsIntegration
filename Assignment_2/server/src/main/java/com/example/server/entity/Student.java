@@ -1,5 +1,6 @@
 package com.example.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
@@ -10,11 +11,21 @@ public class Student {
     @Id
     private Long id;
     private String name;
-    private Date birthdate;
+    private String birthdate;
     private int credits;
     private int averageGrade;
 
-    public Student(Long id, String name, Date birthdate, int credits, int averageGrade) {
+    public Student() {
+    }
+
+    public Student(String name, String birthdate, int credits, int averageGrade) {
+        this.name = name;
+        this.birthdate = birthdate;
+        this.credits = credits;
+        this.averageGrade = averageGrade;
+    }
+
+    public Student(Long id, String name, String birthdate, int credits, int averageGrade) {
         this.id = id;
         this.name = name;
         this.birthdate = birthdate;
@@ -38,11 +49,11 @@ public class Student {
         this.name = name;
     }
 
-    public Date getBirthdate() {
+    public String getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
 

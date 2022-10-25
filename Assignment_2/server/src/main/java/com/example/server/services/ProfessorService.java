@@ -15,10 +15,6 @@ public class ProfessorService {
         return professorRepository.save(professor);
     }
 
-    public Mono<Professor> addProfessors(Professor p) {
-        return professorRepository.save(p);
-    }
-
     public Flux<Professor> getAllProfessors() {
         return professorRepository.findAll();
     }
@@ -30,7 +26,6 @@ public class ProfessorService {
     public Mono<Professor> updateProfessorById(int professorId, Mono<Professor> professorMono) {
         return professorRepository.findById(professorId)
                 .flatMap(prof -> professorMono.map(p -> {
-                    prof.setId(p.getId());
                     prof.setName(p.getName());
                     return prof;
                 }))
