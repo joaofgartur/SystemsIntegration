@@ -6,8 +6,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+
 
 public class ReactiveClient {
     private final String BASE_URL = "http://localhost:8080";
@@ -58,6 +62,26 @@ public class ReactiveClient {
                             .subscribe(grades -> writer.println("{Average: " + average(grades) + ", Std: " + standardDeviation(grades) + "}"));
                     break;
                 case 8:
+
+                    studentsFlux.reduce((a, b) -> {
+                        SimpleDateFormat sm = new SimpleDateFormat("dd/MM/yyyy");
+
+                        try {
+                            Date dateA = sm.parse(a.getBirthdate());
+                            Date dateB = sm.parse(b.getBirthdate());
+
+                            DateComparator comparator = new DateComparator();
+
+                            if (comparator.compare(dateA, dateB) < 0) {
+                                return a;
+                            } else {
+                                return b;
+                            }
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }).subscribe(writer::println);
                     break;
                 default:
                     writer.print("unsolved");
@@ -131,6 +155,9 @@ public class ReactiveClient {
 
             // exercise 7
             this.solveStudents(studentsFlux,7);
+
+            // exercise 8
+            this.solveStudents(studentsFlux,8);
 
         } catch (Exception e) {
             System.out.println(e.toString());
