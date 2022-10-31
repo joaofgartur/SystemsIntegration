@@ -35,4 +35,9 @@ public class StudentService {
                 }))
                 .flatMap(student -> studentRepository.save(student));
     }
+
+    public Mono<Void> deleteStudentById(int studentId){
+        /*studentRepository.deleteStudentFromRelations(studentId);*/
+        return studentRepository.deleteById(studentId);
+    }
 }

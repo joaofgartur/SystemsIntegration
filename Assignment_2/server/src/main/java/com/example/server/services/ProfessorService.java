@@ -31,4 +31,8 @@ public class ProfessorService {
                 }))
                 .flatMap(prof -> professorRepository.save(prof));
     }
+
+    public Mono<Void> deleteProfessorById(int professorId){
+        return professorRepository.deleteById(professorId);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.server.controllers;
 
 import com.example.server.entity.Student;
+import com.example.server.services.StudentProfessorService;
 import com.example.server.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,8 @@ public class StudentController {
 
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private StudentProfessorService studentProfessorService;
 
     @PostMapping("/add")
     public Mono<Student> addStudent(@RequestBody Student studentMono) {
@@ -35,6 +38,13 @@ public class StudentController {
     @PutMapping("/{studentId}")
     public Mono<Student> updateStudentById(@PathVariable int studentId, @RequestBody Mono<Student> studentMono) {
         return studentService.updateStudentById(studentId, studentMono);
+    }
+
+    @DeleteMapping("/{studentId}")
+    public Mono<Void> deleteStudentById(@PathVariable int studentId) {
+        studentProfessorService.readAllRelationsFromStudent(studentId).count().defaultIfEmpty(ResponseEntity.notFound().build());
+        /* Se tiver relações dá erro, se não tiver faz a linha a baixo: */
+        /*return studentService.deleteStudentById(studentId);*/
     }
 
 }
