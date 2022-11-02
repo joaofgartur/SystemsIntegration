@@ -67,13 +67,11 @@ public class Student implements Comparable{
 
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", birthdate=" + birthdate +
-                ", credits=" + credits +
-                ", avgGrade=" + averageGrade +
-                '}';
+        return "Student: " + name + "\n"
+                + "\tId: " + id + "\n"
+                + "\tBirthdate: " + birthdate + "\n"
+                + "\tCredits: " + credits + "\n"
+                + "\tAverage Grade: " + averageGrade;
     }
 
     @Override

@@ -1,9 +1,6 @@
 package org.example;
 
-import entity.Professor;
-import entity.ProfessorHelper;
-import entity.Student;
-import entity.StudentProfessor;
+import entity.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -206,6 +203,58 @@ public class ReactiveClient {
         }
     }
 
+    private void exercise11(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime) {
+        try {
+            PrintWriter writer = new PrintWriter(filename);
+            List<StudentHelper> helper = new ArrayList<>();
+
+            studentsFlux
+                    .doOnNext(student -> {
+                        StudentHelper aux = new StudentHelper(student);
+
+                        Flux<StudentProfessor> professorStudents = client
+                                .get()
+                                .uri("/relationship/student/" + student.getId())
+                                .accept(MediaType.APPLICATION_JSON)
+                                .retrieve()
+                                .bodyToFlux(StudentProfessor.class);
+
+                        professorStudents.flatMap(relationship -> {
+                            int studentId= relationship.getStudent_id();
+
+                            Mono<Professor> professorDetails = client
+                                    .get()
+                                    .uri("/professor/" + studentId)
+                                    .accept(MediaType.APPLICATION_JSON)
+                                    .retrieve()
+                                    .bodyToMono(Professor.class);
+
+                            return professorDetails;
+                        }).subscribe(professor -> {aux.getStudentProfessors().add(professor);});
+
+                        helper.add(aux);
+                    })
+                    .subscribe();
+
+            Thread.sleep(sleepTime);
+
+            for (StudentHelper stud: helper) {
+                writer.println("{" + stud.getStudent().toString());
+
+                writer.println("\tProfessors: ");
+                for(Professor professor: stud.getStudentProfessors()) {
+                    writer.println("\t\t" + professor.getName());
+                }
+
+                writer.println("}");
+            }
+
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
     private float average(List<Integer> grades) {
         float average = grades.stream().mapToInt(Integer::intValue).sum();
         if (grades.size() > 0) {
@@ -260,13 +309,12 @@ public class ReactiveClient {
                     .bodyToFlux(Professor.class);
 
             exercise10(client, professorsFlux, "10.txt", 10000);
+            exercise11(client, studentsFlux, "11.txt", 10000);
 
         } catch (Exception e) {
         System.out.println(e.toString());
         }
     }
-
-
 
     public static void main(String[] args) {
         ReactiveClient client = new ReactiveClient();
