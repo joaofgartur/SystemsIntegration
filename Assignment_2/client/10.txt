@@ -1,0 +1,19 @@
+{Professor: Ruthe
+	Number of students: 4
+	{Student: Bryon}
+	{Student: Carl}
+	{Student: Harrison}
+	{Student: Lucille}
+}
+{Professor: Salmon
+	Number of students: 3
+	{Student: Angus}
+	{Student: Berti}
+	{Student: Faber}
+}
+{Professor: Land
+	Number of students: 3
+	{Student: Hersch}
+	{Student: Lucille}
+	{Student: Reggis}
+}

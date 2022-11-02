@@ -42,9 +42,10 @@ public class StudentController {
 
     @DeleteMapping("/{studentId}")
     public Mono<Void> deleteStudentById(@PathVariable int studentId) {
-        studentProfessorService.readAllRelationsFromStudent(studentId).count().defaultIfEmpty(ResponseEntity.notFound().build());
+        //studentProfessorService.readAllRelationsFromStudent(studentId).count();
         /* Se tiver relações dá erro, se não tiver faz a linha a baixo: */
         /*return studentService.deleteStudentById(studentId);*/
+        return null;
     }
 
 }

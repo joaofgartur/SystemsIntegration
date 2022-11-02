@@ -1,6 +1,6 @@
 package entity;
 
-public class Student {
+public class Student implements Comparable{
     private Long id;
     private String name;
     private String birthdate;
@@ -74,5 +74,11 @@ public class Student {
                 ", credits=" + credits +
                 ", avgGrade=" + averageGrade +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object object) {
+        String compareValue =((Student) object).getName();
+        return this.getName().compareTo(compareValue);
     }
 }

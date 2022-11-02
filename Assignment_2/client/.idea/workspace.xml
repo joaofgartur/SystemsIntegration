@@ -5,10 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77b01017-62c4-4aef-ac27-60b899049c5b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/intellij-javadocs-4.0.1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/DateComparator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/entity/ProfessorHelper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/entity/StudentProfessor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/ProfessorHelperComparator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/2.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5.txt" beforeDir="false" afterPath="$PROJECT_DIR$/5.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/6.txt" beforeDir="false" afterPath="$PROJECT_DIR$/6.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/7.txt" beforeDir="false" afterPath="$PROJECT_DIR$/7.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entity/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entity/Student.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ReactiveClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ReactiveClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/ReactiveClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/ReactiveClient.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/main/java/com/example/server/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/com/example/server/controllers/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,27 +47,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Documents/Mestrado/IS/SystemsIntegration/Assignment_2/client",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "spring.configuration.checksum": "62608e08adc29a8d6dbc9754e659f125"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Documents/Mestrado/IS/SystemsIntegration/Assignment_2/client&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;62608e08adc29a8d6dbc9754e659f125&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Documents\Mestrado\IS\SystemsIntegration\Assignment_2\client\src\main\java" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="entity" />
     </key>
   </component>
   <component name="RunManager">
@@ -89,6 +106,8 @@
       <workItem from="1666713613529" duration="6949000" />
       <workItem from="1666724366057" duration="1868000" />
       <workItem from="1666787734536" duration="1100000" />
+      <workItem from="1667340686795" duration="4830000" />
+      <workItem from="1667346563435" duration="7199000" />
     </task>
     <servers />
   </component>

@@ -1,1 +1,1 @@
-Student{id=11, name='joao', birthdate=01/03/1900, credits=180, avgGrade=20}
+{Name: Faber}

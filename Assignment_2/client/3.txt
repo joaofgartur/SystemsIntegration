@@ -1,1 +1,1 @@
-Active students: 10
+{Number of active students: 10}
