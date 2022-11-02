@@ -138,10 +138,21 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise9(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise9(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime) {
         try {
             PrintWriter writer = new PrintWriter(filename);
-            studentsFlux.subscribe(s -> writer.println("{Name: " + s.getName() + ", Birthdate: " + s.getBirthdate() + "}"));
+
+            studentsFlux.flatMap(student -> {
+                Flux<StudentProfessor> studentProfessors = client
+                        .get()
+                        .uri("/relationship/student/" + student.getId())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .retrieve()
+                        .bodyToFlux(StudentProfessor.class);
+
+                return studentProfessors.count();
+            }).buffer().subscribe(array -> writer.println("{Average number of professors per student: " + longAverage(array) + "}"));
+
             Thread.sleep(sleepTime);
             writer.close();
         } catch (Exception e) {
@@ -264,6 +275,17 @@ public class ReactiveClient {
         return average;
     }
 
+    private float longAverage(List<Long> array) {
+        System.out.println(array);
+        float average = array.stream().mapToInt(Long::intValue).sum();
+        System.out.println(average);
+        if (array.size() > 0) {
+            average /= array.size();
+        }
+
+        return average;
+    }
+
     private float standardDeviation(List<Integer> grades) {
         int[] gradesArray = grades.stream().mapToInt(i->i).toArray();
         float mean = average(grades);
@@ -292,14 +314,15 @@ public class ReactiveClient {
                     .retrieve()
                     .bodyToFlux(Student.class);
 
-            exercise1(studentsFlux, "1.txt", 2000);
-            exercise2(studentsFlux, "2.txt", 2000);
-            exercise3(studentsFlux, "3.txt", 2000);
-            exercise4(studentsFlux, "4.txt", 2000);
-            exercise5(studentsFlux, "5.txt", 2000);
-            exercise6(studentsFlux, "6.txt", 2000);
-            exercise7(studentsFlux, "7.txt", 2000);
-            exercise8(studentsFlux, "8.txt", 2000);
+            //exercise1(studentsFlux, "1.txt", 2000);
+            //exercise2(studentsFlux, "2.txt", 2000);
+            //exercise3(studentsFlux, "3.txt", 2000);
+            //exercise4(studentsFlux, "4.txt", 2000);
+            //exercise5(studentsFlux, "5.txt", 2000);
+            //exercise6(studentsFlux, "6.txt", 2000);
+            //exercise7(studentsFlux, "7.txt", 2000);
+            //exercise8(studentsFlux, "8.txt", 2000);
+            exercise9(client, studentsFlux, "9.txt", 2000);
 
             Flux<Professor> professorsFlux = client
                     .get()
@@ -308,8 +331,8 @@ public class ReactiveClient {
                     .retrieve()
                     .bodyToFlux(Professor.class);
 
-            exercise10(client, professorsFlux, "10.txt", 10000);
-            exercise11(client, studentsFlux, "11.txt", 10000);
+            //exercise10(client, professorsFlux, "10.txt", 10000);
+            //exercise11(client, studentsFlux, "11.txt", 10000);
 
         } catch (Exception e) {
         System.out.println(e.toString());

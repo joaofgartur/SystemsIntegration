@@ -1,54 +1,74 @@
 {Student: Lucille
 	Id: 1
-	Birthdate: 04/12/2000	Credits: 103	Average Grade: 14
+	Birthdate: 04/12/2000
+	Credits: 103
+	Average Grade: 14
 	Professors: 
 		Ruthe
 		Ruthe
 }
 {Student: Harrison
 	Id: 2
-	Birthdate: 11/10/2003	Credits: 4	Average Grade: 15
+	Birthdate: 11/10/2003
+	Credits: 4
+	Average Grade: 15
 	Professors: 
 		Salmon
 }
 {Student: Carl
 	Id: 3
-	Birthdate: 02/10/2004	Credits: 119	Average Grade: 20
+	Birthdate: 02/10/2004
+	Credits: 119
+	Average Grade: 20
 	Professors: 
 		Land
 }
 {Student: Bryon
 	Id: 4
-	Birthdate: 07/08/1998	Credits: 86	Average Grade: 15
+	Birthdate: 07/08/1998
+	Credits: 86
+	Average Grade: 15
 	Professors: 
 }
 {Student: Angus
 	Id: 5
-	Birthdate: 08/09/2002	Credits: 160	Average Grade: 17
+	Birthdate: 08/09/2002
+	Credits: 160
+	Average Grade: 17
 	Professors: 
 }
 {Student: Berti
 	Id: 6
-	Birthdate: 04/11/1999	Credits: 107	Average Grade: 17
+	Birthdate: 04/11/1999
+	Credits: 107
+	Average Grade: 17
 	Professors: 
 }
 {Student: Faber
 	Id: 7
-	Birthdate: 03/02/1998	Credits: 169	Average Grade: 13
+	Birthdate: 03/02/1998
+	Credits: 169
+	Average Grade: 13
 	Professors: 
 }
 {Student: Hersch
 	Id: 8
-	Birthdate: 10/04/2003	Credits: 23	Average Grade: 18
+	Birthdate: 10/04/2003
+	Credits: 23
+	Average Grade: 18
 	Professors: 
 }
 {Student: Reggis
 	Id: 9
-	Birthdate: 07/12/2000	Credits: 146	Average Grade: 12
+	Birthdate: 07/12/2000
+	Credits: 146
+	Average Grade: 12
 	Professors: 
 }
 {Student: Kimberley
 	Id: 10
-	Birthdate: 01/03/2003	Credits: 60	Average Grade: 9
+	Birthdate: 01/03/2003
+	Credits: 60
+	Average Grade: 9
 	Professors: 
 }
