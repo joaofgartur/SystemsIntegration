@@ -6,16 +6,23 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.*;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-public class ReactiveClient {
+public class ReactiveClientMultipleCalls {
     private final String BASE_URL = "http://localhost:8080";
-    private void exercise1(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise1(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                .get()
+                .uri("/student/")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux.subscribe(s -> writer.println("{Name: " + s.getName() + ", Birthdate: " + s.getBirthdate() + "}"));
             Thread.sleep(sleepTime);
@@ -25,8 +32,15 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise2(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise2(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                .get()
+                .uri("/student/")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
                     .count()
@@ -38,8 +52,15 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise3(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise3(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                .get()
+                .uri("/student/")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
                     .filter(student -> student.getCredits() < 180)
@@ -52,8 +73,15 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise4(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise4(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                .get()
+                .uri("/student/")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
                     .map(Student::getCredits)
@@ -66,8 +94,15 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise5(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise5(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                .get()
+                .uri("/student/")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
                     .filter(student -> student.getCredits() >= 120 && student.getCredits() < 180)
@@ -80,8 +115,15 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise6(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise6(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                .get()
+                .uri("/student/")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
                     .map(Student::getAverageGrade)
@@ -94,8 +136,15 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise7(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise7(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                .get()
+                .uri("/student/")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
                     .filter(student -> student.getCredits() == 180)
@@ -109,8 +158,15 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise8(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise8(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                    .get()
+                    .uri("/student/")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux.reduce((a, b) -> {
                 SimpleDateFormat sm = new SimpleDateFormat("dd/MM/yyyy");
@@ -138,8 +194,15 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise9(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise9(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                    .get()
+                    .uri("/student/")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
 
             studentsFlux.flatMap(student -> {
@@ -159,8 +222,15 @@ public class ReactiveClient {
             System.out.println(e.toString());
         }
     }
-    private void exercise10(WebClient client, Flux<Professor> professorsFlux, String filename, int sleepTime) {
+    private void exercise10(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Professor> professorsFlux = client
+                    .get()
+                    .uri("/professor/")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .bodyToFlux(Professor.class);
+
             PrintWriter writer = new PrintWriter(filename);
             List<ProfessorHelper> helper = new ArrayList<>();
 
@@ -214,8 +284,15 @@ public class ReactiveClient {
         }
     }
 
-    private void exercise11(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise11(WebClient client, String filename, int sleepTime) {
         try {
+            Flux<Student> studentsFlux = client
+                    .get()
+                    .uri("/student/")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .retrieve()
+                    .bodyToFlux(Student.class);
+
             PrintWriter writer = new PrintWriter(filename);
             List<StudentHelper> helper = new ArrayList<>();
 
@@ -298,48 +375,27 @@ public class ReactiveClient {
         return (float) Math.sqrt(variance / gradesArray.length);
     }
 
-    public ReactiveClient() {
+    public ReactiveClientMultipleCalls() {
         myMain();
     }
 
     private void myMain() {
         WebClient client = WebClient.create(BASE_URL);
 
-        try {
-
-            Flux<Student> studentsFlux = client
-                    .get()
-                    .uri("/student/")
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .bodyToFlux(Student.class);
-
-            exercise1(studentsFlux, "1.txt", 2000);
-            exercise2(studentsFlux, "2.txt", 2000);
-            exercise3(studentsFlux, "3.txt", 2000);
-            exercise4(studentsFlux, "4.txt", 2000);
-            exercise5(studentsFlux, "5.txt", 2000);
-            exercise6(studentsFlux, "6.txt", 2000);
-            exercise7(studentsFlux, "7.txt", 2000);
-            exercise8(studentsFlux, "8.txt", 2000);
-            exercise9(client, studentsFlux, "9.txt", 2000);
-
-            Flux<Professor> professorsFlux = client
-                    .get()
-                    .uri("/professor/")
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .bodyToFlux(Professor.class);
-
-            exercise10(client, professorsFlux, "10.txt", 10000);
-            exercise11(client, studentsFlux, "11.txt", 10000);
-
-        } catch (Exception e) {
-        System.out.println(e.toString());
-        }
+        exercise1(client, "1.txt", 2000);
+        exercise2(client, "2.txt", 2000);
+        exercise3(client, "3.txt", 2000);
+        exercise4(client, "4.txt", 2000);
+        exercise5(client, "5.txt", 2000);
+        exercise6(client, "6.txt", 2000);
+        exercise7(client, "7.txt", 2000);
+        exercise8(client, "8.txt", 2000);
+        exercise9(client, "9.txt", 2000);
+        exercise10(client, "10.txt", 10000);
+        exercise11(client, "11.txt", 10000);
     }
 
     public static void main(String[] args) {
-        ReactiveClient client = new ReactiveClient();
+        ReactiveClientMultipleCalls client = new ReactiveClientMultipleCalls();
     }
 }

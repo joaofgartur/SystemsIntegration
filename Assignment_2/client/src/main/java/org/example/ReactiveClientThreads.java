@@ -6,13 +6,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.io.*;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-public class ReactiveClient {
+public class ReactiveClientThreads {
     private final String BASE_URL = "http://localhost:8080";
     private void exercise1(Flux<Student> studentsFlux, String filename, int sleepTime) {
         try {
@@ -298,13 +298,13 @@ public class ReactiveClient {
         return (float) Math.sqrt(variance / gradesArray.length);
     }
 
-    public ReactiveClient() {
+    public ReactiveClientThreads() {
         myMain();
     }
 
     private void myMain() {
         WebClient client = WebClient.create(BASE_URL);
-
+//        Falta meter as threads
         try {
 
             Flux<Student> studentsFlux = client
@@ -340,6 +340,6 @@ public class ReactiveClient {
     }
 
     public static void main(String[] args) {
-        ReactiveClient client = new ReactiveClient();
+        ReactiveClientThreads client = new ReactiveClientThreads();
     }
 }
