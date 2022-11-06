@@ -5,19 +5,25 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class ReactiveClientThreads {
     private final String BASE_URL = "http://localhost:8080";
-    private void exercise1(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise1(Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
-            studentsFlux.subscribe(s -> writer.println("{Name: " + s.getName() + ", Birthdate: " + s.getBirthdate() + "}"));
+            studentsFlux
+                    .subscribeOn(scheduler)
+                    .subscribe(s -> writer.println("{Name: " + s.getName() + ", Birthdate: " + s.getBirthdate() + "}"));
             Thread.sleep(sleepTime);
             writer.close();
         } catch (Exception e) {
@@ -25,10 +31,11 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise2(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise2(Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
+                    .subscribeOn(scheduler)
                     .count()
                     .subscribe(count -> writer.println("{Count: " + count + "}"));
             Thread.sleep(sleepTime);
@@ -38,10 +45,11 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise3(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise3(Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
+                    .subscribeOn(scheduler)
                     .filter(student -> student.getCredits() < 180)
                     .count()
                     .subscribe(count -> writer.println("{Number of active students: " + count + "}"));
@@ -52,10 +60,11 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise4(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise4(Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
+                    .subscribeOn(scheduler)
                     .map(Student::getCredits)
                     .reduce(Integer::sum)
                     .subscribe(sum -> writer.println("{Number of completed courses: " + (sum / 6) + "}"));
@@ -66,10 +75,11 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise5(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise5(Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
+                    .subscribeOn(scheduler)
                     .filter(student -> student.getCredits() >= 120 && student.getCredits() < 180)
                     .sort(Comparator.comparing(Student::getCredits))
                     .subscribe(student -> {writer.println("{" + student.getName() + ", Credits: " + student.getCredits() + "}");});
@@ -80,10 +90,11 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise6(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise6(Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
+                    .subscribeOn(scheduler)
                     .map(Student::getAverageGrade)
                     .buffer()
                     .subscribe(grades -> writer.println("{Average: " + average(grades) + ", Std: " + standardDeviation(grades) + "}"));
@@ -94,10 +105,11 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise7(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise7(Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             studentsFlux
+                    .subscribeOn(scheduler)
                     .filter(student -> student.getCredits() == 180)
                     .map(Student::getAverageGrade)
                     .buffer()
@@ -109,10 +121,12 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise8(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise8(Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
-            studentsFlux.reduce((a, b) -> {
+            studentsFlux
+                    .subscribeOn(scheduler)
+                    .reduce((a, b) -> {
                 SimpleDateFormat sm = new SimpleDateFormat("dd/MM/yyyy");
 
                 try {
@@ -138,11 +152,13 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise9(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise9(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
 
-            studentsFlux.flatMap(student -> {
+            studentsFlux
+                    .subscribeOn(scheduler)
+                    .flatMap(student -> {
                 Flux<StudentProfessor> studentProfessors = client
                         .get()
                         .uri("/relationship/student/" + student.getId())
@@ -159,12 +175,13 @@ public class ReactiveClientThreads {
             System.out.println(e.toString());
         }
     }
-    private void exercise10(WebClient client, Flux<Professor> professorsFlux, String filename, int sleepTime) {
+    private void exercise10(WebClient client, Flux<Professor> professorsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             List<ProfessorHelper> helper = new ArrayList<>();
 
             professorsFlux
+                    .subscribeOn(scheduler)
                     .doOnNext(professor -> {
                         ProfessorHelper aux = new ProfessorHelper(professor);
 
@@ -176,7 +193,7 @@ public class ReactiveClientThreads {
                                 .bodyToFlux(StudentProfessor.class);
 
                         professorStudents.flatMap(relationship -> {
-                            int studentId= relationship.getStudent_id();
+                            int studentId = relationship.getStudent_id();
 
                             Mono<Student> studentDetails = client
                                     .get()
@@ -214,12 +231,13 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise11(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise11(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime, Scheduler scheduler) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             List<StudentHelper> helper = new ArrayList<>();
 
             studentsFlux
+                    .subscribeOn(scheduler)
                     .doOnNext(student -> {
                         StudentHelper aux = new StudentHelper(student);
 
@@ -304,7 +322,7 @@ public class ReactiveClientThreads {
 
     private void myMain() {
         WebClient client = WebClient.create(BASE_URL);
-//        Falta meter as threads
+        Scheduler scheduler = Schedulers.boundedElastic();
         try {
 
             Flux<Student> studentsFlux = client
@@ -314,15 +332,15 @@ public class ReactiveClientThreads {
                     .retrieve()
                     .bodyToFlux(Student.class);
 
-            exercise1(studentsFlux, "1.txt", 2000);
-            exercise2(studentsFlux, "2.txt", 2000);
-            exercise3(studentsFlux, "3.txt", 2000);
-            exercise4(studentsFlux, "4.txt", 2000);
-            exercise5(studentsFlux, "5.txt", 2000);
-            exercise6(studentsFlux, "6.txt", 2000);
-            exercise7(studentsFlux, "7.txt", 2000);
-            exercise8(studentsFlux, "8.txt", 2000);
-            exercise9(client, studentsFlux, "9.txt", 2000);
+            exercise1(studentsFlux, "1.txt", 2000, scheduler);
+            exercise2(studentsFlux, "2.txt", 2000, scheduler);
+            exercise3(studentsFlux, "3.txt", 2000, scheduler);
+            exercise4(studentsFlux, "4.txt", 2000, scheduler);
+            exercise5(studentsFlux, "5.txt", 2000, scheduler);
+            exercise6(studentsFlux, "6.txt", 2000, scheduler);
+            exercise7(studentsFlux, "7.txt", 2000, scheduler);
+            exercise8(studentsFlux, "8.txt", 2000, scheduler);
+            exercise9(client, studentsFlux, "9.txt", 2000, scheduler);
 
             Flux<Professor> professorsFlux = client
                     .get()
@@ -331,8 +349,8 @@ public class ReactiveClientThreads {
                     .retrieve()
                     .bodyToFlux(Professor.class);
 
-            exercise10(client, professorsFlux, "10.txt", 10000);
-            exercise11(client, studentsFlux, "11.txt", 10000);
+            exercise10(client, professorsFlux, "10.txt", 10000, scheduler);
+            exercise11(client, studentsFlux, "11.txt", 10000, scheduler);
 
         } catch (Exception e) {
         System.out.println(e.toString());

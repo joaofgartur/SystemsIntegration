@@ -546,4 +546,464 @@
 ""2022-11-06 [reactor-tcp-nio-2] DEBUG org.springframework.web.HttpLogging - [cf768bc6-64] Encoding [Professor{id=1, name='Ruthe'}]
 ""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [8b995dbf-65] Completed 200 OK
 ""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [cf768bc6-64] Completed 200 OK
+""2022-11-06 [restartedMain] INFO  com.example.server.ServerApplication - Starting ServerApplication using Java 19.0.1 on LAPTOP with PID 14896 (C:\Users\filip\Documents\UniversityStuff\SystemsIntegration\Assignment_2\server\target\classes started by filip in C:\Users\filip\Documents\UniversityStuff\SystemsIntegration\Assignment_2\server)
+""2022-11-06 [restartedMain] INFO  com.example.server.ServerApplication - No active profile set, falling back to 1 default profile: "default"
+""2022-11-06 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+""2022-11-06 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+""2022-11-06 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+""2022-11-06 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 124 ms. Found 3 R2DBC repository interfaces.
+""2022-11-06 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+""2022-11-06 [restartedMain] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - 14 mappings in 'requestMappingHandlerMapping'
+""2022-11-06 [restartedMain] DEBUG o.s.w.r.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+""2022-11-06 [restartedMain] DEBUG o.s.w.r.r.m.a.ControllerMethodResolver - ControllerAdvice beans: none
+""2022-11-06 [restartedMain] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - enableLoggingRequestDetails='false': form data and headers will be masked to prevent unsafe logging of potentially sensitive data
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - Executing SQL script from URL [file:/C:/Users/filip/Documents/UniversityStuff/SystemsIntegration/Assignment_2/server/target/classes/schema.sql]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS student_professor
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS student
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS professor
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE student ( id SERIAL, name VARCHAR(255) NOT NULL, birthdate VARCHAR(255) NOT NULL, credits INTEGER, average_grade INTEGER NOT NULL, PRIMARY KEY(id) )
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE professor ( id SERIAL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id) )
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE student_professor ( id SERIAL, student_id BIGINT, professor_id BIGINT, PRIMARY KEY(id) )
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: ALTER TABLE student_professor ADD CONSTRAINT student_professor_fk1 FOREIGN KEY (student_id) REFERENCES student(id)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: ALTER TABLE student_professor ADD CONSTRAINT student_professor_fk2 FOREIGN KEY (professor_id) REFERENCES professor(id)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Lucille', '04/12/2000', 103, 14)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Harrison', '11/10/2003', 4, 15)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Carl', '02/10/2004', 119, 20)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Bryon', '07/08/1998', 86, 15)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Angus', '08/09/2002', 160, 17)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Berti', '04/11/1999', 107, 17)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Faber', '03/02/1998', 169, 13)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Hersch', '10/04/2003', 23, 18)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Reggis', '07/12/2000', 146, 12)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Kimberley', '01/03/2003', 60, 9)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Ruthe')
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Salmon')
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Land')
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (1,1)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (1,3)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (2,1)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (3,1)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (4,1)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (5,2)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (6,2)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (7,2)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (8,3)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (9,3)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - Executed SQL script from URL [file:/C:/Users/filip/Documents/UniversityStuff/SystemsIntegration/Assignment_2/server/target/classes/schema.sql] in 173 ms.
+""2022-11-06 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8080
+""2022-11-06 [restartedMain] INFO  com.example.server.ServerApplication - Started ServerApplication in 2.389 seconds (JVM running for 3.099)
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-1] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-1] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-1] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-1] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-1] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-1] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-2] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-2] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-2] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-2] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-2] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-2] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-3] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-3] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-3] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-3] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-3] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-3] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-4] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-4] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-4] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-4] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-4] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-4] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-5] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-5] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-5] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-5] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-5] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-5] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-6] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-6] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-6] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-6] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-6] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-6] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-7] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-7] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-7] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-7] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-7] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-7] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-8] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-8] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-8] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-8] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-8] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-8] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-9] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-9] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-9] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-9] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-9] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-9] Completed 200 OK
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [4b5bb05e-10] HTTP GET "/relationship/student/1"
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [4b5bb05e-10] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [cb7602d7-11] HTTP GET "/relationship/student/2"
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [cb7602d7-11] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e399b867-12] HTTP GET "/relationship/student/3"
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [e399b867-12] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [54a9e93b-13] HTTP GET "/relationship/student/4"
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [54a9e93b-13] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a1481152-14] HTTP GET "/relationship/student/5"
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [a1481152-14] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [bd278725-15] HTTP GET "/relationship/student/6"
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [bd278725-15] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [89def727-16] HTTP GET "/relationship/student/7"
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [89def727-16] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6fa61124-17] HTTP GET "/relationship/student/8"
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [6fa61124-17] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [dba363ab-18] HTTP GET "/relationship/student/9"
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [dba363ab-18] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-19] HTTP GET "/relationship/student/10"
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [71a2c0e7-19] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-7] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 5
+""2022-11-06 [reactor-http-nio-6] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 4
+""2022-11-06 [reactor-http-nio-3] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 1
+""2022-11-06 [reactor-http-nio-11] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 9
+""2022-11-06 [reactor-http-nio-4] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 2
+""2022-11-06 [reactor-http-nio-10] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 8
+""2022-11-06 [reactor-http-nio-5] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 3
+""2022-11-06 [reactor-http-nio-8] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 6
+""2022-11-06 [reactor-http-nio-12] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 10
+""2022-11-06 [reactor-http-nio-9] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 7
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [6fa61124-17] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [bd278725-15] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [4b5bb05e-10] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [cb7602d7-11] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [4b5bb05e-10] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [e399b867-12] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [bd278725-15] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [71a2c0e7-19] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [89def727-16] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [6fa61124-17] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [dba363ab-18] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [cb7602d7-11] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [dba363ab-18] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [89def727-16] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [71a2c0e7-19] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [54a9e93b-13] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [a1481152-14] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [e399b867-12] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [a1481152-14] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [54a9e93b-13] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [71a2c0e7-19] Encoding [[]]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-19] Completed 200 OK
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [54a9e93b-13] Encoding [[Student_Professor{id=5, student_id=4, professor_id=1}]]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [54a9e93b-13] Completed 200 OK
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [89def727-16] Encoding [[Student_Professor{id=8, student_id=7, professor_id=2}]]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [89def727-16] Completed 200 OK
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [a1481152-14] Encoding [[Student_Professor{id=6, student_id=5, professor_id=2}]]
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a1481152-14] Completed 200 OK
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [4b5bb05e-10] Encoding [[Student_Professor{id=1, student_id=1, professor_id=1}, Student_Professor{id=2, student_id=1, profes (truncated)...]
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [4b5bb05e-10] Completed 200 OK
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [6fa61124-17] Encoding [[Student_Professor{id=9, student_id=8, professor_id=3}]]
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6fa61124-17] Completed 200 OK
+""2022-11-06 [reactor-tcp-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-tcp-nio-4] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-tcp-nio-3] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-tcp-nio-2] DEBUG org.springframework.web.HttpLogging - [e399b867-12] Encoding [[Student_Professor{id=4, student_id=3, professor_id=1}]]
+""2022-11-06 [reactor-tcp-nio-4] DEBUG org.springframework.web.HttpLogging - [cb7602d7-11] Encoding [[Student_Professor{id=3, student_id=2, professor_id=1}]]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e399b867-12] Completed 200 OK
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [cb7602d7-11] Completed 200 OK
+""2022-11-06 [reactor-tcp-nio-3] DEBUG org.springframework.web.HttpLogging - [bd278725-15] Encoding [[Student_Professor{id=7, student_id=6, professor_id=2}]]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [dba363ab-18] Encoding [[Student_Professor{id=10, student_id=9, professor_id=3}]]
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [dba363ab-18] Completed 200 OK
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [bd278725-15] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-20] HTTP GET "/professor/"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-20] Mapped to com.example.server.controllers.ProfessorController#getAllProfessors()
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getAllProfessors was called
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-20] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-20] 0..N [com.example.server.entity.Professor]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-20] Encoding [[Professor{id=1, name='Ruthe'}, Professor{id=2, name='Salmon'}, Professor{id=3, name='Land'}]]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-20] Completed 200 OK
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-21] HTTP GET "/relationship/professor/1"
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [71a2c0e7-21] Mapped to com.example.server.controllers.StudentProfessorController#getAllStudentsFromProfessor(int)
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [89def727-22] HTTP GET "/relationship/professor/2"
+""2022-11-06 [reactor-http-nio-12] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllStudentsFromProfessor with ProfessorID 1
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [89def727-22] Mapped to com.example.server.controllers.StudentProfessorController#getAllStudentsFromProfessor(int)
+""2022-11-06 [reactor-http-nio-9] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllStudentsFromProfessor with ProfessorID 2
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [71a2c0e7-21] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [71a2c0e7-21] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [89def727-22] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [89def727-22] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [54a9e93b-23] HTTP GET "/relationship/professor/3"
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [54a9e93b-23] Mapped to com.example.server.controllers.StudentProfessorController#getAllStudentsFromProfessor(int)
+""2022-11-06 [reactor-http-nio-6] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllStudentsFromProfessor with ProfessorID 3
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE professor_id = $1]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [54a9e93b-23] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [54a9e93b-23] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE professor_id = $1]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE professor_id = $1]
+""2022-11-06 [reactor-tcp-nio-3] DEBUG org.springframework.web.HttpLogging - [71a2c0e7-21] Encoding [[Student_Professor{id=1, student_id=1, professor_id=1}, Student_Professor{id=3, student_id=2, profes (truncated)...]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [89def727-22] Encoding [[Student_Professor{id=6, student_id=5, professor_id=2}, Student_Professor{id=7, student_id=6, profes (truncated)...]
+""2022-11-06 [reactor-tcp-nio-4] DEBUG org.springframework.web.HttpLogging - [54a9e93b-23] Encoding [[Student_Professor{id=2, student_id=1, professor_id=3}, Student_Professor{id=9, student_id=8, profes (truncated)...]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [89def727-22] Completed 200 OK
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-21] Completed 200 OK
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [54a9e93b-23] Completed 200 OK
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a1481152-24] HTTP GET "/student/5"
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [a1481152-24] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [4b5bb05e-25] HTTP GET "/student/6"
+""2022-11-06 [reactor-http-nio-7] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 5
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [4b5bb05e-25] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-3] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 6
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6fa61124-26] HTTP GET "/student/7"
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [6fa61124-26] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-10] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 7
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [cb7602d7-27] HTTP GET "/student/1"
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [cb7602d7-27] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-4] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 1
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e399b867-28] HTTP GET "/student/2"
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [e399b867-28] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-5] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 2
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [dba363ab-29] HTTP GET "/student/3"
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [dba363ab-29] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-11] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 3
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [bd278725-30] HTTP GET "/student/4"
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [bd278725-30] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-8] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 4
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-31] HTTP GET "/student/1"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-31] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 1
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-32] HTTP GET "/student/8"
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [71a2c0e7-32] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-12] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 8
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [c2650c80-33] HTTP GET "/student/9"
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [c2650c80-33] Mapped to com.example.server.controllers.StudentController#getStudentById(int)
+""2022-11-06 [reactor-http-nio-13] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getStudentById with ID 9
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-tcp-nio-3] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [dba363ab-29] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-2] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [71a2c0e7-32] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [1d73f5fe-31] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-2] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [71a2c0e7-32] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [1d73f5fe-31] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-tcp-nio-3] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [dba363ab-29] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-tcp-nio-4] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [e399b867-28] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-tcp-nio-4] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [e399b867-28] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student WHERE student.id = $1 LIMIT 2]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [6fa61124-26] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [6fa61124-26] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [6fa61124-26] Encoding [Student{id=7, name='Faber', birthdate=03/02/1998, credits=169, avgGrade=13}]
+""2022-11-06 [reactor-tcp-nio-2] DEBUG org.springframework.web.HttpLogging - [71a2c0e7-32] Encoding [Student{id=8, name='Hersch', birthdate=10/04/2003, credits=23, avgGrade=18}]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-31] Encoding [Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}]
+""2022-11-06 [reactor-tcp-nio-4] DEBUG org.springframework.web.HttpLogging - [e399b867-28] Encoding [Student{id=2, name='Harrison', birthdate=11/10/2003, credits=4, avgGrade=15}]
+""2022-11-06 [reactor-tcp-nio-3] DEBUG org.springframework.web.HttpLogging - [dba363ab-29] Encoding [Student{id=3, name='Carl', birthdate=02/10/2004, credits=119, avgGrade=20}]
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6fa61124-26] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-31] Completed 200 OK
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-32] Completed 200 OK
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [dba363ab-29] Completed 200 OK
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e399b867-28] Completed 200 OK
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [c2650c80-33] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [c2650c80-33] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [c2650c80-33] Encoding [Student{id=9, name='Reggis', birthdate=07/12/2000, credits=146, avgGrade=12}]
+""2022-11-06 [reactor-tcp-nio-3] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [cb7602d7-27] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [bd278725-30] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [bd278725-30] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-tcp-nio-3] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [cb7602d7-27] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-tcp-nio-2] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [4b5bb05e-25] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-2] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [4b5bb05e-25] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [c2650c80-33] Completed 200 OK
+""2022-11-06 [reactor-tcp-nio-3] DEBUG org.springframework.web.HttpLogging - [cb7602d7-27] Encoding [Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [bd278725-30] Encoding [Student{id=4, name='Bryon', birthdate=07/08/1998, credits=86, avgGrade=15}]
+""2022-11-06 [reactor-tcp-nio-2] DEBUG org.springframework.web.HttpLogging - [4b5bb05e-25] Encoding [Student{id=6, name='Berti', birthdate=04/11/1999, credits=107, avgGrade=17}]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [a1481152-24] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [a1481152-24] 0..1 [com.example.server.entity.Student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [a1481152-24] Encoding [Student{id=5, name='Angus', birthdate=08/09/2002, credits=160, avgGrade=17}]
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [bd278725-30] Completed 200 OK
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [cb7602d7-27] Completed 200 OK
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [4b5bb05e-25] Completed 200 OK
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a1481152-24] Completed 200 OK
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [54a9e93b-34] HTTP GET "/student/"
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [54a9e93b-34] Mapped to com.example.server.controllers.StudentController#getAllStudents()
+""2022-11-06 [reactor-http-nio-6] INFO  c.e.s.controllers.StudentController - [ENDPOINT] getAllStudents was called
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [54a9e93b-34] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [54a9e93b-34] 0..N [com.example.server.entity.Student]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT student.* FROM student]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [54a9e93b-34] Encoding [[Student{id=1, name='Lucille', birthdate=04/12/2000, credits=103, avgGrade=14}, Student{id=2, name=' (truncated)...]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [54a9e93b-34] Completed 200 OK
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [89def727-35] HTTP GET "/relationship/student/1"
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [89def727-35] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-9] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 1
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-36] HTTP GET "/relationship/student/2"
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [89def727-35] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [71a2c0e7-36] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [89def727-35] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-12] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 2
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [71a2c0e7-36] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [71a2c0e7-36] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-37] HTTP GET "/relationship/student/3"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-37] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 3
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-37] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [1d73f5fe-37] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6fa61124-38] HTTP GET "/relationship/student/4"
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [6fa61124-38] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-10] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 4
+""2022-11-06 [reactor-tcp-nio-3] DEBUG org.springframework.web.HttpLogging - [71a2c0e7-36] Encoding [[Student_Professor{id=3, student_id=2, professor_id=1}]]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [89def727-35] Encoding [[Student_Professor{id=1, student_id=1, professor_id=1}, Student_Professor{id=2, student_id=1, profes (truncated)...]
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [6fa61124-38] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [6fa61124-38] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [89def727-35] Completed 200 OK
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-36] Completed 200 OK
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [dba363ab-39] HTTP GET "/relationship/student/5"
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [1d73f5fe-37] Encoding [[Student_Professor{id=4, student_id=3, professor_id=1}]]
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [dba363ab-39] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-11] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 5
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-37] Completed 200 OK
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [dba363ab-39] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [dba363ab-39] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e399b867-40] HTTP GET "/relationship/student/6"
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [e399b867-40] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [6fa61124-38] Encoding [[Student_Professor{id=5, student_id=4, professor_id=1}]]
+""2022-11-06 [reactor-http-nio-5] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 6
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [e399b867-40] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6fa61124-38] Completed 200 OK
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [e399b867-40] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [dba363ab-39] Encoding [[Student_Professor{id=6, student_id=5, professor_id=2}]]
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [dba363ab-39] Completed 200 OK
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [c2650c80-41] HTTP GET "/relationship/student/7"
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [c2650c80-41] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-13] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 7
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [c2650c80-41] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [c2650c80-41] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [e399b867-40] Encoding [[Student_Professor{id=7, student_id=6, professor_id=2}]]
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [bd278725-42] HTTP GET "/relationship/student/8"
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e399b867-40] Completed 200 OK
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [bd278725-42] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-8] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 8
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [bd278725-42] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [bd278725-42] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [4b5bb05e-43] HTTP GET "/relationship/student/9"
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [c2650c80-41] Encoding [[Student_Professor{id=8, student_id=7, professor_id=2}]]
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [4b5bb05e-43] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-http-nio-3] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 9
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [c2650c80-41] Completed 200 OK
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [4b5bb05e-43] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [4b5bb05e-43] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [cb7602d7-44] HTTP GET "/relationship/student/10"
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [cb7602d7-44] Mapped to com.example.server.controllers.StudentProfessorController#getAllProfessorsFromStudent(int)
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [bd278725-42] Encoding [[Student_Professor{id=9, student_id=8, professor_id=3}]]
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-http-nio-4] INFO  c.e.s.c.StudentProfessorController - [ENDPOINT] getAllProfessorsFromStudent with StudentID 10
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [cb7602d7-44] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [cb7602d7-44] 0..N [com.example.server.entity.StudentProfessor]
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [bd278725-42] Completed 200 OK
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT * FROM student_professor WHERE student_id = $1]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [4b5bb05e-43] Encoding [[Student_Professor{id=10, student_id=9, professor_id=3}]]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [cb7602d7-44] Encoding [[]]
+""2022-11-06 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [4b5bb05e-43] Completed 200 OK
+""2022-11-06 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [cb7602d7-44] Completed 200 OK
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a1481152-45] HTTP GET "/professor/2"
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [a1481152-45] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-http-nio-7] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 2 was called
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [54a9e93b-46] HTTP GET "/professor/1"
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [54a9e93b-46] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-http-nio-6] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 1 was called
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [a1481152-45] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [a1481152-45] 0..1 [com.example.server.entity.Professor]
+""2022-11-06 [reactor-tcp-nio-1] DEBUG org.springframework.web.HttpLogging - [a1481152-45] Encoding [Professor{id=2, name='Salmon'}]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-47] HTTP GET "/professor/1"
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [54a9e93b-46] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [54a9e93b-46] 0..1 [com.example.server.entity.Professor]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [54a9e93b-46] Encoding [Professor{id=1, name='Ruthe'}]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [71a2c0e7-47] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-http-nio-7] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a1481152-45] Completed 200 OK
+""2022-11-06 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [54a9e93b-46] Completed 200 OK
+""2022-11-06 [reactor-http-nio-12] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 1 was called
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [89def727-48] HTTP GET "/professor/3"
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [89def727-48] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-http-nio-9] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 3 was called
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [71a2c0e7-47] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [71a2c0e7-47] 0..1 [com.example.server.entity.Professor]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [71a2c0e7-47] Encoding [Professor{id=1, name='Ruthe'}]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [71a2c0e7-47] Completed 200 OK
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-49] HTTP GET "/professor/4"
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [1d73f5fe-49] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-http-nio-2] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 4 was called
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [89def727-48] Using 'application/json' given [application/json] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [89def727-48] 0..1 [com.example.server.entity.Professor]
+""2022-11-06 [reactor-http-nio-2] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [89def727-48] Encoding [Professor{id=3, name='Land'}]
+""2022-11-06 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [89def727-48] Completed 200 OK
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6fa61124-50] HTTP GET "/professor/5"
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [6fa61124-50] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-http-nio-10] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 5 was called
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [1d73f5fe-49] Completed 404 NOT_FOUND
+""2022-11-06 [reactor-http-nio-10] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [dba363ab-51] HTTP GET "/professor/6"
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [dba363ab-51] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-http-nio-11] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 6 was called
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6fa61124-50] Completed 404 NOT_FOUND
+""2022-11-06 [reactor-http-nio-11] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e399b867-52] HTTP GET "/professor/7"
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [dba363ab-51] Completed 404 NOT_FOUND
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [e399b867-52] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-http-nio-5] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 7 was called
+""2022-11-06 [reactor-http-nio-5] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [c2650c80-53] HTTP GET "/professor/8"
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [c2650c80-53] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e399b867-52] Completed 404 NOT_FOUND
+""2022-11-06 [reactor-http-nio-13] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 8 was called
+""2022-11-06 [reactor-http-nio-13] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [bd278725-54] HTTP GET "/professor/9"
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [bd278725-54] Mapped to com.example.server.controllers.ProfessorController#getProfessorById(int)
+""2022-11-06 [reactor-http-nio-8] INFO  c.e.s.c.ProfessorController - [ENDPOINT] getProfessorById with ID 9 was called
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [c2650c80-53] Completed 404 NOT_FOUND
+""2022-11-06 [reactor-http-nio-8] DEBUG o.s.r2dbc.core.DefaultDatabaseClient - Executing SQL statement [SELECT professor.* FROM professor WHERE professor.id = $1 LIMIT 2]
+""2022-11-06 [reactor-tcp-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [bd278725-54] Completed 404 NOT_FOUND
 "
