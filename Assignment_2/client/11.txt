@@ -5,7 +5,7 @@
 	Average Grade: 14
 	Professors: 
 		Ruthe
-		Ruthe
+		Land
 }
 {Student: Harrison
 	Id: 2
@@ -13,7 +13,7 @@
 	Credits: 4
 	Average Grade: 15
 	Professors: 
-		Salmon
+		Ruthe
 }
 {Student: Carl
 	Id: 3
@@ -21,7 +21,7 @@
 	Credits: 119
 	Average Grade: 20
 	Professors: 
-		Land
+		Ruthe
 }
 {Student: Bryon
 	Id: 4
@@ -29,6 +29,7 @@
 	Credits: 86
 	Average Grade: 15
 	Professors: 
+		Ruthe
 }
 {Student: Angus
 	Id: 5
@@ -36,6 +37,7 @@
 	Credits: 160
 	Average Grade: 17
 	Professors: 
+		Salmon
 }
 {Student: Berti
 	Id: 6
@@ -43,6 +45,7 @@
 	Credits: 107
 	Average Grade: 17
 	Professors: 
+		Salmon
 }
 {Student: Faber
 	Id: 7
@@ -50,6 +53,7 @@
 	Credits: 169
 	Average Grade: 13
 	Professors: 
+		Salmon
 }
 {Student: Hersch
 	Id: 8
@@ -57,6 +61,7 @@
 	Credits: 23
 	Average Grade: 18
 	Professors: 
+		Land
 }
 {Student: Reggis
 	Id: 9
@@ -64,6 +69,7 @@
 	Credits: 146
 	Average Grade: 12
 	Professors: 
+		Land
 }
 {Student: Kimberley
 	Id: 10

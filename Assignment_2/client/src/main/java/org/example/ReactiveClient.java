@@ -303,6 +303,7 @@ public class ReactiveClient {
     }
 
     private void myMain() {
+        long startTime = System.currentTimeMillis();
         WebClient client = WebClient.create(BASE_URL);
 
         try {
@@ -333,9 +334,11 @@ public class ReactiveClient {
 
             exercise10(client, professorsFlux, "10.txt", 10000);
             exercise11(client, studentsFlux, "11.txt", 10000);
-
+            long endTime = System.currentTimeMillis();
+            long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+            System.out.println("######### Operations Ended in "+ duration +"ms #########");
         } catch (Exception e) {
-        System.out.println(e.toString());
+            System.out.println(e.toString());
         }
     }
 
