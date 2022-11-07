@@ -8571,4 +8571,244 @@ Caused by: java.net.SocketException: Connection reset
 ""2022-11-07 [reactor-tcp-nio-5] DEBUG o.s.w.r.r.m.a.ResponseEntityResultHandler - [c3c44486-66] 0..1 [com.example.server.entity.Professor]
 ""2022-11-07 [reactor-tcp-nio-5] DEBUG org.springframework.web.HttpLogging - [c3c44486-66] Encoding [Professor{id=1, name='Ruthe'}]
 ""2022-11-07 [reactor-http-nio-7] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [c3c44486-66] Completed 200 OK
+""2022-11-07 [restartedMain] INFO  com.example.server.ServerApplication - Starting ServerApplication using Java 18.0.2.1 on LAPTOP-CL0BM46H with PID 28152 (D:\Documents\Mestrado\IS\SystemsIntegration\Assignment_2\server\target\classes started by jfgar in D:\Documents\Mestrado\IS\SystemsIntegration\Assignment_2\server)
+""2022-11-07 [restartedMain] INFO  com.example.server.ServerApplication - No active profile set, falling back to 1 default profile: "default"
+""2022-11-07 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+""2022-11-07 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+""2022-11-07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+""2022-11-07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 107 ms. Found 3 R2DBC repository interfaces.
+""2022-11-07 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+""2022-11-07 [restartedMain] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - 15 mappings in 'requestMappingHandlerMapping'
+""2022-11-07 [restartedMain] DEBUG o.s.w.r.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+""2022-11-07 [restartedMain] DEBUG o.s.w.r.r.m.a.ControllerMethodResolver - ControllerAdvice beans: none
+""2022-11-07 [restartedMain] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - enableLoggingRequestDetails='false': form data and headers will be masked to prevent unsafe logging of potentially sensitive data
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - Executing SQL script from URL [file:/D:/Documents/Mestrado/IS/SystemsIntegration/Assignment_2/server/target/classes/schema.sql]
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS student_professor
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS student
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS professor
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE student ( id SERIAL, name VARCHAR(255) NOT NULL, birthdate VARCHAR(255) NOT NULL, credits INTEGER, average_grade INTEGER NOT NULL, PRIMARY KEY(id) )
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE professor ( id SERIAL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id) )
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE student_professor ( id SERIAL, student_id BIGINT, professor_id BIGINT, PRIMARY KEY(id) )
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: ALTER TABLE student_professor ADD CONSTRAINT student_professor_fk1 FOREIGN KEY (student_id) REFERENCES student(id)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: ALTER TABLE student_professor ADD CONSTRAINT student_professor_fk2 FOREIGN KEY (professor_id) REFERENCES professor(id)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Lucille', '04/12/2000', 103, 14)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Harrison', '11/10/2003', 4, 15)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Carl', '02/10/2004', 119, 20)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Bryon', '07/08/1998', 86, 15)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Angus', '08/09/2002', 160, 17)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Berti', '04/11/1999', 107, 17)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Faber', '03/02/1998', 169, 13)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Hersch', '10/04/2003', 23, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Reggis', '07/12/2000', 146, 12)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Kimberley', '01/03/2003', 60, 9)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('John', '01/03/2003', 180, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Jake', '01/03/2003', 180, 10)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('John', '01/03/2003', 180, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Jake', '01/03/2003', 180, 10)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Oliver', '01/03/2003', 180, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Olivia', '01/03/2003', 180, 10)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Ruthe')
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Salmon')
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Land')
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (1,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (1,3)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (2,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (3,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (4,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (5,2)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (6,2)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (7,2)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (8,3)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (9,3)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - Executed SQL script from URL [file:/D:/Documents/Mestrado/IS/SystemsIntegration/Assignment_2/server/target/classes/schema.sql] in 316 ms.
+""2022-11-07 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8080
+""2022-11-07 [restartedMain] INFO  com.example.server.ServerApplication - Started ServerApplication in 3.718 seconds (JVM running for 4.429)
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [8fa41543-1] HTTP GET "/error"
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [8fa41543-1] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [8fa41543-1] Using 'application/json' given [*/*] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [8fa41543-1] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-3] DEBUG org.springframework.web.HttpLogging - [8fa41543-1] Encoding [java.lang.Exception: Error]
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [8fa41543-1] Completed 200 OK
+""2022-11-07 [restartedMain] INFO  com.example.server.ServerApplication - Starting ServerApplication using Java 18.0.2.1 on LAPTOP-CL0BM46H with PID 22744 (D:\Documents\Mestrado\IS\SystemsIntegration\Assignment_2\server\target\classes started by jfgar in D:\Documents\Mestrado\IS\SystemsIntegration\Assignment_2\server)
+""2022-11-07 [restartedMain] INFO  com.example.server.ServerApplication - No active profile set, falling back to 1 default profile: "default"
+""2022-11-07 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+""2022-11-07 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+""2022-11-07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+""2022-11-07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 121 ms. Found 3 R2DBC repository interfaces.
+""2022-11-07 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+""2022-11-07 [restartedMain] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - 15 mappings in 'requestMappingHandlerMapping'
+""2022-11-07 [restartedMain] DEBUG o.s.w.r.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+""2022-11-07 [restartedMain] DEBUG o.s.w.r.r.m.a.ControllerMethodResolver - ControllerAdvice beans: none
+""2022-11-07 [restartedMain] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - enableLoggingRequestDetails='false': form data and headers will be masked to prevent unsafe logging of potentially sensitive data
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - Executing SQL script from URL [file:/D:/Documents/Mestrado/IS/SystemsIntegration/Assignment_2/server/target/classes/schema.sql]
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS student_professor
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS student
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS professor
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE student ( id SERIAL, name VARCHAR(255) NOT NULL, birthdate VARCHAR(255) NOT NULL, credits INTEGER, average_grade INTEGER NOT NULL, PRIMARY KEY(id) )
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE professor ( id SERIAL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id) )
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE student_professor ( id SERIAL, student_id BIGINT, professor_id BIGINT, PRIMARY KEY(id) )
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: ALTER TABLE student_professor ADD CONSTRAINT student_professor_fk1 FOREIGN KEY (student_id) REFERENCES student(id)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: ALTER TABLE student_professor ADD CONSTRAINT student_professor_fk2 FOREIGN KEY (professor_id) REFERENCES professor(id)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Lucille', '04/12/2000', 103, 14)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Harrison', '11/10/2003', 4, 15)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Carl', '02/10/2004', 119, 20)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Bryon', '07/08/1998', 86, 15)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Angus', '08/09/2002', 160, 17)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Berti', '04/11/1999', 107, 17)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Faber', '03/02/1998', 169, 13)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Hersch', '10/04/2003', 23, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Reggis', '07/12/2000', 146, 12)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Kimberley', '01/03/2003', 60, 9)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('John', '01/03/2003', 180, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Jake', '01/03/2003', 180, 10)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('John', '01/03/2003', 180, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Jake', '01/03/2003', 180, 10)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Oliver', '01/03/2003', 180, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Olivia', '01/03/2003', 180, 10)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Ruthe')
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Salmon')
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Land')
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (1,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (1,3)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (2,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (3,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (4,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (5,2)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (6,2)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (7,2)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (8,3)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (9,3)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - Executed SQL script from URL [file:/D:/Documents/Mestrado/IS/SystemsIntegration/Assignment_2/server/target/classes/schema.sql] in 294 ms.
+""2022-11-07 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8080
+""2022-11-07 [restartedMain] INFO  com.example.server.ServerApplication - Started ServerApplication in 3.3 seconds (JVM running for 4.036)
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [9ddc77ae-1] HTTP GET "/error"
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [9ddc77ae-1] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [9ddc77ae-1] Using 'application/json' given [*/*] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [9ddc77ae-1] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-3] DEBUG org.springframework.web.HttpLogging - [9ddc77ae-1] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [9ddc77ae-1] Completed 200 OK
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [b4be8862-2] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [b4be8862-2] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [b4be8862-2] Using 'application/json' given [*/*] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [b4be8862-2] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-4] DEBUG org.springframework.web.HttpLogging - [b4be8862-2] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [b4be8862-2] Completed 200 OK
+""2022-11-07 [restartedMain] INFO  com.example.server.ServerApplication - Starting ServerApplication using Java 18.0.2.1 on LAPTOP-CL0BM46H with PID 8268 (D:\Documents\Mestrado\IS\SystemsIntegration\Assignment_2\server\target\classes started by jfgar in D:\Documents\Mestrado\IS\SystemsIntegration\Assignment_2\server)
+""2022-11-07 [restartedMain] INFO  com.example.server.ServerApplication - No active profile set, falling back to 1 default profile: "default"
+""2022-11-07 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+""2022-11-07 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+""2022-11-07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+""2022-11-07 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 107 ms. Found 3 R2DBC repository interfaces.
+""2022-11-07 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+""2022-11-07 [restartedMain] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - 15 mappings in 'requestMappingHandlerMapping'
+""2022-11-07 [restartedMain] DEBUG o.s.w.r.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+""2022-11-07 [restartedMain] DEBUG o.s.w.r.r.m.a.ControllerMethodResolver - ControllerAdvice beans: none
+""2022-11-07 [restartedMain] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - enableLoggingRequestDetails='false': form data and headers will be masked to prevent unsafe logging of potentially sensitive data
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - Executing SQL script from URL [file:/D:/Documents/Mestrado/IS/SystemsIntegration/Assignment_2/server/target/classes/schema.sql]
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS student_professor
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS student
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: DROP TABLE IF EXISTS professor
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE student ( id SERIAL, name VARCHAR(255) NOT NULL, birthdate VARCHAR(255) NOT NULL, credits INTEGER, average_grade INTEGER NOT NULL, PRIMARY KEY(id) )
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE professor ( id SERIAL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id) )
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: CREATE TABLE student_professor ( id SERIAL, student_id BIGINT, professor_id BIGINT, PRIMARY KEY(id) )
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: ALTER TABLE student_professor ADD CONSTRAINT student_professor_fk1 FOREIGN KEY (student_id) REFERENCES student(id)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 0 returned as update count for SQL: ALTER TABLE student_professor ADD CONSTRAINT student_professor_fk2 FOREIGN KEY (professor_id) REFERENCES professor(id)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Lucille', '04/12/2000', 103, 14)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Harrison', '11/10/2003', 4, 15)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Carl', '02/10/2004', 119, 20)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Bryon', '07/08/1998', 86, 15)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Angus', '08/09/2002', 160, 17)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Berti', '04/11/1999', 107, 17)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Faber', '03/02/1998', 169, 13)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Hersch', '10/04/2003', 23, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Reggis', '07/12/2000', 146, 12)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Kimberley', '01/03/2003', 60, 9)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('John', '01/03/2003', 180, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Jake', '01/03/2003', 180, 10)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('John', '01/03/2003', 180, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Jake', '01/03/2003', 180, 10)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Oliver', '01/03/2003', 180, 18)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student (name, birthdate, credits, average_grade) values ('Olivia', '01/03/2003', 180, 10)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Ruthe')
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Salmon')
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into professor (name) values ('Land')
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (1,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (1,3)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (2,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (3,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (4,1)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (5,2)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (6,2)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (7,2)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (8,3)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - 1 returned as update count for SQL: insert into student_professor (student_id, professor_id) values (9,3)
+""2022-11-07 [reactor-tcp-nio-1] DEBUG o.s.r.connection.init.ScriptUtils - Executed SQL script from URL [file:/D:/Documents/Mestrado/IS/SystemsIntegration/Assignment_2/server/target/classes/schema.sql] in 290 ms.
+""2022-11-07 [restartedMain] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8080
+""2022-11-07 [restartedMain] INFO  com.example.server.ServerApplication - Started ServerApplication in 2.567 seconds (JVM running for 3.228)
+""2022-11-07 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [df01b29f-1] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [df01b29f-1] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [df01b29f-1] Using 'application/json' given [*/*] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-2] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [df01b29f-1] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-2] DEBUG org.springframework.web.HttpLogging - [df01b29f-1] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-2] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [df01b29f-1] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [379db030-2] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [379db030-2] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [379db030-2] Using 'application/json' given [*/*] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [379db030-2] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-3] DEBUG org.springframework.web.HttpLogging - [379db030-2] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-3] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [379db030-2] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a3e103dd-3] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [a3e103dd-3] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [a3e103dd-3] Using 'application/json' given [text/html, image/gif, image/jpeg, */*;q=.2, */*;q=.2] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [a3e103dd-3] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-4] DEBUG org.springframework.web.HttpLogging - [a3e103dd-3] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-4] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a3e103dd-3] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [7f7869ab-4] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [7f7869ab-4] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [7f7869ab-4] Using 'application/json' given [text/html, image/gif, image/jpeg, */*;q=.2, */*;q=.2] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-5] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [7f7869ab-4] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-5] DEBUG org.springframework.web.HttpLogging - [7f7869ab-4] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-5] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [7f7869ab-4] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6927db2e-5] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [6927db2e-5] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [6927db2e-5] Using 'application/json' given [text/html, image/gif, image/jpeg, */*;q=.2, */*;q=.2] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-6] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [6927db2e-5] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-6] DEBUG org.springframework.web.HttpLogging - [6927db2e-5] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-6] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [6927db2e-5] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-7] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [b109cb72-6] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-7] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [b109cb72-6] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-7] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [b109cb72-6] Using 'application/json' given [text/html, image/gif, image/jpeg, */*;q=.2, */*;q=.2] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-7] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [b109cb72-6] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-7] DEBUG org.springframework.web.HttpLogging - [b109cb72-6] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-7] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [b109cb72-6] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [9ec32d5b-7] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [9ec32d5b-7] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [9ec32d5b-7] Using 'application/json' given [text/html, image/gif, image/jpeg, */*;q=.2, */*;q=.2] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-8] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [9ec32d5b-7] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-8] DEBUG org.springframework.web.HttpLogging - [9ec32d5b-7] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-8] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [9ec32d5b-7] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [780645ec-8] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [780645ec-8] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [780645ec-8] Using 'application/json' given [text/html, image/gif, image/jpeg, */*;q=.2, */*;q=.2] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-9] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [780645ec-8] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-9] DEBUG org.springframework.web.HttpLogging - [780645ec-8] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-9] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [780645ec-8] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-10] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [99101782-9] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [99101782-9] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [99101782-9] Using 'application/json' given [text/html, image/gif, image/jpeg, */*;q=.2, */*;q=.2] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-10] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [99101782-9] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-10] DEBUG org.springframework.web.HttpLogging - [99101782-9] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-10] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [99101782-9] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-11] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a571dbf2-10] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [a571dbf2-10] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [a571dbf2-10] Using 'application/json' given [text/html, image/gif, image/jpeg, */*;q=.2, */*;q=.2] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-11] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [a571dbf2-10] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-11] DEBUG org.springframework.web.HttpLogging - [a571dbf2-10] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-11] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [a571dbf2-10] Completed 500 INTERNAL_SERVER_ERROR
+""2022-11-07 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e05e0028-11] HTTP GET "/error/"
+""2022-11-07 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.RequestMappingHandlerMapping - [e05e0028-11] Mapped to com.example.server.ServerApplication#error()
+""2022-11-07 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [e05e0028-11] Using 'application/json' given [text/html, image/gif, image/jpeg, */*;q=.2, */*;q=.2] and supported [application/json, application/*+json, application/x-ndjson, text/event-stream]
+""2022-11-07 [reactor-http-nio-12] DEBUG o.s.w.r.r.m.a.ResponseBodyResultHandler - [e05e0028-11] 0..1 [java.lang.Exception]
+""2022-11-07 [reactor-http-nio-12] DEBUG org.springframework.web.HttpLogging - [e05e0028-11] Encoding [java.lang.Exception: Connection error!]
+""2022-11-07 [reactor-http-nio-12] DEBUG o.s.w.s.a.HttpWebHandlerAdapter - [e05e0028-11] Completed 500 INTERNAL_SERVER_ERROR
 "
