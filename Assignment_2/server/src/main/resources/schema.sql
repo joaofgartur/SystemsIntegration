@@ -40,6 +40,12 @@ insert into student (name, birthdate, credits, average_grade) values ('Faber', '
 insert into student (name, birthdate, credits, average_grade) values ('Hersch', '10/04/2003', 23, 18);
 insert into student (name, birthdate, credits, average_grade) values ('Reggis', '07/12/2000', 146, 12);
 insert into student (name, birthdate, credits, average_grade) values ('Kimberley', '01/03/2003', 60, 9);
+insert into student (name, birthdate, credits, average_grade) values ('John', '01/03/2003', 180, 18);
+insert into student (name, birthdate, credits, average_grade) values ('Jake', '01/03/2003', 180, 10);
+insert into student (name, birthdate, credits, average_grade) values ('John', '01/03/2003', 180, 18);
+insert into student (name, birthdate, credits, average_grade) values ('Jake', '01/03/2003', 180, 10);
+insert into student (name, birthdate, credits, average_grade) values ('Oliver', '01/03/2003', 180, 18);
+insert into student (name, birthdate, credits, average_grade) values ('Olivia', '01/03/2003', 180, 10);
 
 -- Professors
 insert into professor (name) values ('Ruthe');

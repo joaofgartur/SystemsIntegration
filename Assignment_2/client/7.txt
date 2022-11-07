@@ -1,0 +1,3 @@
+hello
+{Average: 14.0, Std: 4.0}
+bye

@@ -1,1 +1,1 @@
-{Average number of professors per student: 1.0}
+{Average number of professors per student: 0.625}

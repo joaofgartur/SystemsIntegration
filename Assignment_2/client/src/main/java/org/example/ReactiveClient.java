@@ -276,7 +276,6 @@ public class ReactiveClient {
     }
 
     private float longAverage(List<Long> array) {
-        System.out.println(array);
         float average = array.stream().mapToInt(Long::intValue).sum();
         System.out.println(average);
         if (array.size() > 0) {
@@ -321,7 +320,7 @@ public class ReactiveClient {
             exercise4(studentsFlux, "4.txt", 2000);
             exercise5(studentsFlux, "5.txt", 2000);
             exercise6(studentsFlux, "6.txt", 2000);
-            exercise7(studentsFlux, "7.txt", 2000);
+            exercise7(studentsFlux, "7.txt", 5000);
             exercise8(studentsFlux, "8.txt", 2000);
             exercise9(client, studentsFlux, "9.txt", 2000);
 
