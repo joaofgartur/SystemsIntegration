@@ -14,12 +14,13 @@ import java.util.*;
 
 public class ReactiveClient {
     private final String BASE_URL = "http://localhost:8080";
-    private void exercise1(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise1(Flux<Student> studentsFlux) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
-            studentsFlux.subscribe(s -> writer.println("{Name: " + s.getName() + ", Birthdate: " + s.getBirthdate() + "}"));
-            Thread.sleep(sleepTime);
-            writer.close();
+            PrintWriter writer = new PrintWriter("1.txt");
+            studentsFlux.doOnComplete(() -> {
+                writer.close();
+                notifyAll();
+            }).subscribe(s -> writer.println("{Name: " + s.getName() + ", Birthdate: " + s.getBirthdate() + "}"));
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -314,7 +315,9 @@ public class ReactiveClient {
                     .retrieve()
                     .bodyToFlux(Student.class);
 
-            exercise1(studentsFlux, "1.txt", 1000);
+            exercise1(studentsFlux);
+
+            /*
             exercise2(studentsFlux, "2.txt", 1000);
             exercise3(studentsFlux, "3.txt", 1000);
             exercise4(studentsFlux, "4.txt", 1000);
@@ -333,6 +336,13 @@ public class ReactiveClient {
 
             exercise10(client, professorsFlux, "10.txt", 1000);
             exercise11(client, studentsFlux, "11.txt", 1000);
+            */
+
+            int count = 0;
+            while (count < 1) {
+                wait();
+                count++;
+            }
             long endTime = System.currentTimeMillis();
             long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
             System.out.println("######### Operations Ended in "+ duration +"ms #########");

@@ -12,194 +12,241 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
 
 
 public class ReactiveClientThreads {
     private final String BASE_URL = "http://localhost:8080";
-    private void exercise1(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise1(Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("1.txt");
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
+                    .doOnComplete(() -> {
+                        writer.close();
+                        semaphore.release(1);
+                    })
                     .subscribe(s -> writer.println("{Name: " + s.getName() + ", Birthdate: " + s.getBirthdate() + "}"));
-            Thread.sleep(sleepTime);
-            writer.close();
+
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private void exercise2(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise2(Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("2.txt");
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
                     .count()
-                    .subscribe(count -> writer.println("{Count: " + count + "}"));
-            Thread.sleep(sleepTime);
-            writer.close();
+                    .subscribe(count -> {
+                        writer.println("{Count: " + count + "}");
+                        writer.close();
+                        semaphore.release(1);
+                    });
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private void exercise3(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise3(Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("3.txt");
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
                     .filter(student -> student.getCredits() < 180)
                     .count()
-                    .subscribe(count -> writer.println("{Number of active students: " + count + "}"));
-            Thread.sleep(sleepTime);
-            writer.close();
+                    .subscribe(count -> {
+                        writer.println("{Number of active students: " + count + "}");
+                        writer.close();
+                        semaphore.release(1);
+                    });
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private void exercise4(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise4(Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("4.txt");
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
                     .map(Student::getCredits)
                     .reduce(Integer::sum)
-                    .subscribe(sum -> writer.println("{Number of completed courses: " + (sum / 6) + "}"));
-            Thread.sleep(sleepTime);
-            writer.close();
+                    .subscribe(sum -> {
+                        writer.println("{Number of completed courses: " + (sum / 6) + "}");
+                        writer.close();
+                        semaphore.release(1);
+                    });
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private void exercise5(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise5(Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("5.txt");
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
                     .filter(student -> student.getCredits() >= 120 && student.getCredits() < 180)
                     .sort(Comparator.comparing(Student::getCredits))
+                    .doOnComplete(() -> {
+                        writer.close();
+                        semaphore.release(1);
+                    })
                     .subscribe(student -> {writer.println("{" + student.getName() + ", Credits: " + student.getCredits() + "}");});
-            Thread.sleep(sleepTime);
-            writer.close();
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private void exercise6(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise6(Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("6.txt");
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
                     .map(Student::getAverageGrade)
                     .buffer()
-                    .subscribe(grades -> writer.println("{Average: " + average(grades) + ", Std: " + standardDeviation(grades) + "}"));
-            Thread.sleep(sleepTime);
-            writer.close();
+                    .subscribe(grades -> {
+                        writer.println("{Average: " + average(grades) + ", Std: " + standardDeviation(grades) + "}");
+                        writer.close();
+                        semaphore.release(1);
+                    });
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private void exercise7(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise7(Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("7.txt");
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
                     .filter(student -> student.getCredits() == 180)
                     .map(Student::getAverageGrade)
                     .buffer()
-                    .subscribe(grades -> writer.println("{Average: " + average(grades) + ", Std: " + standardDeviation(grades) + "}"));
-            Thread.sleep(sleepTime);
-            writer.close();
+                    .subscribe(grades -> {
+                        writer.println("{Average: " + average(grades) + ", Std: " + standardDeviation(grades) + "}");
+                        writer.close();
+                        semaphore.release(1);
+                    });
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private void exercise8(Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise8(Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("8.txt");
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
                     .reduce((a, b) -> {
-                SimpleDateFormat sm = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat sm = new SimpleDateFormat("dd/MM/yyyy");
 
-                try {
-                    Date dateA = sm.parse(a.getBirthdate());
-                    Date dateB = sm.parse(b.getBirthdate());
+                        try {
+                            Date dateA = sm.parse(a.getBirthdate());
+                            Date dateB = sm.parse(b.getBirthdate());
 
-                    DateComparator comparator = new DateComparator();
+                            DateComparator comparator = new DateComparator();
 
-                    if (comparator.compare(dateA, dateB) < 0) {
-                        return a;
-                    } else {
-                        return b;
-                    }
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                }
+                            if (comparator.compare(dateA, dateB) < 0) {
+                                return a;
+                            } else {
+                                return b;
+                            }
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
 
-            }).subscribe(student -> {writer.println("{Name: " + student.getName() + "}");});
-            Thread.sleep(sleepTime);
-            writer.close();
+                    })
+                    .subscribe(student -> {
+                        writer.println("{Name: " + student.getName() + "}");
+                        writer.close();
+                        semaphore.release(1);
+                    });
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private void exercise9(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise9(WebClient client, Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("9.txt");
 
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
                     .flatMap(student -> {
-                Flux<StudentProfessor> studentProfessors = client
-                        .get()
-                        .uri("/relationship/student/" + student.getId())
-                        .accept(MediaType.APPLICATION_JSON)
-                        .retrieve()
-                        .bodyToFlux(StudentProfessor.class);
-
-                return studentProfessors.count();
-            }).buffer().subscribe(array -> writer.println("{Average number of professors per student: " + longAverage(array) + "}"));
-
-            Thread.sleep(sleepTime);
-            writer.close();
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-    private void exercise10(WebClient client, Flux<Professor> professorsFlux, String filename, int sleepTime) {
-        try {
-            PrintWriter writer = new PrintWriter(filename);
-            List<ProfessorHelper> helper = new ArrayList<>();
-
-            professorsFlux
-                    .doOnNext(professor -> {
-                        ProfessorHelper aux = new ProfessorHelper(professor);
-
-                        Flux<StudentProfessor> professorStudents = client
+                        Flux<StudentProfessor> studentProfessors = client
                                 .get()
-                                .uri("/relationship/professor/" + professor.getId())
+                                .uri("/relationship/student/" + student.getId())
                                 .accept(MediaType.APPLICATION_JSON)
                                 .retrieve()
                                 .bodyToFlux(StudentProfessor.class);
 
-                        professorStudents.flatMap(relationship -> {
-                            int studentId = relationship.getStudent_id();
+                        return studentProfessors.count();
+                    })
+                    .buffer()
+                    .subscribe(array -> {
+                        writer.println("{Average number of professors per student: " + longAverage(array) + "}");
+                        writer.close();
+                        semaphore.release(1);
+                    });
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    private void exercise10(WebClient client, Flux<Professor> professorsFlux, Semaphore semaphore) {
+        try {
+            PrintWriter writer = new PrintWriter("10.txt");
+            List<ProfessorHelper> helper = new ArrayList<>();
 
-                            Mono<Student> studentDetails = client
+            Semaphore helperSemaphore = new Semaphore(0);
+
+            professorsFlux
+                    .publishOn(Schedulers.boundedElastic())
+                    .doOnComplete(() -> {
+                        helperSemaphore.release(1);
+                    })
+                    .doOnNext(professor -> {
+
+                        try {
+                            ProfessorHelper aux = new ProfessorHelper(professor);
+                            Semaphore another = new Semaphore(0);
+
+                            Flux<StudentProfessor> professorStudents = client
                                     .get()
-                                    .uri("/student/" + studentId)
+                                    .uri("/relationship/professor/" + professor.getId())
                                     .accept(MediaType.APPLICATION_JSON)
                                     .retrieve()
-                                    .bodyToMono(Student.class);
+                                    .bodyToFlux(StudentProfessor.class);
 
-                            return studentDetails;
-                        }).subscribe(student -> {aux.getProfessorStudents().add(student);});
+                            professorStudents
+                                    .doOnComplete(() -> {another.release(1);})
+                                    .flatMap(relationship -> {
+                                        int studentId = relationship.getStudent_id();
 
-                        helper.add(aux);
+                                        Mono<Student> studentDetails = client
+                                                .get()
+                                                .uri("/student/" + studentId)
+                                                .accept(MediaType.APPLICATION_JSON)
+                                                .retrieve()
+                                                .bodyToMono(Student.class);
+
+                                        return studentDetails;
+
+
+                                    }).subscribe(student -> {aux.getProfessorStudents().add(student);});
+
+                            another.acquire(1);
+                            helper.add(aux);
+                        } catch (Exception e) {
+                            System.out.println(e.toString());
+                        }
                     })
                     .subscribe();
 
-            Thread.sleep(sleepTime);
+            //Thread.sleep(1000);
+            helperSemaphore.acquire(1);
 
             Collections.sort(helper);
 
@@ -216,45 +263,59 @@ public class ReactiveClientThreads {
             }
 
             writer.close();
+            semaphore.release(1);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    private void exercise11(WebClient client, Flux<Student> studentsFlux, String filename, int sleepTime) {
+    private void exercise11(WebClient client, Flux<Student> studentsFlux, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter(filename);
+            PrintWriter writer = new PrintWriter("11.txt");
             List<StudentHelper> helper = new ArrayList<>();
+            Semaphore helperSemaphore = new Semaphore(0);
 
             studentsFlux
+                    .publishOn(Schedulers.boundedElastic())
+                    .doOnComplete(() -> {
+                        helperSemaphore.release(1);
+                    })
                     .doOnNext(student -> {
-                        StudentHelper aux = new StudentHelper(student);
+                        try {
+                            StudentHelper aux = new StudentHelper(student);
+                            Semaphore another = new Semaphore(0);
 
-                        Flux<StudentProfessor> professorStudents = client
-                                .get()
-                                .uri("/relationship/student/" + student.getId())
-                                .accept(MediaType.APPLICATION_JSON)
-                                .retrieve()
-                                .bodyToFlux(StudentProfessor.class);
-
-                        professorStudents.flatMap(relationship -> {
-                            int professorId= relationship.getProfessor_id();
-
-                            Mono<Professor> professorDetails = client
+                            Flux<StudentProfessor> professorStudents = client
                                     .get()
-                                    .uri("/professor/" + professorId)
+                                    .uri("/relationship/student/" + student.getId())
                                     .accept(MediaType.APPLICATION_JSON)
                                     .retrieve()
-                                    .bodyToMono(Professor.class);
+                                    .bodyToFlux(StudentProfessor.class);
 
-                            return professorDetails;
-                        }).subscribe(professor -> {aux.getStudentProfessors().add(professor);});
+                            professorStudents
+                                    .doOnComplete(() -> {another.release(1);})
+                                    .flatMap(relationship -> {
+                                        int professorId= relationship.getProfessor_id();
 
-                        helper.add(aux);
+                                        Mono<Professor> professorDetails = client
+                                                .get()
+                                                .uri("/professor/" + professorId)
+                                                .accept(MediaType.APPLICATION_JSON)
+                                                .retrieve()
+                                                .bodyToMono(Professor.class);
+
+                                        return professorDetails;
+                                    }).subscribe(professor -> {aux.getStudentProfessors().add(professor);});
+
+                            another.acquire(1);
+                            helper.add(aux);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     })
                     .subscribe();
 
-            Thread.sleep(sleepTime);
+            helperSemaphore.acquire(1);
 
             for (StudentHelper stud: helper) {
                 writer.println("{" + stud.getStudent().toString());
@@ -268,6 +329,7 @@ public class ReactiveClientThreads {
             }
 
             writer.close();
+            semaphore.release(1);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -331,46 +393,25 @@ public class ReactiveClientThreads {
                         .retrieve()
                         .bodyToFlux(Professor.class);
 
-                Thread t1 =new Thread(() -> exercise1(studentsFlux, "1.txt", 2000));
-                Thread t2 =new Thread(() -> exercise2(studentsFlux, "2.txt", 2000));
-                Thread t3 =new Thread(() -> exercise3(studentsFlux, "3.txt", 2000));
-                Thread t4 =new Thread(() -> exercise4(studentsFlux, "4.txt", 2000));
-                Thread t5 =new Thread(() -> exercise5(studentsFlux, "5.txt", 2000));
-                Thread t6 =new Thread(() -> exercise6(studentsFlux, "6.txt", 2000));
-                Thread t7 =new Thread(() -> exercise7(studentsFlux, "7.txt", 2000));
-                Thread t8 =new Thread(() -> exercise8(studentsFlux, "8.txt", 2000));
-                Thread t9 =new Thread(() -> exercise9(client, studentsFlux, "9.txt", 2000));
-                Thread t10 =new Thread(() -> exercise10(client, professorsFlux, "10.txt", 10000));
-                Thread t11 =new Thread(() -> exercise11(client, studentsFlux, "11.txt", 10000));
+                Semaphore semaphore = new Semaphore(0);
 
-                t1.start();
-                t2.start();
-                t3.start();
-                t4.start();
-                t5.start();
-                t6.start();
-                t7.start();
-                t8.start();
-                t9.start();
-                t10.start();
-                t11.start();
+                exercise1(studentsFlux, semaphore);
+                exercise2(studentsFlux, semaphore);
+                exercise3(studentsFlux, semaphore);
+                exercise4(studentsFlux, semaphore);
+                exercise5(studentsFlux, semaphore);
+                exercise6(studentsFlux, semaphore);
+                exercise7(studentsFlux, semaphore);
+                exercise8(studentsFlux, semaphore);
+                exercise9(client, studentsFlux, semaphore);
+                exercise10(client, professorsFlux, semaphore);
+                exercise11(client, studentsFlux, semaphore);
 
-                t1.join();
-                t2.join();
-                t3.join();
-                t4.join();
-                t5.join();
-                t6.join();
-                t7.join();
-                t8.join();
-                t9.join();
-                t10.join();
-                t11.join();
+                semaphore.acquire(11);
 
                 long endTime = System.currentTimeMillis();
                 long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
                 executionTimes.add(duration);
-
             } catch (Exception e) {
                 System.out.println(e.toString());
             }

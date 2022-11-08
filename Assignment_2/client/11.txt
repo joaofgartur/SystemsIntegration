@@ -1,0 +1,136 @@
+{Student: Melinda
+	Id: 1
+	Birthdate: 13/08/1998
+	Credits: 180
+	Average Grade: 9
+	Professors: 
+		Wilda
+		Lavenia
+		Margie
+}
+{Student: Leandra
+	Id: 4
+	Birthdate: 06/10/1997
+	Credits: 24
+	Average Grade: 15
+	Professors: 
+		Margie
+		Robert
+}
+{Student: Hobert
+	Id: 3
+	Birthdate: 16/07/1993
+	Credits: 96
+	Average Grade: 9
+	Professors: 
+		Margie
+		Casimira
+		Lemuel
+}
+{Student: Rea
+	Id: 2
+	Birthdate: 31/05/1990
+	Credits: 180
+	Average Grade: 8
+	Professors: 
+		Robert
+		Lavenia
+}
+{Student: Tory
+	Id: 5
+	Birthdate: 12/11/1991
+	Credits: 1
+	Average Grade: 7
+	Professors: 
+		Robert
+		Everette
+}
+{Student: Violeta
+	Id: 6
+	Birthdate: 13/11/1991
+	Credits: 61
+	Average Grade: 12
+	Professors: 
+		Lynwood
+}
+{Student: Dwayne
+	Id: 7
+	Birthdate: 06/07/2004
+	Credits: 135
+	Average Grade: 15
+	Professors: 
+		Carmine
+		Wilda
+		Casimira
+		Beckie
+}
+{Student: Lester
+	Id: 8
+	Birthdate: 13/01/1995
+	Credits: 140
+	Average Grade: 11
+	Professors: 
+		Lynwood
+		Casimira
+		Everette
+}
+{Student: Roland
+	Id: 9
+	Birthdate: 18/09/2002
+	Credits: 23
+	Average Grade: 16
+	Professors: 
+		Fredericka
+		Casimira
+		Lemuel
+}
+{Student: Harris
+	Id: 10
+	Birthdate: 05/08/2001
+	Credits: 27
+	Average Grade: 11
+	Professors: 
+		Fredericka
+}
+{Student: Tracie
+	Id: 11
+	Birthdate: 20/01/1998
+	Credits: 22
+	Average Grade: 9
+	Professors: 
+		Beckie
+}
+{Student: Emogene
+	Id: 12
+	Birthdate: 27/07/2000
+	Credits: 63
+	Average Grade: 10
+	Professors: 
+		Lavenia
+}
+{Student: Jaime
+	Id: 13
+	Birthdate: 18/08/1990
+	Credits: 173
+	Average Grade: 8
+	Professors: 
+		Wilda
+		Fredericka
+		Lavenia
+}
+{Student: Jordan
+	Id: 14
+	Birthdate: 31/12/2001
+	Credits: 103
+	Average Grade: 11
+	Professors: 
+		Fredericka
+		Everette
+}
+{Student: Ernesto
+	Id: 15
+	Birthdate: 14/05/2001
+	Credits: 79
+	Average Grade: 13
+	Professors: 
+}
