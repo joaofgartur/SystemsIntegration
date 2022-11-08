@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -49,11 +51,15 @@ public class StudentController {
     }
 
     @DeleteMapping("/{studentId}")
-    public Mono<Void> deleteStudentById(@PathVariable int studentId) {
-        //studentProfessorService.readAllRelationsFromStudent(studentId).count();
-        /* Se tiver relações dá erro, se não tiver faz a linha a baixo: */
-        /*return studentService.deleteStudentById(studentId);*/
-        return null;
+    public void deleteStudentById(@PathVariable int studentId) {
+        studentProfessorService.readAllRelationsFromStudent(studentId)
+                .count()
+                .subscribe(count -> {
+                    if(count == 0){
+                        /* Se tiver relações dá erro, se não tiver faz a linha a baixo: */
+                        studentService.deleteStudentById(studentId).subscribe();
+                    }
+                });
     }
 
 }

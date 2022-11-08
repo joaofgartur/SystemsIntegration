@@ -5,28 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77b01017-62c4-4aef-ac27-60b899049c5b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../server/src/main/java/com/example/server/controllers/DataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/10.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/11.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/4.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/6.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/7.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/9.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ReactiveClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ReactiveClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ReactiveClientMultipleCalls.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ReactiveClientMultipleCalls.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/ReactiveClientThreads.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/ReactiveClientThreads.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/ReactiveClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/ReactiveClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/ReactiveClientMultipleCalls.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/ReactiveClientMultipleCalls.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/ReactiveClientThreads.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/ReactiveClientThreads.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/logs/app.log" beforeDir="false" afterPath="$PROJECT_DIR$/../server/logs/app.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../server/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/resources/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/main/java/com/example/server/controllers/ProfessorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/com/example/server/controllers/ProfessorController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/src/main/java/com/example/server/controllers/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../server/src/main/java/com/example/server/controllers/StudentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -2,6 +2,7 @@ package com.example.server.controllers;
 
 import com.example.server.entity.Professor;
 import com.example.server.services.ProfessorService;
+import com.example.server.services.StudentProfessorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class ProfessorController {
 
     @Autowired
     private ProfessorService professorService;
+
+    @Autowired
+    private StudentProfessorService studentProfessorService;
 
     @PostMapping("/add")
     public Mono<Professor> addProfessor(@RequestBody Professor professor) {
@@ -43,6 +47,18 @@ public class ProfessorController {
     public Mono<Professor> updateProfessorById(@PathVariable int professorId, @RequestBody Mono<Professor> professorMono) {
         logger.info("[ENDPOINT] updateProfessorById with ID{} and contents: {}", professorId, professorMono);
         return professorService.updateProfessorById(professorId, professorMono);
+    }
+
+    @DeleteMapping("/{professorId}")
+    public void deleteProfessorById(@PathVariable int professorid) {
+        studentProfessorService.readAllRelationsFromStudent(professorid)
+                .count()
+                .subscribe(count -> {
+                    if(count == 0){
+                        /* Se tiver relações dá erro, se não tiver faz a linha a baixo: */
+                        professorService.deleteProfessorById(professorid).subscribe();
+                    }
+                });
     }
 
 }
