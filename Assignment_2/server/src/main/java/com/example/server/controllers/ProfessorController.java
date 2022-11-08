@@ -50,13 +50,13 @@ public class ProfessorController {
     }
 
     @DeleteMapping("/{professorId}")
-    public void deleteProfessorById(@PathVariable int professorid) {
-        studentProfessorService.readAllRelationsFromStudent(professorid)
+    public void deleteProfessorById(@PathVariable int professorId) {
+        studentProfessorService.readAllRelationsFromProfessor(professorId)
                 .count()
                 .subscribe(count -> {
                     if(count == 0){
                         /* Se tiver relações dá erro, se não tiver faz a linha a baixo: */
-                        professorService.deleteProfessorById(professorid).subscribe();
+                        professorService.deleteProfessorById(professorId).subscribe();
                     }
                 });
     }
