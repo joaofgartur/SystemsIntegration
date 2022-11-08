@@ -310,66 +310,77 @@ public class ReactiveClientThreads {
     }
 
     private void myMain() {
-        long startTime = System.currentTimeMillis();
-        WebClient client = WebClient.create(BASE_URL);
+        ArrayList<Long> executionTimes = new ArrayList<Long>();
 
-        try {
-            Flux<Student> studentsFlux = client
-                    .get()
-                    .uri("/student/")
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .bodyToFlux(Student.class);
+        for (int i = 0; i < 1; i++) {
+            long startTime = System.currentTimeMillis();
+            WebClient client = WebClient.create(BASE_URL);
 
-            Flux<Professor> professorsFlux = client
-                    .get()
-                    .uri("/professor/")
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .bodyToFlux(Professor.class);
+            try {
+                Flux<Student> studentsFlux = client
+                        .get()
+                        .uri("/student/")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .retrieve()
+                        .bodyToFlux(Student.class);
 
-            Thread t1 =new Thread(() -> exercise1(studentsFlux, "1.txt", 2000));
-            Thread t2 =new Thread(() -> exercise2(studentsFlux, "2.txt", 2000));
-            Thread t3 =new Thread(() -> exercise3(studentsFlux, "3.txt", 2000));
-            Thread t4 =new Thread(() -> exercise4(studentsFlux, "4.txt", 2000));
-            Thread t5 =new Thread(() -> exercise5(studentsFlux, "5.txt", 2000));
-            Thread t6 =new Thread(() -> exercise6(studentsFlux, "6.txt", 2000));
-            Thread t7 =new Thread(() -> exercise7(studentsFlux, "7.txt", 2000));
-            Thread t8 =new Thread(() -> exercise8(studentsFlux, "8.txt", 2000));
-            Thread t9 =new Thread(() -> exercise9(client, studentsFlux, "9.txt", 2000));
-            Thread t10 =new Thread(() -> exercise10(client, professorsFlux, "10.txt", 10000));
-            Thread t11 =new Thread(() -> exercise11(client, studentsFlux, "11.txt", 10000));
+                Flux<Professor> professorsFlux = client
+                        .get()
+                        .uri("/professor/")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .retrieve()
+                        .bodyToFlux(Professor.class);
 
-            t1.start();
-            t2.start();
-            t3.start();
-            t4.start();
-            t5.start();
-            t6.start();
-            t7.start();
-            t8.start();
-            t9.start();
-            t10.start();
-            t11.start();
+                Thread t1 =new Thread(() -> exercise1(studentsFlux, "1.txt", 2000));
+                Thread t2 =new Thread(() -> exercise2(studentsFlux, "2.txt", 2000));
+                Thread t3 =new Thread(() -> exercise3(studentsFlux, "3.txt", 2000));
+                Thread t4 =new Thread(() -> exercise4(studentsFlux, "4.txt", 2000));
+                Thread t5 =new Thread(() -> exercise5(studentsFlux, "5.txt", 2000));
+                Thread t6 =new Thread(() -> exercise6(studentsFlux, "6.txt", 2000));
+                Thread t7 =new Thread(() -> exercise7(studentsFlux, "7.txt", 2000));
+                Thread t8 =new Thread(() -> exercise8(studentsFlux, "8.txt", 2000));
+                Thread t9 =new Thread(() -> exercise9(client, studentsFlux, "9.txt", 2000));
+                Thread t10 =new Thread(() -> exercise10(client, professorsFlux, "10.txt", 10000));
+                Thread t11 =new Thread(() -> exercise11(client, studentsFlux, "11.txt", 10000));
 
-            t1.join();
-            t2.join();
-            t3.join();
-            t4.join();
-            t5.join();
-            t6.join();
-            t7.join();
-            t8.join();
-            t9.join();
-            t10.join();
-            t11.join();
+                t1.start();
+                t2.start();
+                t3.start();
+                t4.start();
+                t5.start();
+                t6.start();
+                t7.start();
+                t8.start();
+                t9.start();
+                t10.start();
+                t11.start();
 
-            long endTime = System.currentTimeMillis();
-            long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-            System.out.println("######### Operations Ended in "+ duration +"ms #########");
-        } catch (Exception e) {
-        System.out.println(e.toString());
+                t1.join();
+                t2.join();
+                t3.join();
+                t4.join();
+                t5.join();
+                t6.join();
+                t7.join();
+                t8.join();
+                t9.join();
+                t10.join();
+                t11.join();
+
+                long endTime = System.currentTimeMillis();
+                long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+                executionTimes.add(duration);
+
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
         }
+
+        System.out.println("######### Tests execution time (ms) #########");
+        for (Long time: executionTimes) {
+            System.out.println(time);
+        }
+
     }
 
     public static void main(String[] args) {

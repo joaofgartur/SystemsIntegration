@@ -231,11 +231,11 @@ public class ReactiveClient {
                                 .bodyToFlux(StudentProfessor.class);
 
                         professorStudents.flatMap(relationship -> {
-                            int studentId= relationship.getStudent_id();
+                            int professorId = relationship.getProfessor_id();
 
                             Mono<Professor> professorDetails = client
                                     .get()
-                                    .uri("/professor/" + studentId)
+                                    .uri("/professor/" + professorId)
                                     .accept(MediaType.APPLICATION_JSON)
                                     .retrieve()
                                     .bodyToMono(Professor.class);
@@ -314,15 +314,15 @@ public class ReactiveClient {
                     .retrieve()
                     .bodyToFlux(Student.class);
 
-            exercise1(studentsFlux, "1.txt", 2000);
-            exercise2(studentsFlux, "2.txt", 2000);
-            exercise3(studentsFlux, "3.txt", 2000);
-            exercise4(studentsFlux, "4.txt", 2000);
-            exercise5(studentsFlux, "5.txt", 2000);
-            exercise6(studentsFlux, "6.txt", 2000);
-            exercise7(studentsFlux, "7.txt", 5000);
-            exercise8(studentsFlux, "8.txt", 2000);
-            exercise9(client, studentsFlux, "9.txt", 2000);
+            exercise1(studentsFlux, "1.txt", 1000);
+            exercise2(studentsFlux, "2.txt", 1000);
+            exercise3(studentsFlux, "3.txt", 1000);
+            exercise4(studentsFlux, "4.txt", 1000);
+            exercise5(studentsFlux, "5.txt", 1000);
+            exercise6(studentsFlux, "6.txt", 1000);
+            exercise7(studentsFlux, "7.txt", 1000);
+            exercise8(studentsFlux, "8.txt", 1000);
+            exercise9(client, studentsFlux, "9.txt", 1000);
 
             Flux<Professor> professorsFlux = client
                     .get()
@@ -331,8 +331,8 @@ public class ReactiveClient {
                     .retrieve()
                     .bodyToFlux(Professor.class);
 
-            exercise10(client, professorsFlux, "10.txt", 10000);
-            exercise11(client, studentsFlux, "11.txt", 10000);
+            exercise10(client, professorsFlux, "10.txt", 1000);
+            exercise11(client, studentsFlux, "11.txt", 1000);
             long endTime = System.currentTimeMillis();
             long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
             System.out.println("######### Operations Ended in "+ duration +"ms #########");

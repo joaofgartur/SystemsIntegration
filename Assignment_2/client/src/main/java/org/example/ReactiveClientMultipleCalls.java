@@ -308,11 +308,11 @@ public class ReactiveClientMultipleCalls {
                                 .bodyToFlux(StudentProfessor.class);
 
                         professorStudents.flatMap(relationship -> {
-                            int studentId= relationship.getStudent_id();
+                            int professorId = relationship.getProfessor_id();
 
                             Mono<Professor> professorDetails = client
                                     .get()
-                                    .uri("/professor/" + studentId)
+                                    .uri("/professor/" + professorId)
                                     .accept(MediaType.APPLICATION_JSON)
                                     .retrieve()
                                     .bodyToMono(Professor.class);
@@ -380,6 +380,8 @@ public class ReactiveClientMultipleCalls {
     }
 
     private void myMain() {
+        long startTime = System.currentTimeMillis();
+
         WebClient client = WebClient.create(BASE_URL);
 
         exercise1(client, "1.txt", 2000);
@@ -393,6 +395,10 @@ public class ReactiveClientMultipleCalls {
         exercise9(client, "9.txt", 2000);
         exercise10(client, "10.txt", 10000);
         exercise11(client, "11.txt", 10000);
+
+        long endTime = System.currentTimeMillis();
+        long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+        System.out.println("######### Operations Ended in "+ duration +"ms #########");
     }
 
     public static void main(String[] args) {
