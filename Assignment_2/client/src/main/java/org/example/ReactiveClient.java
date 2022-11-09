@@ -10,17 +10,17 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Semaphore;
 
 
 public class ReactiveClient {
     private final String BASE_URL = "http://localhost:8080";
-    private void exercise1(Flux<Student> studentsFlux) {
+    private void exercise1(Flux<Student> studentsFlux, String filename, int sleepTime) {
         try {
-            PrintWriter writer = new PrintWriter("1.txt");
-            studentsFlux.doOnComplete(() -> {
-                writer.close();
-                notifyAll();
-            }).subscribe(s -> writer.println("{Name: " + s.getName() + ", Birthdate: " + s.getBirthdate() + "}"));
+            PrintWriter writer = new PrintWriter(filename);
+            studentsFlux.subscribe(s -> writer.println("{Name: " + s.getName() + ", Birthdate: " + s.getBirthdate() + "}"));
+            Thread.sleep(sleepTime);
+            writer.close();
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -303,51 +303,58 @@ public class ReactiveClient {
     }
 
     private void myMain() {
-        long startTime = System.currentTimeMillis();
-        WebClient client = WebClient.create(BASE_URL);
-
         try {
+            PrintWriter writer = new PrintWriter("reactive-client-log.txt");
+            writer.println("duration (ms)");
+            for (int i = 1; i <= 10; i++) {
+                long startTime = System.currentTimeMillis();
+                WebClient client = WebClient.create(BASE_URL);
 
-            Flux<Student> studentsFlux = client
-                    .get()
-                    .uri("/student/")
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .bodyToFlux(Student.class);
+                try {
 
-            exercise1(studentsFlux);
+                    Flux<Student> studentsFlux = client
+                            .get()
+                            .uri("/student/")
+                            .accept(MediaType.APPLICATION_JSON)
+                            .retrieve()
+                            .bodyToFlux(Student.class);
 
-            /*
-            exercise2(studentsFlux, "2.txt", 1000);
-            exercise3(studentsFlux, "3.txt", 1000);
-            exercise4(studentsFlux, "4.txt", 1000);
-            exercise5(studentsFlux, "5.txt", 1000);
-            exercise6(studentsFlux, "6.txt", 1000);
-            exercise7(studentsFlux, "7.txt", 1000);
-            exercise8(studentsFlux, "8.txt", 1000);
-            exercise9(client, studentsFlux, "9.txt", 1000);
+                    Flux<Professor> professorsFlux = client
+                            .get()
+                            .uri("/professor/")
+                            .accept(MediaType.APPLICATION_JSON)
+                            .retrieve()
+                            .bodyToFlux(Professor.class);
 
-            Flux<Professor> professorsFlux = client
-                    .get()
-                    .uri("/professor/")
-                    .accept(MediaType.APPLICATION_JSON)
-                    .retrieve()
-                    .bodyToFlux(Professor.class);
+                    exercise1(studentsFlux, i+"_1.txt",1000);
+                    exercise2(studentsFlux, i+"_2.txt", 1000);
+                    exercise3(studentsFlux, i+"_3.txt", 1000);
+                    exercise4(studentsFlux, i+"_4.txt", 1000);
+                    exercise5(studentsFlux, i+"_5.txt", 1000);
+                    exercise6(studentsFlux, i+"_6.txt", 1000);
+                    exercise7(studentsFlux, i+"_7.txt", 1000);
+                    exercise8(studentsFlux, i+"_8.txt", 1000);
+                    exercise9(client, studentsFlux, i+"_9.txt", 1000);
+                    exercise10(client, professorsFlux, i+"_10.txt", 1000);
+                    exercise11(client, studentsFlux, i+"_11.txt", 1000);
 
-            exercise10(client, professorsFlux, "10.txt", 1000);
-            exercise11(client, studentsFlux, "11.txt", 1000);
-            */
+                    /*int count = 0;
+                    while (count < 1) {
+                        wait();
+                        count++;
+                    }*/
+                    long endTime = System.currentTimeMillis();
+                    long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+                    System.out.println("######### Operations Ended in " + duration + "ms #########");
 
-            int count = 0;
-            while (count < 1) {
-                wait();
-                count++;
+                    writer.println(duration);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
-            long endTime = System.currentTimeMillis();
-            long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-            System.out.println("######### Operations Ended in "+ duration +"ms #########");
-        } catch (Exception e) {
-            System.out.println(e.toString());
+            writer.close();
+        } catch (Exception e){
+            System.out.println(e);
         }
     }
 

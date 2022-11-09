@@ -380,25 +380,35 @@ public class ReactiveClientMultipleCalls {
     }
 
     private void myMain() {
-        long startTime = System.currentTimeMillis();
+        try {
+            PrintWriter writer = new PrintWriter("reactive-client-multiple-calls-log.txt");
+            writer.println("duration (ms)");
+            for (int i = 1; i <= 10; i++) {
+                long startTime = System.currentTimeMillis();
 
-        WebClient client = WebClient.create(BASE_URL);
+                WebClient client = WebClient.create(BASE_URL);
 
-        exercise1(client, "1.txt", 2000);
-        exercise2(client, "2.txt", 2000);
-        exercise3(client, "3.txt", 2000);
-        exercise4(client, "4.txt", 2000);
-        exercise5(client, "5.txt", 2000);
-        exercise6(client, "6.txt", 2000);
-        exercise7(client, "7.txt", 2000);
-        exercise8(client, "8.txt", 2000);
-        exercise9(client, "9.txt", 2000);
-        exercise10(client, "10.txt", 10000);
-        exercise11(client, "11.txt", 10000);
+                exercise1(client, i+"m_1.txt", 1000);
+                exercise2(client, i+"m_2.txt", 1000);
+                exercise3(client, i+"m_3.txt", 1000);
+                exercise4(client, i+"m_4.txt", 1000);
+                exercise5(client, i+"m_5.txt", 1000);
+                exercise6(client, i+"m_6.txt", 1000);
+                exercise7(client, i+"m_7.txt", 1000);
+                exercise8(client, i+"m_8.txt", 1000);
+                exercise9(client, i+"m_9.txt", 1000);
+                exercise10(client, i+"m_10.txt", 1000);
+                exercise11(client, i+"m_11.txt", 1000);
 
-        long endTime = System.currentTimeMillis();
-        long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-        System.out.println("######### Operations Ended in "+ duration +"ms #########");
+                long endTime = System.currentTimeMillis();
+                long duration = (endTime - startTime);
+                System.out.println("######### Operations Ended in " + duration + "ms #########");
+                writer.println(duration);
+            }
+            writer.close();
+        } catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     public static void main(String[] args) {

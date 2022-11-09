@@ -17,9 +17,9 @@ import java.util.concurrent.Semaphore;
 
 public class ReactiveClientThreads {
     private final String BASE_URL = "http://localhost:8080";
-    private void exercise1(Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise1(Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("1.txt");
+            PrintWriter writer = new PrintWriter(i+"t_1.txt");
             studentsFlux
                     .publishOn(Schedulers.boundedElastic())
                     .doOnComplete(() -> {
@@ -33,9 +33,9 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise2(Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise2(Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("2.txt");
+            PrintWriter writer = new PrintWriter(i+"t_2.txt");
             studentsFlux
                     .publishOn(Schedulers.boundedElastic())
                     .count()
@@ -49,9 +49,9 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise3(Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise3(Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("3.txt");
+            PrintWriter writer = new PrintWriter(i+"t_3.txt");
             studentsFlux
                     .publishOn(Schedulers.boundedElastic())
                     .filter(student -> student.getCredits() < 180)
@@ -66,9 +66,9 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise4(Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise4(Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("4.txt");
+            PrintWriter writer = new PrintWriter(i+"t_4.txt");
             studentsFlux
                     .publishOn(Schedulers.boundedElastic())
                     .map(Student::getCredits)
@@ -83,9 +83,9 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise5(Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise5(Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("5.txt");
+            PrintWriter writer = new PrintWriter(i+"t_5.txt");
             studentsFlux
                     .publishOn(Schedulers.boundedElastic())
                     .filter(student -> student.getCredits() >= 120 && student.getCredits() < 180)
@@ -100,9 +100,9 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise6(Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise6(Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("6.txt");
+            PrintWriter writer = new PrintWriter(i+"t_6.txt");
             studentsFlux
                     .publishOn(Schedulers.boundedElastic())
                     .map(Student::getAverageGrade)
@@ -117,9 +117,9 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise7(Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise7(Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("7.txt");
+            PrintWriter writer = new PrintWriter(i+"t_7.txt");
             studentsFlux
                     .publishOn(Schedulers.boundedElastic())
                     .filter(student -> student.getCredits() == 180)
@@ -135,9 +135,9 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise8(Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise8(Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("8.txt");
+            PrintWriter writer = new PrintWriter(i+"t_8.txt");
             studentsFlux
                     .publishOn(Schedulers.boundedElastic())
                     .reduce((a, b) -> {
@@ -169,9 +169,9 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise9(WebClient client, Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise9(WebClient client, Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("9.txt");
+            PrintWriter writer = new PrintWriter(i+"t_9.txt");
 
             studentsFlux
                     .publishOn(Schedulers.boundedElastic())
@@ -195,9 +195,9 @@ public class ReactiveClientThreads {
             System.out.println(e.toString());
         }
     }
-    private void exercise10(WebClient client, Flux<Professor> professorsFlux, Semaphore semaphore) {
+    private void exercise10(WebClient client, Flux<Professor> professorsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("10.txt");
+            PrintWriter writer = new PrintWriter(i+"t_10.txt");
             List<ProfessorHelper> helper = new ArrayList<>();
 
             Semaphore helperSemaphore = new Semaphore(0);
@@ -269,9 +269,9 @@ public class ReactiveClientThreads {
         }
     }
 
-    private void exercise11(WebClient client, Flux<Student> studentsFlux, Semaphore semaphore) {
+    private void exercise11(WebClient client, Flux<Student> studentsFlux, int i, Semaphore semaphore) {
         try {
-            PrintWriter writer = new PrintWriter("11.txt");
+            PrintWriter writer = new PrintWriter(i+"t_11.txt");
             List<StudentHelper> helper = new ArrayList<>();
             Semaphore helperSemaphore = new Semaphore(0);
 
@@ -372,56 +372,56 @@ public class ReactiveClientThreads {
     }
 
     private void myMain() {
-        ArrayList<Long> executionTimes = new ArrayList<Long>();
+        try {
+            PrintWriter writer = new PrintWriter("reactive-client-threads-log.txt");
+            writer.println("duration (ms)");
+            for (int i = 1; i <= 10; i++) {
+                long startTime = System.currentTimeMillis();
+                WebClient client = WebClient.create(BASE_URL);
 
-        for (int i = 0; i < 1; i++) {
-            long startTime = System.currentTimeMillis();
-            WebClient client = WebClient.create(BASE_URL);
+                try {
+                    Flux<Student> studentsFlux = client
+                            .get()
+                            .uri("/student/")
+                            .accept(MediaType.APPLICATION_JSON)
+                            .retrieve()
+                            .bodyToFlux(Student.class);
 
-            try {
-                Flux<Student> studentsFlux = client
-                        .get()
-                        .uri("/student/")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .retrieve()
-                        .bodyToFlux(Student.class);
+                    Flux<Professor> professorsFlux = client
+                            .get()
+                            .uri("/professor/")
+                            .accept(MediaType.APPLICATION_JSON)
+                            .retrieve()
+                            .bodyToFlux(Professor.class);
 
-                Flux<Professor> professorsFlux = client
-                        .get()
-                        .uri("/professor/")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .retrieve()
-                        .bodyToFlux(Professor.class);
+                    Semaphore semaphore = new Semaphore(0);
 
-                Semaphore semaphore = new Semaphore(0);
+                    exercise1(studentsFlux, i, semaphore);
+                    exercise2(studentsFlux, i, semaphore);
+                    exercise3(studentsFlux, i, semaphore);
+                    exercise4(studentsFlux, i, semaphore);
+                    exercise5(studentsFlux, i, semaphore);
+                    exercise6(studentsFlux, i, semaphore);
+                    exercise7(studentsFlux, i, semaphore);
+                    exercise8(studentsFlux, i, semaphore);
+                    exercise9(client, studentsFlux, i,semaphore);
+                    exercise10(client, professorsFlux, i, semaphore);
+                    exercise11(client, studentsFlux, i, semaphore);
 
-                exercise1(studentsFlux, semaphore);
-                exercise2(studentsFlux, semaphore);
-                exercise3(studentsFlux, semaphore);
-                exercise4(studentsFlux, semaphore);
-                exercise5(studentsFlux, semaphore);
-                exercise6(studentsFlux, semaphore);
-                exercise7(studentsFlux, semaphore);
-                exercise8(studentsFlux, semaphore);
-                exercise9(client, studentsFlux, semaphore);
-                exercise10(client, professorsFlux, semaphore);
-                exercise11(client, studentsFlux, semaphore);
+                    semaphore.acquire(11);
 
-                semaphore.acquire(11);
-
-                long endTime = System.currentTimeMillis();
-                long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
-                executionTimes.add(duration);
-            } catch (Exception e) {
-                System.out.println(e.toString());
+                    long endTime = System.currentTimeMillis();
+                    long duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+                    System.out.println("######### Tests execution time " + duration + " (ms) #########");
+                    writer.println(duration);
+                } catch (Exception e) {
+                    System.out.println(e.toString());
+                }
             }
+            writer.close();
+        } catch (Exception e){
+            System.out.println(e);
         }
-
-        System.out.println("######### Tests execution time (ms) #########");
-        for (Long time: executionTimes) {
-            System.out.println(time);
-        }
-
     }
 
     public static void main(String[] args) {
