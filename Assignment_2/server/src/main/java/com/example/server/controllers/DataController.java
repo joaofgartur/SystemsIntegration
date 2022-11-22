@@ -50,7 +50,6 @@ public class DataController {
                 studentService.addStudent(new Student(name, date, credits, grade)).subscribe();
             }
 
-            List<Professor> professorList = new ArrayList<>();
             for (int i = 0; i < ENTITIES; i++) {
                 String name = faker.name().firstName();
                 professorService.addProfessor(new Professor(name)).subscribe();
