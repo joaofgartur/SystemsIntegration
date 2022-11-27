@@ -1,4 +1,4 @@
-package pt.uc.dei.streams;
+package com.example.streams;
 
 import java.io.IOException;
 import java.util.Properties;
