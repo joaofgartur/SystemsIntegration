@@ -1,7 +1,7 @@
 {
 	"name": "jdbc-sink",
 	"config": {
-		"connection.url": "jdbc:postgresql://database:5433/project3?user=postgres&password=My01pass",
+		"connection.url": "jdbc:postgresql://database:5432/project3?user=postgres&password=My01pass",
 		"connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
 		"dialec.name": "PostgreSqlDatabaseDialect",
 		"tasks.max": "1",
