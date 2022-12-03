@@ -1,4 +1,4 @@
-package com.example;
+package com.example.Models;
 
 public class AlertEvent {
     private String location, type;

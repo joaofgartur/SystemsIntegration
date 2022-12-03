@@ -1,9 +1,14 @@
 package com.example;
 
+import java.util.Properties;
+
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import java.util.Properties;
+
+import com.example.Models.AlertEvent;
+import com.example.Models.StandardEvent;
+import com.google.gson.Gson;
 
 public class WeatherStation {
 
@@ -19,14 +24,8 @@ public class WeatherStation {
     }
 
     private void myMain() {
-
-        // standard weather events producer
-        Properties standardProps = loadProperties(false);
-        Producer<String, StandardEvent> standardProducer = new KafkaProducer<>(standardProps);
-
-        // weather alert events producer
-        Properties alertProps = loadProperties(true);
-        Producer<String, AlertEvent> alertsProducer = new KafkaProducer<>(alertProps);
+       Properties producerProperties = loadPProducerProperties();
+       Producer<String, String> producer = new KafkaProducer<>(producerProperties);
 
         String[] weatherStations = {"Coimbra", "Lisboa", "Porto"};
         String[] locations = {"Alta", "Baixa", "Polo II", "Norton"};
@@ -42,21 +41,24 @@ public class WeatherStation {
     
                 // send standard weather event
                 StandardEvent event = new StandardEvent(location, temperature);
-                ProducerRecord<String, StandardEvent> standardWeatherEvent = new ProducerRecord<>(STANDARD_WEATHER_TOPIC, weatherStation, event);
-                standardProducer.send(standardWeatherEvent);
+                String jsonEvent = new Gson().toJson(event);
+                ProducerRecord<String, String> standardWeatherEvent = new ProducerRecord<>(STANDARD_WEATHER_TOPIC, weatherStation, jsonEvent);
+                producer.send(standardWeatherEvent);
                 System.out.println("Sent weather event!");
     
                 // send alert weather event
                 float alertProbability = randomFloat(0.0, 1.0);
-                if (alertProbability >= 0.5) {
+                if (alertProbability >= 1.1) {
     
                     // event data
                     location = locations[randomInt(0, locations.length - 1)];
                     String type = alertTypes[randomInt(0, alertTypes.length - 1)];
     
+                    //send alert event
                     AlertEvent alertEvent = new AlertEvent(location, type);
-                    ProducerRecord<String, AlertEvent> weatherAlertEvent = new ProducerRecord<>(WEATHER_ALERTS_TOPIC, weatherStation, alertEvent);
-                    alertsProducer.send(weatherAlertEvent);
+                    String jsonAlertEvent = new Gson().toJson(alertEvent);
+                    ProducerRecord<String, String> weatherAlertEvent = new ProducerRecord<>(WEATHER_ALERTS_TOPIC, weatherStation, jsonAlertEvent);
+                    producer.send(weatherAlertEvent);
                     System.out.println("Sent weather alert!");
                 }
     
@@ -68,27 +70,24 @@ public class WeatherStation {
             }
         } finally {
             System.out.println("Employee Producer Completed.");
-            standardProducer.close();
-            alertsProducer.close();
+            producer.close();
         }
-        
     }
 
-    private Properties loadProperties(boolean alertEvent) {
+    private Properties loadPProducerProperties() {
         Properties props = new Properties();
-
         props.put("bootstrap.servers", "broker1:9092");
+        //Set acknowledgements for producer requests. props.put("acks", "all");
+        //If the request fails, the producer can automatically retry,
         props.put("retries", 0);
+        //Specify buffer size in config
         props.put("batch.size", 16384);
+        //Reduce the no of requests less than 0
         props.put("linger.ms", 1);
+        //The buffer.memory controls the total amount of memory available to the producer for buffering.
         props.put("buffer.memory", 33554432);
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-        if (alertEvent) {
-            props.put("value.serializer", AlertEventSerializer.class);
-        } else {
-            props.put("value.serializer", StandardEventSerializer.class);
-        }
-
+        props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return props;
     }
 
