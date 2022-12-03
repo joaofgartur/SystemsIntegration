@@ -8,6 +8,8 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.StreamsConfig;
 
 public class SimpleConsumer {
     public static void main(String[] args) throws Exception{
@@ -28,18 +30,18 @@ public class SimpleConsumer {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaExampleConsumer");
         props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        // props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+        // props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.Long().getClass());
+        props.put("max.poll.records", "1");
         Consumer<String, String> consumer = new KafkaConsumer<>(props); consumer.subscribe(Collections.singletonList(topicName));
         
         try {
             while (true) {
-
-                System.out.print("consumer");
                 Duration d = Duration.ofSeconds(1000000);
                 ConsumerRecords<String, String> records = consumer.poll(d);
                 for (ConsumerRecord<String, String> record : records) {
                     System.out.println(record.key() + " => " + record.value()); 
                 }
-                System.out.print("next");
             }    
         }
         finally {
