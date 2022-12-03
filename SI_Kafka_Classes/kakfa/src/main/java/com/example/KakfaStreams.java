@@ -1,5 +1,7 @@
 package com.example;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
@@ -56,7 +58,19 @@ public class KakfaStreams {
         outlines = lines.groupByKey().count();
         outlines.mapValues((k,v) -> {
             System.out.println("GOD IS DEAD");
-            return k + " -> " + v;
+
+            String res = k + " -> " + v;
+
+            try {
+                FileWriter myWriter = new FileWriter("al1.txt");
+                myWriter.write(res);
+                myWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+            return res;
         }).toStream().to(OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.String()));
     
         // /*
