@@ -43,7 +43,6 @@ public class KakfaStreams {
         Duration d = Duration.ofSeconds(10);
         
         try {
-            while (true) {
                 KStream<String, String> standardEvents = builder.stream(STANDARD_WEATHER_TOPIC);
                 KStream<String, String> alertEvents = builder.stream(WEATHER_ALERTS_TOPIC);
 
@@ -67,26 +66,32 @@ public class KakfaStreams {
                     e.printStackTrace();
                 }
                 System.out.println("OUTPUT_TOPIC");
-            }    
+                
+                KafkaStreams streams = new KafkaStreams(builder.build(), standardProps);
+                streams.start();
         } finally {
             System.out.println("Finally!");
-            KafkaStreams streams = new KafkaStreams(builder.build(), standardProps); 
-            streams.start();
+            consumer.close();
         }
     }
 
     private Properties loadProperties(int consumerID) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "broker1:9092");
-        props.put("retries", 0);
-        props.put("batch.size", 16384);
-        props.put("linger.ms", 1);
-        props.put("buffer.memory", 33554432);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaExampleConsumer");
+        // props.put("bootstrap.servers", "broker1:9092");
+        // props.put("retries", 0);
+        // props.put("batch.size", 16384);
+        // props.put("linger.ms", 1);
+        // props.put("buffer.memory", 33554432);
+        // props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka-stream");
+        // props.put(ConsumerConfig.GROUP_ID_CONFIG, "KafkaExampleConsumer");
+        // props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+        // props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
+        // props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        // props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "kafka-stream");
+        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "broker1:9092");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.Long().getClass());
         return props;
     }
 

@@ -28,9 +28,9 @@ public class TheoreticalClass {
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "theoretical-class2");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "broker1:9092");
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.Long().getClass());
+        props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         
-        StreamsBuilder builder = new StreamsBuilder(); KStream<String, Long> lines = builder.stream(topicName);
+        StreamsBuilder builder = new StreamsBuilder(); KStream<String, String> lines = builder.stream(topicName);
 
         /* count() */
         KTable<String, Long> outlines = lines.groupByKey().count();
@@ -49,7 +49,7 @@ public class TheoreticalClass {
             .groupByKey()
             .aggregate(() -> new int[]{0, 0}, (aggKey, newValue, aggValue) -> {
                 aggValue[0] += 1;
-                aggValue[1] += newValue;
+                aggValue[1] += 1;
 
                 return aggValue;
             }, Materialized.with(Serdes.String(), new IntArraySerde()))
@@ -68,11 +68,11 @@ public class TheoreticalClass {
         /* swap keys and values */
         lines
             .map((k, v) -> new KeyValue<>(v, k))
-            .groupByKey(Grouped.with(Serdes.Long(), Serdes.String()))
+            .groupByKey(Grouped.with(Serdes.String(), Serdes.String()))
             .count()
             .mapValues(v -> "" + v)
             .toStream()
-            .to(outtopicname + "-5", Produced.with(Serdes.Long(), Serdes.String()));
+            .to(outtopicname + "-5", Produced.with(Serdes.String(), Serdes.String()));
 
         /* hopping window */
         Duration windowSize = Duration.ofMinutes(5);
