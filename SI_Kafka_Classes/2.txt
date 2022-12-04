@@ -1,1 +1,1 @@
-{Location: Polo II; Number of readings: 1820}
+{Location: Baixa; Number of readings: 69}

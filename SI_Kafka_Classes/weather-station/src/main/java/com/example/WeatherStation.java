@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 public class WeatherStation {
 
-    private final int MIN_TEMPERATURE = 0, MAX_TEMPERATURE = 100, SLEEP_TIME = 2000;
+    private final int MIN_TEMPERATURE = 0, MAX_TEMPERATURE = 99, SLEEP_TIME = 2000;
     private final String STANDARD_WEATHER_TOPIC = "StandardWeatherTopic", WEATHER_ALERTS_TOPIC = "WeatherAlertsTopic";
 
     public WeatherStation() {

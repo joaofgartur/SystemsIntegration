@@ -35,7 +35,7 @@ public class KakfaStreams {
 
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> lines = builder.stream(STANDARD_WEATHER_TOPIC);
-        //KStream<String, String> alerts = builder.stream(WEATHER_ALERTS_TOPIC);
+        KStream<String, String> alerts = builder.stream(WEATHER_ALERTS_TOPIC);
 
         // // Window
         // Duration windowSize = Duration.ofMinutes(5);
@@ -57,6 +57,7 @@ public class KakfaStreams {
         .toStream()
         .to(OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.String()));
 
+
         // 2. Count temperature readings of standard weather events per location.
         KTable<String, Long> readingPerLocation = lines
         .selectKey((key, value) -> loadJSONAttribute(value, "location"))
@@ -71,6 +72,7 @@ public class KakfaStreams {
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-2", Produced.with(Serdes.String(), Serdes.String()));
+
 
         // 3. Get	minimum	and	maximum	temperature	per	weather	station.
         lines
@@ -90,8 +92,39 @@ public class KakfaStreams {
         .toStream()
         .to(OUTPUT_TOPIC + "-3", Produced.with(Serdes.String(), Serdes.String()));
 
-        // Get minimum and maximum temperature per location (Students should compute these values in Fahrenheit).
 
+        // 4. Get minimum and maximum temperature per location (Students should compute these values in Fahrenheit).
+        lines
+        .selectKey((key, value) -> loadJSONAttribute(value, "location"))
+        .groupByKey()
+        .aggregate(() -> new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE}, (aggKey, newValue, aggValue) -> {
+            int temperature = loadJSONIntAttribute(newValue, "temperature");
+
+            aggValue[0] = Math.min(aggValue[0], temperature);
+            aggValue[1] = Math.max(aggValue[1], temperature);
+
+            return aggValue;
+        }, Materialized.with(Serdes.String(), new IntArraySerde()))
+        .mapValues((key, values) -> {
+            String result = "{Location: " + key + ", minimum temperature: " + celsiusToFahrenheit(values[0])  + ", maximum temperature:" + celsiusToFahrenheit(values[1]) + "}";
+            return result;
+        })
+        .toStream()
+        .to(OUTPUT_TOPIC + "-4", Produced.with(Serdes.String(), Serdes.String()));
+
+
+        // 5. Count the total number of alerts per weather station.
+        alerts
+        .groupByKey()
+        .count()
+        .mapValues((k,v) -> {
+            String result = "{Weather station: " + k + ", Number of alerts: " + v + "}";
+            System.out.println(result);
+            writeToFile("5.txt", result);
+            return result;
+        })
+        .toStream()
+        .to(OUTPUT_TOPIC + "-5", Produced.with(Serdes.String(), Serdes.String()));
 
         KafkaStreams streams = new KafkaStreams(builder.build(), standardProps);
         streams.start();
@@ -125,5 +158,9 @@ public class KakfaStreams {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private float celsiusToFahrenheit(int celsius) {
+        return ((celsius * 9) / 5) + 32;
     }
 }
