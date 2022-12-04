@@ -31,11 +31,10 @@ public class WeatherStation {
         String[] locations = {"Alta", "Baixa", "Polo II", "Norton"};
         String[] alertTypes = {"red", "alert"};
 
-        String weatherStation = weatherStations[0];
-
         try {
             while(true) {
                 // event data
+                String weatherStation = weatherStations[randomInt(0, weatherStations.length - 1)];
                 String location = locations[randomInt(0, locations.length - 1)];
                 int temperature = randomInt(MIN_TEMPERATURE, MAX_TEMPERATURE);
     
@@ -48,7 +47,7 @@ public class WeatherStation {
     
                 // send alert weather event
                 float alertProbability = randomFloat(0.0, 1.0);
-                if (alertProbability >= 1.1) {
+                if (alertProbability >= 0.5) {
     
                     // event data
                     location = locations[randomInt(0, locations.length - 1)];
@@ -69,7 +68,7 @@ public class WeatherStation {
                 }
             }
         } finally {
-            System.out.println("Employee Producer Completed.");
+            System.out.println("Weather events producer completed.");
             producer.close();
         }
     }
