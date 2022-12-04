@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
 
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
+
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -76,7 +78,7 @@ public class KakfaStreams {
 
 
         // 3. Get	minimum	and	maximum	temperature	per	weather	station.
-        lines
+        KTable<String, int[]> minMaxTempPerStation = lines
         .groupByKey()
         .aggregate(() -> new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE}, (aggKey, newValue, aggValue) -> {
             int temperature = loadJSONIntAttribute(newValue, "temperature");
@@ -85,8 +87,9 @@ public class KakfaStreams {
             aggValue[1] = Math.max(aggValue[1], temperature);
 
             return aggValue;
-        }, Materialized.with(Serdes.String(), new IntArraySerde()))
-        .mapValues((key, values) -> {
+        }, Materialized.with(Serdes.String(), new IntArraySerde()));
+
+        minMaxTempPerStation.mapValues((key, values) -> {
             String result = "{Weather station: " + key + ", minimum temperature: " + values[0]  + ", maximum temperature:" + values[1] + "}";
             writeToFile("3.txt", result);
             return result;
@@ -140,6 +143,30 @@ public class KakfaStreams {
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-6", Produced.with(Serdes.String(), Serdes.String()));
+
+        // 7. Get minimum temperature of weather stations with red alert events.
+        KStream<String, String> weatherStationsWithRedAlerts = alerts.filter((key, value) -> {
+            return loadJSONAttribute(value, "type").compareTo("red") == 0;
+        });
+
+        KStream<String, String> minTempRedStream = weatherStationsWithRedAlerts.join(minMaxTempPerStation,
+            (left, right) -> left + "_" + right[0]
+        );
+
+        minTempRedStream
+        .groupByKey()
+        .aggregate(() -> new int[]{Integer.MAX_VALUE}, (aggKey, newValue, aggValue) -> {
+            String[] aux = newValue.split("_");
+            int temperature = Integer.parseInt(aux[1]);
+            aggValue[0] = Math.min(aggValue[0], temperature);
+            return aggValue;
+        }, Materialized.with(Serdes.String(), new IntArraySerde())).mapValues((key, value) -> {
+            String result = "{Minimum temperature of weather stations with red alert: " + value[0] + "}";
+            writeToFile("7.txt", result);
+            return result;
+        })
+        .toStream()
+        .to(OUTPUT_TOPIC + "-7", Produced.with(Serdes.String(), Serdes.String()));
 
         KafkaStreams streams = new KafkaStreams(builder.build(), standardProps);
         streams.start();
