@@ -1,0 +1,2 @@
+{Type of alert: red; Number of readings: 114}
+{Type of alert: red; Number of readings: 122}

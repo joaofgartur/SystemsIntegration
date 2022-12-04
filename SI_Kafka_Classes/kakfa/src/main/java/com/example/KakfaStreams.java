@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Properties;
@@ -87,6 +88,7 @@ public class KakfaStreams {
         }, Materialized.with(Serdes.String(), new IntArraySerde()))
         .mapValues((key, values) -> {
             String result = "{Weather station: " + key + ", minimum temperature: " + values[0]  + ", maximum temperature:" + values[1] + "}";
+            writeToFile("3.txt", result);
             return result;
         })
         .toStream()
@@ -107,6 +109,7 @@ public class KakfaStreams {
         }, Materialized.with(Serdes.String(), new IntArraySerde()))
         .mapValues((key, values) -> {
             String result = "{Location: " + key + ", minimum temperature: " + celsiusToFahrenheit(values[0])  + ", maximum temperature:" + celsiusToFahrenheit(values[1]) + "}";
+            writeToFile("4.txt", result);
             return result;
         })
         .toStream()
@@ -119,15 +122,28 @@ public class KakfaStreams {
         .count()
         .mapValues((k,v) -> {
             String result = "{Weather station: " + k + ", Number of alerts: " + v + "}";
-            System.out.println(result);
             writeToFile("5.txt", result);
             return result;
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-5", Produced.with(Serdes.String(), Serdes.String()));
 
+        // 6. Count the total alerts per type
+        alerts
+        .selectKey((key, value) -> loadJSONAttribute(value, "type"))
+        .groupByKey()
+        .count()
+        .mapValues((key, value) -> {
+            String result = "{Type of alert: " + key + "; Number of readings: " + value + "}";
+            writeToFile("6.txt", result);
+            return result;
+        })
+        .toStream()
+        .to(OUTPUT_TOPIC + "-6", Produced.with(Serdes.String(), Serdes.String()));
+
         KafkaStreams streams = new KafkaStreams(builder.build(), standardProps);
         streams.start();
+        
     }
 
     private Properties loadProperties(int consumerID) {
@@ -152,9 +168,11 @@ public class KakfaStreams {
 
     private void writeToFile(String filename, String text) {
         try {
-            FileWriter writer = new FileWriter(filename);
-            writer.write(text);
-            writer.close();
+            FileWriter fw = new FileWriter(filename, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(text);
+            bw.newLine();
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

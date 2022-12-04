@@ -1,1 +1,6 @@
-{Location: Baixa; Number of readings: 69}
+{Location: Baixa; Number of readings: 209}
+{Location: Alta; Number of readings: 213}
+{Location: Polo II; Number of readings: 200}
+{Location: Alta; Number of readings: 221}
+{Location: Polo II; Number of readings: 203}
+{Location: Baixa; Number of readings: 213}

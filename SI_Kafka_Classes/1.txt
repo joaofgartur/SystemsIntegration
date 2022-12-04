@@ -1,1 +1,4 @@
-{Weather station: Lisboa, Number of readings: 123}
+{Weather station: Lisboa, Number of readings: 315}
+{Weather station: Coimbra, Number of readings: 262}
+{Weather station: Lisboa, Number of readings: 322}
+{Weather station: Coimbra, Number of readings: 270}

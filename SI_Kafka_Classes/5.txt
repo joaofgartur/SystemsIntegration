@@ -1,1 +1,4 @@
-{Weather station: Lisboa, Number of alerts: 1471}
+{Weather station: Lisboa, Number of alerts: 1562}
+{Weather station: Coimbra, Number of alerts: 1681}
+{Weather station: Lisboa, Number of alerts: 1567}
+{Weather station: Coimbra, Number of alerts: 1684}
