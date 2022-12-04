@@ -1,1 +1,1 @@
-{Weather station: Coimbra, Number of readings: 5791}
+{Weather station: Coimbra, Number of readings: 7480}

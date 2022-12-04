@@ -1,1 +1,1 @@
-{Location: Alta; Number of readings: 280}
+{Location: Polo II; Number of readings: 1820}
