@@ -77,7 +77,7 @@ public class KakfaStreams {
         .to(OUTPUT_TOPIC + "-2", Produced.with(Serdes.String(), Serdes.String()));
 
 
-        // 3. Get	minimum	and	maximum	temperature	per	weather	station.
+        // 3. Get minimum and maximum temperature per weather station.
         KTable<String, int[]> minMaxTempPerStation = lines
         .groupByKey()
         .aggregate(() -> new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE}, (aggKey, newValue, aggValue) -> {
@@ -144,29 +144,58 @@ public class KakfaStreams {
         .toStream()
         .to(OUTPUT_TOPIC + "-6", Produced.with(Serdes.String(), Serdes.String()));
 
+
         // 7. Get minimum temperature of weather stations with red alert events.
+
+        // Get weather stations in red zones
         KStream<String, String> weatherStationsWithRedAlerts = alerts.filter((key, value) -> {
             return loadJSONAttribute(value, "type").compareTo("red") == 0;
         });
 
-        KStream<String, String> minTempRedStream = weatherStationsWithRedAlerts.join(minMaxTempPerStation,
-            (left, right) -> left + "_" + right[0]
+
+        // 9. Get minimum temperature per weather station in red alert zones.
+        KStream<String, Integer> minTempRedStream = weatherStationsWithRedAlerts.join(minMaxTempPerStation,
+            (left, right) -> right[0]
         );
 
         minTempRedStream
         .groupByKey()
         .aggregate(() -> new int[]{Integer.MAX_VALUE}, (aggKey, newValue, aggValue) -> {
-            String[] aux = newValue.split("_");
-            int temperature = Integer.parseInt(aux[1]);
-            aggValue[0] = Math.min(aggValue[0], temperature);
+            aggValue[0] = Math.min(aggValue[0], newValue);
             return aggValue;
-        }, Materialized.with(Serdes.String(), new IntArraySerde())).mapValues((key, value) -> {
-            String result = "{Minimum temperature of weather stations with red alert: " + value[0] + "}";
-            writeToFile("7.txt", result);
+        }, Materialized.with(Serdes.String(), new IntArraySerde()))
+        .mapValues((key, value) -> {
+            String result = "{Weather station with red alert: " + key + ", minimum temperature: " + value[0] + "}";
+            writeToFile("9.txt", result);
             return result;
         })
         .toStream()
-        .to(OUTPUT_TOPIC + "-7", Produced.with(Serdes.String(), Serdes.String()));
+        .to(OUTPUT_TOPIC + "-9", Produced.with(Serdes.String(), Serdes.String()));
+
+
+        // 10. Get the average temperature per weather stations
+        lines
+            .groupByKey()
+            .aggregate(() -> new int[]{0, 0}, (aggKey, newValue, aggValue) -> {
+                aggValue[0] += 1;
+                aggValue[1] += loadJSONIntAttribute(newValue, "temperature");
+
+                return aggValue;
+            }, Materialized.with(Serdes.String(), new IntArraySerde()))
+            .mapValues((key, v) -> {
+                String result = "";
+                if (v[0] == 0) {
+                    result = "{Weather station: " + key + ", average temperature: div by 0}";
+                } else {
+                    result = "{Weather station: " + key + ", average temperature: " + (1.0 * v[1]) / v[0] + "}";
+                }
+                writeToFile("10.txt", result);
+                return result;
+            })
+            .toStream()
+            .to(OUTPUT_TOPIC + "-10", Produced.with(Serdes.String(), Serdes.String()));
+
+
 
         KafkaStreams streams = new KafkaStreams(builder.build(), standardProps);
         streams.start();
