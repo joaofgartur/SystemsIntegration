@@ -1,0 +1,4 @@
+{Weather station: Coimbra, average temperature: 18.5}
+{Weather station: Lisboa, average temperature: 21.5}
+{Weather station: Coimbra, average temperature: 18.5}
+{Weather station: Lisboa, average temperature: 21.5}

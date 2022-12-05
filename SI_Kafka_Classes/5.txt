@@ -1,0 +1,2 @@
+{Weather station: Lisboa, Number of alerts: 1883}
+{Weather station: Lisboa, Number of alerts: 1884}

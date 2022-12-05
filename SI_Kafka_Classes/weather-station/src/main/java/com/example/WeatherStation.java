@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 
 public class WeatherStation {
 
-    private final int MIN_TEMPERATURE = 0, MAX_TEMPERATURE = 99, SLEEP_TIME = 2000;
+    private final int MIN_TEMPERATURE = -100, MAX_TEMPERATURE = 100, SLEEP_TIME = 2000;
     private final String STANDARD_WEATHER_TOPIC = "StandardWeatherTopic", WEATHER_ALERTS_TOPIC = "WeatherAlertsTopic";
 
     public WeatherStation() {
@@ -45,21 +45,16 @@ public class WeatherStation {
                 producer.send(standardWeatherEvent);
                 System.out.println("Sent weather event!");
     
-                // send alert weather event
-                float alertProbability = randomFloat(0.0, 1.0);
-                if (alertProbability >= 0.5) {
-    
-                    // event data
-                    location = locations[randomInt(0, locations.length - 1)];
-                    String type = alertTypes[randomInt(0, alertTypes.length - 1)];
-    
-                    //send alert event
-                    AlertEvent alertEvent = new AlertEvent(location, type);
-                    String jsonAlertEvent = new Gson().toJson(alertEvent);
-                    ProducerRecord<String, String> weatherAlertEvent = new ProducerRecord<>(WEATHER_ALERTS_TOPIC, weatherStation, jsonAlertEvent);
-                    producer.send(weatherAlertEvent);
-                    System.out.println("Sent weather alert!");
-                }
+                // event data
+                location = locations[randomInt(0, locations.length - 1)];
+                String type = alertTypes[randomInt(0, alertTypes.length - 1)];
+
+                //send alert event
+                AlertEvent alertEvent = new AlertEvent(location, type);
+                String jsonAlertEvent = new Gson().toJson(alertEvent);
+                ProducerRecord<String, String> weatherAlertEvent = new ProducerRecord<>(WEATHER_ALERTS_TOPIC, weatherStation, jsonAlertEvent);
+                producer.send(weatherAlertEvent);
+                System.out.println("Sent weather alert!");
     
                 try {
                     Thread.sleep(SLEEP_TIME);

@@ -1,0 +1,1 @@
+{Type of alert: red; Number of readings: 869}

@@ -8,6 +8,7 @@ import java.util.Properties;
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.common.serialization.Serdes.IntegerSerde;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
@@ -152,12 +153,26 @@ public class KakfaStreams {
             return loadJSONAttribute(value, "type").compareTo("red") == 0;
         });
 
-
-        // 9. Get minimum temperature per weather station in red alert zones.
+        // Get minimum temperatures per each weather station
         KStream<String, Integer> minTempRedStream = weatherStationsWithRedAlerts.join(minMaxTempPerStation,
             (left, right) -> right[0]
         );
 
+        minTempRedStream
+        .groupByKey()
+        .aggregate(() -> Integer.MAX_VALUE, (aggKey, newValue, aggValue) -> {
+            return newValue;
+        }, Materialized.with(Serdes.String(), new IntegerSerde()))
+        .mapValues((key, value) -> {
+            String result = "{Minimum temperature of weather stations: " + value + "}";
+            writeToFile("7.txt", result);
+            return result;
+        })
+        .toStream()
+        .to(OUTPUT_TOPIC + "-7", Produced.with(Serdes.String(), Serdes.String()));
+
+        // 9. Get minimum temperature per weather station in red alert zones.
+        
         minTempRedStream
         .groupByKey()
         .aggregate(() -> new int[]{Integer.MAX_VALUE}, (aggKey, newValue, aggValue) -> {
@@ -177,6 +192,7 @@ public class KakfaStreams {
         lines
             .groupByKey()
             .aggregate(() -> new int[]{0, 0}, (aggKey, newValue, aggValue) -> {
+
                 aggValue[0] += 1;
                 aggValue[1] += loadJSONIntAttribute(newValue, "temperature");
 
