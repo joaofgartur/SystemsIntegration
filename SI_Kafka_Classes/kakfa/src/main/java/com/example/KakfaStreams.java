@@ -189,12 +189,12 @@ public class KakfaStreams {
         );
 
         Duration windowSize = Duration.ofMinutes(5);
-        Duration advanceSize = Duration.ofMinutes(1);
-        TimeWindows hoppingWindow = TimeWindows.ofSizeWithNoGrace(windowSize).advanceBy(advanceSize);
+        Duration gracePeriod = Duration.ofMinutes(1);
+        TimeWindows tumbling = TimeWindows.ofSizeAndGrace(windowSize, gracePeriod);
 
         maxTempRedLocation
         .groupByKey(Grouped.with(Serdes.String(), Serdes.Integer()))
-        .windowedBy(hoppingWindow)
+        .windowedBy(tumbling)
         .reduce((oldValue, newValue) -> newValue)
         .toStream((wk, v) -> wk.key())
         .mapValues((key, value) -> {
@@ -203,19 +203,6 @@ public class KakfaStreams {
             return result;
         })
         .to(OUTPUT_TOPIC + "-8", Produced.with(Serdes.String(), Serdes.String()));
-
-        /*
-        maxTempRedLocation
-        .groupByKey()
-        .windowedBy(hoppingWindow)
-        .aggregate(() -> 0, (aggKey, newValue, aggValue) -> {
-            return newValue;
-        }, Materialized.with(Serdes.String(), Serdes.Integer()))
-        .toStream((wk, v) -> wk.key())
-        .mapValues((k, v) -> "key: " + k + ", value " + v)
-        .to("DEBUG", Produced.with(Serdes.String(), Serdes.String()));
-        */
-
 
         // 9. Get minimum temperature per weather station in red alert zones. -> Fix
 
@@ -230,7 +217,7 @@ public class KakfaStreams {
         .mapValues((key, value) -> loadJSONAttribute(value, "type"));
 
         // 10. Get the average temperature per weather stations
-        lines
+        KTable<String, int[]> averageTemps = lines
             .groupByKey()
             .aggregate(() -> new int[]{0, 0}, (aggKey, newValue, aggValue) -> {
 
@@ -238,7 +225,9 @@ public class KakfaStreams {
                 aggValue[1] += loadJSONIntAttribute(newValue, "temperature");
 
                 return aggValue;
-            }, Materialized.with(Serdes.String(), new IntArraySerde()))
+            }, Materialized.with(Serdes.String(), new IntArraySerde()));
+
+            averageTemps
             .mapValues((key, v) -> {
                 String result = "";
                 if (v[0] == 0) {
@@ -252,7 +241,14 @@ public class KakfaStreams {
             .toStream()
             .to(OUTPUT_TOPIC + "-10", Produced.with(Serdes.String(), Serdes.String()));
 
+        // 11. Get the average temperature of weather stations with red alert events for the last hour
 
+        KStream<String, Double> avgRedStream = weatherStationsWithRedAlerts.join(averageTemps, (left, right) -> (right[0] != 0 ? (1.0 * right[1]) / right[0] : 0));
+
+        //avgRedStream.peek((key,value)-> System.out.println("7- Minimum temperature in alert stations " + String.valueOf(value)));
+
+        
+ 
 
         KafkaStreams streams = new KafkaStreams(builder.build(), standardProps);
         streams.start();

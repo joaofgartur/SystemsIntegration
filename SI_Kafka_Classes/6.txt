@@ -1,6 +1,4 @@
-{Type of alert: red; Number of readings: 597}
-{Type of alert: green; Number of readings: 585}
-{Type of alert: green; Number of readings: 594}
-{Type of alert: red; Number of readings: 604}
-{Type of alert: green; Number of readings: 602}
-{Type of alert: red; Number of readings: 611}
+{Type of alert: red; Number of readings: 655}
+{Type of alert: green; Number of readings: 645}
+{Type of alert: green; Number of readings: 651}
+{Type of alert: red; Number of readings: 664}
