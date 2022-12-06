@@ -3,19 +3,20 @@ package com.example;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Properties;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.Serdes.IntegerSerde;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.kstream.Produced;
+import org.apache.kafka.streams.kstream.TimeWindows;
 import org.json.JSONObject;
 
 import com.example.streams.IntArraySerde;
@@ -100,7 +101,7 @@ public class KakfaStreams {
 
 
         // 4. Get minimum and maximum temperature per location (Students should compute these values in Fahrenheit).
-        lines
+        KTable<String, int[]> minMaxPerLocation = lines
         .selectKey((key, value) -> loadJSONAttribute(value, "location"))
         .groupByKey()
         .aggregate(() -> new int[]{Integer.MAX_VALUE, Integer.MIN_VALUE}, (aggKey, newValue, aggValue) -> {
@@ -110,8 +111,10 @@ public class KakfaStreams {
             aggValue[1] = Math.max(aggValue[1], temperature);
 
             return aggValue;
-        }, Materialized.with(Serdes.String(), new IntArraySerde()))
-        .mapValues((key, values) -> {
+        }, Materialized.with(Serdes.String(), new IntArraySerde()));
+
+
+        minMaxPerLocation.mapValues((key, values) -> {
             String result = "{Location: " + key + ", minimum temperature: " + celsiusToFahrenheit(values[0])  + ", maximum temperature:" + celsiusToFahrenheit(values[1]) + "}";
             writeToFile("4.txt", result);
             return result;
@@ -160,33 +163,71 @@ public class KakfaStreams {
 
         minTempRedStream
         .groupByKey()
-        .aggregate(() -> Integer.MAX_VALUE, (aggKey, newValue, aggValue) -> {
+        .aggregate(() -> 0, (aggKey, newValue, aggValue) -> {
             return newValue;
         }, Materialized.with(Serdes.String(), new IntegerSerde()))
         .mapValues((key, value) -> {
-            String result = "{Minimum temperature of weather stations: " + value + "}";
+            String result = "{Weather station with red alert: " + key + ", minimum temperature: " + value + "}";
             writeToFile("7.txt", result);
             return result;
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-7", Produced.with(Serdes.String(), Serdes.String()));
 
-        // 9. Get minimum temperature per weather station in red alert zones.
-        
-        minTempRedStream
-        .groupByKey()
-        .aggregate(() -> new int[]{Integer.MAX_VALUE}, (aggKey, newValue, aggValue) -> {
-            aggValue[0] = Math.min(aggValue[0], newValue);
-            return aggValue;
-        }, Materialized.with(Serdes.String(), new IntArraySerde()))
+
+        // 8. Get maximum temperature of each location of alert events for the last hour
+
+        // Get locations with red alerts
+        KStream<String, String> locationsWithRedAlerts = alerts
+        .selectKey((key, value) -> loadJSONAttribute(value, "location"))
+        .filter((key, value) -> {
+            return loadJSONAttribute(value, "type").compareTo("red") == 0;
+        });
+
+        KStream<String, Integer> maxTempRedLocation = locationsWithRedAlerts.join(minMaxPerLocation,
+            (left, right) -> right[1]
+        );
+
+        Duration windowSize = Duration.ofMinutes(5);
+        Duration advanceSize = Duration.ofMinutes(1);
+        TimeWindows hoppingWindow = TimeWindows.ofSizeWithNoGrace(windowSize).advanceBy(advanceSize);
+
+        maxTempRedLocation
+        .groupByKey(Grouped.with(Serdes.String(), Serdes.Integer()))
+        .windowedBy(hoppingWindow)
+        .reduce((oldValue, newValue) -> newValue)
+        .toStream((wk, v) -> wk.key())
         .mapValues((key, value) -> {
-            String result = "{Weather station with red alert: " + key + ", minimum temperature: " + value[0] + "}";
-            writeToFile("9.txt", result);
+            String result = "{Location: " + key + ", max temperature: " + value + "}";
+            writeToFile("8.txt", result);
             return result;
         })
-        .toStream()
-        .to(OUTPUT_TOPIC + "-9", Produced.with(Serdes.String(), Serdes.String()));
+        .to(OUTPUT_TOPIC + "-8", Produced.with(Serdes.String(), Serdes.String()));
 
+        /*
+        maxTempRedLocation
+        .groupByKey()
+        .windowedBy(hoppingWindow)
+        .aggregate(() -> 0, (aggKey, newValue, aggValue) -> {
+            return newValue;
+        }, Materialized.with(Serdes.String(), Serdes.Integer()))
+        .toStream((wk, v) -> wk.key())
+        .mapValues((k, v) -> "key: " + k + ", value " + v)
+        .to("DEBUG", Produced.with(Serdes.String(), Serdes.String()));
+        */
+
+
+        // 9. Get minimum temperature per weather station in red alert zones. -> Fix
+
+        // Get temperature readings of each location
+        KStream<String, Integer> locationTemps = lines
+        .selectKey((key, value) -> loadJSONAttribute(value, "location"))
+        .mapValues((key, value) -> loadJSONIntAttribute(value, "temperature"));
+
+        // Get alerts of each location
+        KStream<String, String> locationAlerts = alerts
+        .selectKey((key, value) -> loadJSONAttribute(value, "location"))
+        .mapValues((key, value) -> loadJSONAttribute(value, "type"));
 
         // 10. Get the average temperature per weather stations
         lines

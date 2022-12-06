@@ -1,4 +1,9 @@
-{Weather station: Coimbra, Number of readings: 922}
-{Weather station: Lisboa, Number of readings: 956}
-{Weather station: Coimbra, Number of readings: 924}
-{Weather station: Lisboa, Number of readings: 958}
+{Weather station: Lisboa, Number of readings: 386}
+{Weather station: Porto, Number of readings: 382}
+{Weather station: Coimbra, Number of readings: 377}
+{Weather station: Coimbra, Number of readings: 378}
+{Weather station: Lisboa, Number of readings: 394}
+{Weather station: Porto, Number of readings: 389}
+{Weather station: Lisboa, Number of readings: 396}
+{Weather station: Porto, Number of readings: 396}
+{Weather station: Coimbra, Number of readings: 384}

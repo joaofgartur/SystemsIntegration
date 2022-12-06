@@ -29,13 +29,13 @@ public class WeatherStation {
 
         String[] weatherStations = {"Coimbra", "Lisboa", "Porto"};
         String[] locations = {"Alta", "Baixa", "Polo II", "Norton"};
-        String[] alertTypes = {"red", "alert"};
+        String[] alertTypes = {"red", "green"};
 
         try {
             while(true) {
                 // event data
-                String weatherStation = weatherStations[randomInt(0, weatherStations.length - 1)];
-                String location = locations[randomInt(0, locations.length - 1)];
+                String weatherStation = weatherStations[randomInt(0, weatherStations.length)];
+                String location = locations[randomInt(0, locations.length)];
                 int temperature = randomInt(MIN_TEMPERATURE, MAX_TEMPERATURE);
     
                 // send standard weather event
@@ -46,8 +46,8 @@ public class WeatherStation {
                 System.out.println("Sent weather event!");
     
                 // event data
-                location = locations[randomInt(0, locations.length - 1)];
-                String type = alertTypes[randomInt(0, alertTypes.length - 1)];
+                location = locations[randomInt(0, locations.length)];
+                String type = alertTypes[randomInt(0, alertTypes.length)];
 
                 //send alert event
                 AlertEvent alertEvent = new AlertEvent(location, type);

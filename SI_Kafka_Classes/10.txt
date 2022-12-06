@@ -1,4 +1,9 @@
-{Weather station: Coimbra, average temperature: 18.5}
-{Weather station: Lisboa, average temperature: 21.5}
-{Weather station: Coimbra, average temperature: 18.5}
-{Weather station: Lisboa, average temperature: 21.5}
+{Weather station: Lisboa, average temperature: -5.751295336787565}
+{Weather station: Porto, average temperature: 5.293193717277487}
+{Weather station: Coimbra, average temperature: -3.156498673740053}
+{Weather station: Coimbra, average temperature: -3.0211640211640214}
+{Weather station: Lisboa, average temperature: -5.964467005076142}
+{Weather station: Porto, average temperature: 5.313624678663239}
+{Weather station: Lisboa, average temperature: -6.005050505050505}
+{Weather station: Porto, average temperature: 4.72979797979798}
+{Weather station: Coimbra, average temperature: -2.8515625}

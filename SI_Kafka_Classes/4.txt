@@ -1,0 +1,12 @@
+{Location: Alta, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Baixa, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Norton, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Polo II, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Baixa, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Alta, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Polo II, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Norton, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Polo II, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Baixa, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Alta, minimum temperature: -146.0, maximum temperature:210.0}
+{Location: Norton, minimum temperature: -146.0, maximum temperature:210.0}

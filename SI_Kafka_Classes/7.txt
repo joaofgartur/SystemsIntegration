@@ -1,0 +1,8 @@
+{Weather station with red alert: Coimbra, minimum temperature: -99}
+{Weather station with red alert: Lisboa, minimum temperature: -99}
+{Weather station with red alert: Porto, minimum temperature: -99}
+{Weather station with red alert: Coimbra, minimum temperature: -99}
+{Weather station with red alert: Lisboa, minimum temperature: -99}
+{Weather station with red alert: Porto, minimum temperature: -99}
+{Weather station with red alert: Porto, minimum temperature: -99}
+{Weather station with red alert: Coimbra, minimum temperature: -99}
