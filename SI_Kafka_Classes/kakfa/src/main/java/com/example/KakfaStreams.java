@@ -23,7 +23,7 @@ import com.example.streams.IntArraySerde;
 
 public class KakfaStreams {
     private final String STANDARD_WEATHER_TOPIC = "StandardWeatherTopic", WEATHER_ALERTS_TOPIC = "WeatherAlertsTopic";
-    private final String OUTPUT_TOPIC = "Hello";
+    private final String OUTPUT_TOPIC = "results";
 
     public KakfaStreams() {
         myMain();
@@ -55,12 +55,12 @@ public class KakfaStreams {
 
         outlines
         .mapValues((k,v) -> {
-            String result = "{Weather station: " + k + ", Number of readings: " + v + "}";
+            String result = "{\"station\": " + k + ", \"readings\": " + v + "}";
             writeToFile("1.txt", result);
-            return result;
+            return jsonToBD("station", k, "readings", String.valueOf(v), false);
         })
         .toStream()
-        .to(OUTPUT_TOPIC, Produced.with(Serdes.String(), Serdes.String()));
+        .to(OUTPUT_TOPIC + "-1", Produced.with(Serdes.String(), Serdes.String()));
 
 
         // 2. Count temperature readings of standard weather events per location.
@@ -71,9 +71,9 @@ public class KakfaStreams {
 
         readingPerLocation
         .mapValues((key, value) -> {
-            String result = "{Location: " + key + "; Number of readings: " + value + "}";
+            String result = "{\"location\": " + key + ", \"readings\": " + value + "}";
             writeToFile("2.txt", result);
-            return result;
+            return jsonToBD("location", key, "readings", String.valueOf(value), false);
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-2", Produced.with(Serdes.String(), Serdes.String()));
@@ -92,9 +92,9 @@ public class KakfaStreams {
         }, Materialized.with(Serdes.String(), new IntArraySerde()));
 
         minMaxTempPerStation.mapValues((key, values) -> {
-            String result = "{Weather station: " + key + ", minimum temperature: " + values[0]  + ", maximum temperature:" + values[1] + "}";
+            String result = "{\"station\": " + key + ", \"minTemperature\": " + values[0]  + ", \"maxTemperature\":" + values[1] + "}";
             writeToFile("3.txt", result);
-            return result;
+            return jsonToBDMultipleColumns("station", key, "minTemperature", values[0], "maxTemperature", values[1]);
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-3", Produced.with(Serdes.String(), Serdes.String()));
@@ -115,9 +115,9 @@ public class KakfaStreams {
 
 
         minMaxPerLocation.mapValues((key, values) -> {
-            String result = "{Location: " + key + ", minimum temperature: " + celsiusToFahrenheit(values[0])  + ", maximum temperature:" + celsiusToFahrenheit(values[1]) + "}";
+            String result = "{\"location\": " + key + ", \"minTemperature\": " + celsiusToFahrenheit(values[0]) + ", \"maxTemperature\":" + celsiusToFahrenheit(values[1]) + "}";
             writeToFile("4.txt", result);
-            return result;
+            return jsonToBDMultipleColumns("location", key, "minTemperature", values[0], "maxTemperature", values[1]);
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-4", Produced.with(Serdes.String(), Serdes.String()));
@@ -128,9 +128,9 @@ public class KakfaStreams {
         .groupByKey()
         .count()
         .mapValues((k,v) -> {
-            String result = "{Weather station: " + k + ", Number of alerts: " + v + "}";
+            String result = "{\"station\": " + k + ", \"alerts\": " + v + "}";
             writeToFile("5.txt", result);
-            return result;
+            return jsonToBD("station", k, "alerts", String.valueOf(v), false);
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-5", Produced.with(Serdes.String(), Serdes.String()));
@@ -141,9 +141,9 @@ public class KakfaStreams {
         .groupByKey()
         .count()
         .mapValues((key, value) -> {
-            String result = "{Type of alert: " + key + "; Number of readings: " + value + "}";
+            String result = "{\"alertType\": " + key + ", \"readings\": " + value + "}";
             writeToFile("6.txt", result);
-            return result;
+            return jsonToBD("alertType", key, "readings", String.valueOf(value), false);
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-6", Produced.with(Serdes.String(), Serdes.String()));
@@ -167,9 +167,9 @@ public class KakfaStreams {
             return newValue;
         }, Materialized.with(Serdes.String(), new IntegerSerde()))
         .mapValues((key, value) -> {
-            String result = "{Weather station with red alert: " + key + ", minimum temperature: " + value + "}";
+            String result = "{\"redAlertStation\": " + key + ", \"minTemperature\": " + value + "}";
             writeToFile("7.txt", result);
-            return result;
+            return jsonToBD("redAlertStation", key, "minTemperature", String.valueOf(value), false);
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-7", Produced.with(Serdes.String(), Serdes.String()));
@@ -198,9 +198,9 @@ public class KakfaStreams {
         .reduce((oldValue, newValue) -> newValue)
         .toStream((wk, v) -> wk.key())
         .mapValues((key, value) -> {
-            String result = "{Location: " + key + ", max temperature: " + value + "}";
+            String result = "{\"location\": " + key + ", \"maxTemperature\": " + value + "}";
             writeToFile("8.txt", result);
-            return result;
+            return jsonToBD("location", key, "maxTemperature", String.valueOf(value), false);
         })
         .to(OUTPUT_TOPIC + "-8", Produced.with(Serdes.String(), Serdes.String()));
 
@@ -230,13 +230,16 @@ public class KakfaStreams {
             averageTemps
             .mapValues((key, v) -> {
                 String result = "";
+                String valueDB = "null";
+
                 if (v[0] == 0) {
-                    result = "{Weather station: " + key + ", average temperature: div by 0}";
+                    result = "{\"station\": " + key + ", \"avgTemperature\": null}";
                 } else {
-                    result = "{Weather station: " + key + ", average temperature: " + (1.0 * v[1]) / v[0] + "}";
+                    result = "{\"station\": " + key + ", \"avgTemperature\": " + (1.0 * v[1]) / v[0] + "}";
+                    valueDB = String.valueOf((1.0 * v[1]) / v[0]);
                 }
                 writeToFile("10.txt", result);
-                return result;
+                return jsonToBD("station", key, "avgTemperature", valueDB, true);
             })
             .toStream()
             .to(OUTPUT_TOPIC + "-10", Produced.with(Serdes.String(), Serdes.String()));
@@ -289,5 +292,28 @@ public class KakfaStreams {
 
     private float celsiusToFahrenheit(int celsius) {
         return ((celsius * 9) / 5) + 32;
+    }
+
+
+    private String jsonToBD(String keyColName, String key, String valueColName, String value, boolean isDouble){
+        String type = "int32";
+        if(isDouble) {
+            type = "double";
+        }
+
+        return "{\"schema\":{\"type\":\"struct\"," + 
+        "\"fields\":[{\"type\":\"string\",\"optional\":false,\"field\":\""+keyColName+"\"},"+
+        "{\"type\":\""+type+"\",\"optional\": false,\"field\":\""+valueColName+"\"}],\"optional\":false},"+
+        "\"payload\":{\""+ keyColName +"\":\""+key+"\",\"" + valueColName + "\": "+value+"}}";
+    }
+
+    private String jsonToBDMultipleColumns(String keyColName, String key, String valueColName1, int value1, String valueColName2, int value2 ) {
+
+        return "{\"schema\":{\"type\":\"struct\"," +
+                "\"fields\":[{\"type\":\"string\",\"optional\":false,\"field\":\"" + keyColName + "\"}," +
+                "{\"type\":\"double\",\"optional\": false,\"field\":\"" + valueColName1+ "\"}," +
+                "{\"type\":\"double\",\"optional\": false,\"field\":\"" + valueColName2+ "\"}],\"optional\":false}," +
+                "\"payload\":{\"" + keyColName + "\":\"" + key + "\",\"" + valueColName1 + "\": " + value1 + ",\"" +
+                valueColName2 + "\": " + value2 + "}}";
     }
 }

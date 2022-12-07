@@ -1,6 +1,6 @@
-{Weather station: Porto, minimum temperature: -99, maximum temperature:99}
-{Weather station: Lisboa, minimum temperature: -99, maximum temperature:99}
-{Weather station: Coimbra, minimum temperature: -99, maximum temperature:99}
-{Weather station: Porto, minimum temperature: -99, maximum temperature:99}
-{Weather station: Coimbra, minimum temperature: -99, maximum temperature:99}
-{Weather station: Lisboa, minimum temperature: -99, maximum temperature:99}
+{"station": Porto, "minTemperature": -99, "maxTemperature":99}
+{"station": Coimbra, "minTemperature": -98, "maxTemperature":99}
+{"station": Lisboa, "minTemperature": -99, "maxTemperature":97}
+{"station": Porto, "minTemperature": -99, "maxTemperature":99}
+{"station": Coimbra, "minTemperature": -99, "maxTemperature":99}
+{"station": Lisboa, "minTemperature": -99, "maxTemperature":97}

@@ -1,7 +1,8 @@
-{Location: Alta; Number of readings: 339}
-{Location: Baixa; Number of readings: 322}
-{Location: Norton; Number of readings: 328}
-{Location: Polo II; Number of readings: 311}
-{Location: Polo II; Number of readings: 315}
-{Location: Norton; Number of readings: 330}
-{Location: Baixa; Number of readings: 331}
+{"location": Polo II, "readings": 106}
+{"location": Alta, "readings": 85}
+{"location": Norton, "readings": 86}
+{"location": Baixa, "readings": 107}
+{"location": Baixa, "readings": 110}
+{"location": Polo II, "readings": 110}
+{"location": Alta, "readings": 89}
+{"location": Norton, "readings": 90}

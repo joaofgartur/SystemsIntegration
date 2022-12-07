@@ -1,6 +1,6 @@
-{Weather station: Porto, Number of alerts: 426}
-{Weather station: Lisboa, Number of alerts: 421}
-{Weather station: Coimbra, Number of alerts: 409}
-{Weather station: Porto, Number of alerts: 434}
-{Weather station: Coimbra, Number of alerts: 413}
-{Weather station: Lisboa, Number of alerts: 424}
+{"station": Porto, "alerts": 120}
+{"station": Coimbra, "alerts": 130}
+{"station": Lisboa, "alerts": 107}
+{"station": Porto, "alerts": 127}
+{"station": Coimbra, "alerts": 134}
+{"station": Lisboa, "alerts": 111}

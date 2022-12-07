@@ -1,12 +1,9 @@
-{Location: Norton, max temperature: 99}
-{Location: Alta, max temperature: 99}
-{Location: Polo II, max temperature: 99}
-{Location: Baixa, max temperature: 99}
-{Location: Norton, max temperature: 99}
-{Location: Baixa, max temperature: 99}
-{Location: Alta, max temperature: 99}
-{Location: Polo II, max temperature: 99}
-{Location: Alta, max temperature: 99}
-{Location: Polo II, max temperature: 99}
-{Location: Norton, max temperature: 99}
-{Location: Baixa, max temperature: 99}
+{"location": Polo II, "maxTemperature": 99}
+{"location": Alta, "maxTemperature": 97}
+{"location": Polo II, "maxTemperature": 99}
+{"location": Baixa, "maxTemperature": 94}
+{"location": Norton, "maxTemperature": 97}
+{"location": Norton, "maxTemperature": 97}
+{"location": Polo II, "maxTemperature": 99}
+{"location": Baixa, "maxTemperature": 94}
+{"location": Alta, "maxTemperature": 97}

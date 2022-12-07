@@ -1,4 +1,4 @@
-{Type of alert: red; Number of readings: 655}
-{Type of alert: green; Number of readings: 645}
-{Type of alert: green; Number of readings: 651}
-{Type of alert: red; Number of readings: 664}
+{"alertType": red, "readings": 181}
+{"alertType": green, "readings": 203}
+{"alertType": red, "readings": 185}
+{"alertType": green, "readings": 214}
