@@ -11,6 +11,9 @@
         "key.converter": "org.apache.kafka.connect.storage.StringConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         "key.converter.schemas.enable": "true",
-        "value.converter.schemas.enable": "true"
+        "value.converter.schemas.enable": "true",
+        "pk.mode": "record_value",
+        "pk.fields": "location",
+        "insert.mode": "upsert"
     }
 }

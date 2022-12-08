@@ -1,9 +1,8 @@
+{"location": Norton, "maxTemperature": 99}
 {"location": Polo II, "maxTemperature": 99}
-{"location": Alta, "maxTemperature": 97}
+{"location": Alta, "maxTemperature": 99}
+{"location": Baixa, "maxTemperature": 99}
+{"location": Norton, "maxTemperature": 99}
 {"location": Polo II, "maxTemperature": 99}
-{"location": Baixa, "maxTemperature": 94}
-{"location": Norton, "maxTemperature": 97}
-{"location": Norton, "maxTemperature": 97}
-{"location": Polo II, "maxTemperature": 99}
-{"location": Baixa, "maxTemperature": 94}
-{"location": Alta, "maxTemperature": 97}
+{"location": Alta, "maxTemperature": 99}
+{"location": Baixa, "maxTemperature": 99}

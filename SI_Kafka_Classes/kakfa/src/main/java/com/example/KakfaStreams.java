@@ -302,7 +302,7 @@ public class KakfaStreams {
         }
 
         return "{\"schema\":{\"type\":\"struct\"," + 
-        "\"fields\":[{\"type\":\"string\",\"optional\":false,\"field\":\""+keyColName+"\"},"+
+        "\"fields\":[{\"type\":\"string\",\"optional\": false,\"field\":\""+keyColName+"\"},"+
         "{\"type\":\""+type+"\",\"optional\": false,\"field\":\""+valueColName+"\"}],\"optional\":false},"+
         "\"payload\":{\""+ keyColName +"\":\""+key+"\",\"" + valueColName + "\": "+value+"}}";
     }

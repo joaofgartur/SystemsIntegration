@@ -16,7 +16,10 @@ for i in range(1,12):
 		"key.converter": "org.apache.kafka.connect.storage.StringConverter",
 		"value.converter": "org.apache.kafka.connect.json.JsonConverter",
 		"key.converter.schemas.enable": "true",
-		"value.converter.schemas.enable": "true"
+		"value.converter.schemas.enable": "true",
+		"pk.mode": "record_value",
+        "pk.fields": "station",
+        "insert.mode": "upsert"
 	}
 }
 
