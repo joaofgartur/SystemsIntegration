@@ -7,7 +7,7 @@
         "connection.password": "My01pass",
         "dialec.name": "PostgreSqlDatabaseDialect",
         "mode": "bulk",
-        "query": "SELECT * FROM requirement8Table;",
+        "query": "SELECT * FROM \"requirement8Table\";",
         "poll.interval.ms": "60000",
         "topic.prefix": "requirement8Info"
     }

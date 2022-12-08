@@ -1,80 +1,12 @@
-{"location": Baixa, "readings": 566}
-{"location": Alta, "readings": 594}
-{"location": Polo II, "readings": 623}
-{"location": Norton, "readings": 567}
-{"location": Norton, "readings": 570}
-{"location": Baixa, "readings": 568}
-{"location": Alta, "readings": 599}
-{"location": Polo II, "readings": 628}
-{"location": Baixa, "readings": 571}
-{"location": Norton, "readings": 576}
-{"location": Polo II, "readings": 629}
-{"location": Alta, "readings": 604}
-{"location": Baixa, "readings": 573}
-{"location": Polo II, "readings": 631}
-{"location": Norton, "readings": 580}
-{"location": Alta, "readings": 611}
-{"location": Baixa, "readings": 576}
-{"location": Norton, "readings": 584}
-{"location": Polo II, "readings": 636}
-{"location": Alta, "readings": 614}
-{"location": Norton, "readings": 586}
-{"location": Alta, "readings": 619}
-{"location": Polo II, "readings": 640}
-{"location": Baixa, "readings": 580}
-{"location": Baixa, "readings": 584}
-{"location": Norton, "readings": 587}
-{"location": Alta, "readings": 625}
-{"location": Polo II, "readings": 644}
-{"location": Norton, "readings": 590}
-{"location": Polo II, "readings": 650}
-{"location": Alta, "readings": 628}
-{"location": Baixa, "readings": 587}
-{"location": Alta, "readings": 632}
-{"location": Norton, "readings": 594}
-{"location": Polo II, "readings": 654}
-{"location": Baixa, "readings": 590}
-{"location": Polo II, "readings": 658}
-{"location": Baixa, "readings": 592}
-{"location": Norton, "readings": 598}
-{"location": Alta, "readings": 638}
-{"location": Baixa, "readings": 595}
-{"location": Alta, "readings": 642}
-{"location": Norton, "readings": 602}
-{"location": Polo II, "readings": 662}
-{"location": Baixa, "readings": 598}
-{"location": Norton, "readings": 603}
-{"location": Alta, "readings": 648}
-{"location": Polo II, "readings": 667}
-{"location": Alta, "readings": 655}
-{"location": Baixa, "readings": 607}
-{"location": Polo II, "readings": 676}
-{"location": Norton, "readings": 611}
-{"location": Polo II, "readings": 678}
-{"location": Alta, "readings": 658}
-{"location": Baixa, "readings": 611}
-{"location": Norton, "readings": 617}
-{"location": Alta, "readings": 660}
-{"location": Baixa, "readings": 614}
-{"location": Polo II, "readings": 681}
-{"location": Norton, "readings": 624}
-{"location": Norton, "readings": 628}
-{"location": Alta, "readings": 663}
-{"location": Baixa, "readings": 618}
-{"location": Polo II, "readings": 685}
-{"location": Polo II, "readings": 686}
-{"location": Norton, "readings": 629}
-{"location": Baixa, "readings": 625}
-{"location": Alta, "readings": 669}
-{"location": Alta, "readings": 673}
-{"location": Polo II, "readings": 691}
-{"location": Baixa, "readings": 628}
-{"location": Norton, "readings": 632}
-{"location": Polo II, "readings": 701}
-{"location": Baixa, "readings": 640}
-{"location": Alta, "readings": 683}
-{"location": Norton, "readings": 649}
-{"location": Alta, "readings": 686}
-{"location": Baixa, "readings": 643}
-{"location": Norton, "readings": 653}
-{"location": Polo II, "readings": 706}
+{"location": Norton, "readings": 664}
+{"location": Baixa, "readings": 655}
+{"location": Polo II, "readings": 719}
+{"location": Alta, "readings": 698}
+{"location": Norton, "readings": 676}
+{"location": Alta, "readings": 712}
+{"location": Baixa, "readings": 671}
+{"location": Polo II, "readings": 732}
+{"location": Alta, "readings": 729}
+{"location": Polo II, "readings": 742}
+{"location": Baixa, "readings": 682}
+{"location": Norton, "readings": 684}
