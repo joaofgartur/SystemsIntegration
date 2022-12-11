@@ -70,7 +70,7 @@ public class WeatherStation {
 
     private Properties loadPProducerProperties() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "broker1:9092");
+        props.put("bootstrap.servers", "broker1:9092, broker2:9092");
         //Set acknowledgements for producer requests. props.put("acks", "all");
         //If the request fails, the producer can automatically retry,
         props.put("retries", 0);
