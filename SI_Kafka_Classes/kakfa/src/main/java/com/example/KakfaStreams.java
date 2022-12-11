@@ -13,7 +13,6 @@ import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.JoinWindows;
-import org.apache.kafka.streams.kstream.Joined;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
@@ -234,7 +233,7 @@ public class KakfaStreams {
         .mapValues((key, value) -> {
             //String result = "{\"location\": " + key + ", \"maxTemperature\": " + value[0] + "}";
             //writeToFile("8.txt", result);
-            return jsonToBD("weatherStation", key, "minTemperature", String.valueOf(value[0]), false);
+            return jsonToBD("station", key, "minTemperature", String.valueOf(value[0]), false);
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-9", Produced.with(Serdes.String(), Serdes.String()));
@@ -261,7 +260,7 @@ public class KakfaStreams {
                     result = "{\"station\": " + key + ", \"avgTemperature\": " + (1.0 * v[1]) / v[0] + "}";
                     valueDB = String.valueOf((1.0 * v[1]) / v[0]);
                 }
-                return jsonToBD("weatherStation", key, "avgTemperature", valueDB, true);
+                return jsonToBD("station", key, "avgTemperature", valueDB, true);
             })
             .toStream()
             .to(OUTPUT_TOPIC + "-10", Produced.with(Serdes.String(), Serdes.String()));
@@ -288,7 +287,7 @@ public class KakfaStreams {
                 result = "{\"station\": " + key + ", \"avgTemperature\": " + (1.0 * value[1]) / value[0] + "}";
                 valueDB = String.valueOf((1.0 * value[1]) / value[0]);
             }
-            return jsonToBD("weatherStation", key, "avgTemperature", valueDB, true);
+            return jsonToBD("station", key, "avgTemperature", valueDB, true);
         })
         .to(OUTPUT_TOPIC + "-11", Produced.with(Serdes.String(), Serdes.String()));
 

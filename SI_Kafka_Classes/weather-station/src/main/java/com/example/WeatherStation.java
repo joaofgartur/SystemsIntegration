@@ -33,6 +33,9 @@ public class WeatherStation {
 
         try {
             while(true) {
+
+                //read here
+
                 // event data
                 String weatherStation = weatherStations[randomInt(0, weatherStations.length)];
                 String location = locations[randomInt(0, locations.length)];
