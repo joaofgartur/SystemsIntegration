@@ -1,6 +1,0 @@
-{"alertType": green, "readings": 991}
-{"alertType": red, "readings": 979}
-{"alertType": red, "readings": 1010}
-{"alertType": green, "readings": 1015}
-{"alertType": red, "readings": 1035}
-{"alertType": green, "readings": 1036}

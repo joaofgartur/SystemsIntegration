@@ -1,9 +1,0 @@
-{"station": Porto, "minTemperature": -99, "maxTemperature":99}
-{"station": Coimbra, "minTemperature": -99, "maxTemperature":99}
-{"station": Lisboa, "minTemperature": -99, "maxTemperature":99}
-{"station": Lisboa, "minTemperature": -99, "maxTemperature":99}
-{"station": Porto, "minTemperature": -99, "maxTemperature":99}
-{"station": Coimbra, "minTemperature": -99, "maxTemperature":99}
-{"station": Lisboa, "minTemperature": -99, "maxTemperature":99}
-{"station": Porto, "minTemperature": -99, "maxTemperature":99}
-{"station": Coimbra, "minTemperature": -99, "maxTemperature":99}
