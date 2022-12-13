@@ -1,8 +1,11 @@
 package com.example;
 
+import java.io.FileReader;
+import java.io.InputStream;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -17,13 +20,18 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 
 import com.example.Models.AlertEvent;
 import com.example.Models.StandardEvent;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import com.google.gson.Gson;
 
 public class WeatherStation {
 
     private final int MIN_TEMPERATURE = -100, MAX_TEMPERATURE = 100, SLEEP_TIME = 2000;
     private final String STANDARD_WEATHER_TOPIC = "StandardWeatherTopic", WEATHER_ALERTS_TOPIC = "WeatherAlertsTopic";
+    private final boolean TESTING = false;
 
     public WeatherStation() {
         myMain();
@@ -46,12 +54,61 @@ public class WeatherStation {
         ArrayList<String> weatherStations = new ArrayList<>(3);
         ArrayList<String> locations = new ArrayList<>(3);
         String[] alertTypes = {"red", "green"};
+        
+        if(TESTING){
+            String resourceName = "data.json";
+            InputStream is = WeatherStation.class.getResourceAsStream(resourceName);
+            if (is == null) {
+                throw new NullPointerException("Cannot find resource file " + resourceName);
+            }
 
+            JSONTokener tokener = new JSONTokener(is);
+            JSONObject jsonObject = new JSONObject(tokener);
+
+            JSONArray solutions = (JSONArray) jsonObject.get("events");
+
+            try {
+                for (int i = 0; i < solutions.length(); i++) {
+                    JSONObject event = solutions.getJSONObject(i);
+                    // event data
+                    String weatherStation = event.getString("station");
+                    String location = event.getString("location");
+                    int temperature = event.getInt("temperature");
+                    String typeString = event.getString("type");
+
+                    // send standard weather event
+                    StandardEvent standardEvent = new StandardEvent(location, temperature);
+                    String jsonEvent = new Gson().toJson(standardEvent);
+                    ProducerRecord<String, String> standardWeatherEvent = new ProducerRecord<>(STANDARD_WEATHER_TOPIC,
+                            weatherStation, jsonEvent);
+                    producer.send(standardWeatherEvent);
+                    System.out.println("Sent weather event!");
+
+                
+                    // send alert event
+                    AlertEvent alertEvent = new AlertEvent(location, typeString);
+                    String jsonAlertEvent = new Gson().toJson(alertEvent);
+                    ProducerRecord<String, String> weatherAlertEvent = new ProducerRecord<>(WEATHER_ALERTS_TOPIC,
+                            weatherStation, jsonAlertEvent);
+                    producer.send(weatherAlertEvent);
+                    System.out.println("Sent weather alert!");
+                    
+                }           
+
+             } catch (Exception e) {
+                    System.out.println(e);
+                } finally {
+                    System.out.println("Weather events from file completed.");
+                    producer.close();
+                }
+            return;
+        }
+       
         try {
             while(true) {
 
                 //read here
-                Duration d = Duration.ofSeconds(1000000);
+                Duration d = Duration.ofSeconds(100);
                 ConsumerRecords<String, String> records = consumer.poll(d);
                 for (ConsumerRecord<String, String> record : records) {
                     // System.out.println(record.value());
@@ -72,7 +129,7 @@ public class WeatherStation {
                     // System.out.println(locations);
                     // System.out.println(weatherStations);
                 }             
-                   
+
                 // event data
                 String weatherStation = weatherStations.get(randomInt(0, weatherStations.size()));
                 String location = locations.get(randomInt(0, locations.size()));
@@ -145,7 +202,7 @@ public class WeatherStation {
         // Serdes.String().getClass());
         // props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,
         // Serdes.Long().getClass());
-        props.put("max.poll.records", "11");
+        props.put("max.poll.records", "10000");
 
         return props;
     }

@@ -1,0 +1,79 @@
+[
+    {
+        "Lagos": {
+            "count": 3,
+            "minTemp": -8,
+            "maxTemp": 42,
+            "redAlertMinTemp": -8,
+            "avgTemp": 19.0
+        }
+    },
+    {
+        "Odivelas": {
+            "count": 2,
+            "minTemp": 22,
+            "maxTemp": 22,
+            "redAlertMinTemp": null,
+            "avgTemp": 22.0
+        }
+    },
+    {
+        "Aveiro": {
+            "count": 1,
+            "minTemp": 23,
+            "maxTemp": 23,
+            "redAlertMinTemp": null,
+            "avgTemp": 23.0
+        }
+    },
+    {
+        "Geres": {
+            "count": 4,
+            "minTemp": 0,
+            "maxTemp": 27,
+            "redAlertMinTemp": 0,
+            "avgTemp": 15.75
+        }
+    },
+    {
+        "Beja": {
+            "count": 1,
+            "minTemp": 45,
+            "maxTemp": 45,
+            "redAlertMinTemp": 45,
+            "avgTemp": 45.0
+        }
+    }
+][
+    {
+        "centro": {
+            "count": 1,
+            "minTemp": 0,
+            "maxTemp": 0,
+            "avgTemp": 0.0
+        }
+    },
+    {
+        "sul": {
+            "count": 4,
+            "minTemp": 21,
+            "maxTemp": 27,
+            "avgTemp": 23.25
+        }
+    },
+    {
+        "oeste": {
+            "count": 6,
+            "minTemp": -8,
+            "maxTemp": 45,
+            "avgTemp": 23.166666666666668
+        }
+    }
+][
+    {
+        "green": 7
+    },
+    {
+        "red": 4
+    }
+]

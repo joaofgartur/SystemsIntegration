@@ -1,0 +1,70 @@
+{
+    "events": [
+        {
+            "station": "Lagos",
+            "location": "oeste",
+            "temperature": -8,
+            "type": "red"
+        },
+        {
+            "station": "Aveiro",
+            "location": "oeste",
+            "temperature": 23,
+            "type": "green"
+        },
+        {
+            "station": "Lagos",
+            "location": "sul",
+            "temperature": 23,
+            "type": "green"
+        },
+        {
+            "station": "Geres",
+            "location": "sul",
+            "temperature": 27,
+            "type": "green"
+        },
+        {
+            "station": "Geres",
+            "location": "oeste",
+            "temperature": 15,
+            "type": "green"
+        },
+        {
+            "station": "Odivelas",
+            "location": "sul",
+            "temperature": 22,
+            "type": "green"
+        },
+        {
+            "station": "Odivelas",
+            "location": "oeste",
+            "temperature": 22,
+            "type": "green"
+        },
+        {
+            "station": "Geres",
+            "location": "sul",
+            "temperature": 21,
+            "type": "green"
+        },
+        {
+            "station": "Geres",
+            "location": "centro",
+            "temperature": 0,
+            "type": "red"
+        },
+        {
+            "station": "Beja",
+            "location": "oeste",
+            "temperature": 45,
+            "type": "red"
+        },
+        {
+            "station": "Lagos",
+            "location": "oeste",
+            "temperature": 42,
+            "type": "red"
+        }
+    ]
+}
