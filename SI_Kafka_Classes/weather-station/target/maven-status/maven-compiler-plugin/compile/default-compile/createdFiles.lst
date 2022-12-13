@@ -1,0 +1,6 @@
+com/example/Models/JsonDeserializer.class
+com/example/Models/JsonSerializer.class
+com/example/Models/StandardEvent.class
+com/example/Models/CustomSerdes.class
+com/example/WeatherStation.class
+com/example/Models/AlertEvent.class

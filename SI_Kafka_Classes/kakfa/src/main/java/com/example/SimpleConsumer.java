@@ -14,7 +14,7 @@ import org.apache.kafka.streams.StreamsConfig;
 public class SimpleConsumer {
     public static void main(String[] args) throws Exception{
         //Assign topicName to string variable
-        String topicName = args[0].toString();
+        String topicName = "requirement1Info";//args[0].toString();
         // create instance for properties to access producer configs
         Properties props = new Properties();
         //Assign localhost id
@@ -42,6 +42,7 @@ public class SimpleConsumer {
                 for (ConsumerRecord<String, String> record : records) {
                     System.out.println(record.key() + " => " + record.value()); 
                 }
+                // System.out.println("Hey!");
             }    
         }
         finally {

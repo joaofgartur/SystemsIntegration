@@ -1,5 +1,5 @@
 {
-    "name": "jdbc-source-5",
+    "name": "jdbc-source-station",
     "config": {
         "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
         "connection.url": "jdbc:postgresql://database:5432/project3",
@@ -7,8 +7,8 @@
         "connection.password": "My01pass",
         "dialec.name": "PostgreSqlDatabaseDialect",
         "mode": "bulk",
-        "query": "SELECT * FROM \"requirement5Table\";",
+        "query": "SELECT * FROM \"station\";",
         "poll.interval.ms": "60000",
-        "topic.prefix": "requirement5Info"
+        "topic.prefix": "stationInfo"
     }
 }

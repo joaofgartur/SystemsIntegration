@@ -1,0 +1,6 @@
+/workspace/weather-station/src/main/java/com/example/Models/StandardEvent.java
+/workspace/weather-station/src/main/java/com/example/Models/AlertEvent.java
+/workspace/weather-station/src/main/java/com/example/Models/JsonSerializer.java
+/workspace/weather-station/src/main/java/com/example/Models/CustomSerdes.java
+/workspace/weather-station/src/main/java/com/example/WeatherStation.java
+/workspace/weather-station/src/main/java/com/example/Models/JsonDeserializer.java

@@ -1,5 +1,5 @@
 {
-    "name": "jdbc-source-7",
+    "name": "jdbc-source-location",
     "config": {
         "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
         "connection.url": "jdbc:postgresql://database:5432/project3",
@@ -7,8 +7,8 @@
         "connection.password": "My01pass",
         "dialec.name": "PostgreSqlDatabaseDialect",
         "mode": "bulk",
-        "query": "SELECT * FROM \"requirement7Table\";",
+        "query": "SELECT * FROM \"location\";",
         "poll.interval.ms": "60000",
-        "topic.prefix": "requirement7Info"
+        "topic.prefix": "locationInfo"
     }
 }

@@ -1,13 +1,23 @@
 package com.example;
 
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import com.example.Models.AlertEvent;
 import com.example.Models.StandardEvent;
+import org.json.JSONObject;
 import com.google.gson.Gson;
 
 public class WeatherStation {
@@ -24,21 +34,48 @@ public class WeatherStation {
     }
 
     private void myMain() {
-       Properties producerProperties = loadPProducerProperties();
-       Producer<String, String> producer = new KafkaProducer<>(producerProperties);
+        Properties producerProperties = loadPProducerProperties();
+        Producer<String, String> producer = new KafkaProducer<>(producerProperties);
 
-        String[] weatherStations = {"Coimbra", "Lisboa", "Porto"};
-        String[] locations = {"Alta", "Baixa", "Polo II", "Norton"};
+        Properties consumerProperties = loadConsumerProperties();
+        Consumer<String, String> consumer = new KafkaConsumer<>(consumerProperties);
+        consumer.subscribe(Arrays.asList("locationInfo", "stationInfo"));
+        
+        // String[] weatherStations = {"Coimbra", "Lisboa", "Porto"};
+        // String[] locations = {"Alta", "Baixa", "Polo II", "Norton"};
+        ArrayList<String> weatherStations = new ArrayList<>(3);
+        ArrayList<String> locations = new ArrayList<>(3);
         String[] alertTypes = {"red", "green"};
 
         try {
             while(true) {
 
                 //read here
+                Duration d = Duration.ofSeconds(1000000);
+                ConsumerRecords<String, String> records = consumer.poll(d);
+                for (ConsumerRecord<String, String> record : records) {
+                    // System.out.println(record.value());
 
+                    JSONObject json = new JSONObject(record.value()).getJSONObject("payload");
+                    if(json.has("locationName")){
+                        String location = json.getString("locationName");
+                        if(!locations.contains(location)) {
+                            locations.add(location);
+                        }
+                    }
+                    if (json.has("stationName")) {
+                        String station = json.getString("stationName");
+                        if (!weatherStations.contains(station)) {
+                            weatherStations.add(station);
+                        }
+                    }
+                    // System.out.println(locations);
+                    // System.out.println(weatherStations);
+                }             
+                   
                 // event data
-                String weatherStation = weatherStations[randomInt(0, weatherStations.length)];
-                String location = locations[randomInt(0, locations.length)];
+                String weatherStation = weatherStations.get(randomInt(0, weatherStations.size()));
+                String location = locations.get(randomInt(0, locations.size()));
                 int temperature = randomInt(MIN_TEMPERATURE, MAX_TEMPERATURE);
     
                 // send standard weather event
@@ -49,7 +86,7 @@ public class WeatherStation {
                 System.out.println("Sent weather event!");
     
                 // event data
-                location = locations[randomInt(0, locations.length)];
+                location = locations.get(randomInt(0, locations.size()));
                 String type = alertTypes[randomInt(0, alertTypes.length)];
 
                 //send alert event
@@ -68,6 +105,7 @@ public class WeatherStation {
         } finally {
             System.out.println("Weather events producer completed.");
             producer.close();
+            consumer.close();
         }
     }
 
@@ -87,6 +125,40 @@ public class WeatherStation {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         return props;
     }
+
+    private Properties loadConsumerProperties() {
+        Properties props = new Properties();
+        props.put("bootstrap.servers", "broker1:9092"); // Set acknowledgements for producer requests. props.put("acks", // "all");
+        // If the request fails, the producer can automatically retry,
+        props.put("retries", 0);
+        // Specify buffer size in config
+        props.put("batch.size", 16384);
+        // Reduce the no of requests less than 0
+        props.put("linger.ms", 1);
+        // The buffer.memory controls the total amount of memory available to the
+        // producer for buffering.
+        props.put("buffer.memory", 33554432);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "WeatherStationConsumer");
+        props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        // props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG,
+        // Serdes.String().getClass());
+        // props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,
+        // Serdes.Long().getClass());
+        props.put("max.poll.records", "11");
+
+        return props;
+    }
+
+    // private List loadTopics(){
+    //     List<String> list = new ArrayList<String>(11);
+    //     for (int i = 1; i <= 11; i++) {
+    //         list.add("requirement"+i+"Info");
+    //     }
+    //     System.out.println(list);
+    //     return list;
+    //     // return Arrays.asList("requirement1Info", "requirement2Info");
+    // }
 
     private int randomInt(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
