@@ -9,6 +9,6 @@
         "mode": "bulk",
         "query": "SELECT * FROM \"location\";",
         "poll.interval.ms": "60000",
-        "topic.prefix": "locationInfo"
+        "topic.prefix": "info"
     }
 }

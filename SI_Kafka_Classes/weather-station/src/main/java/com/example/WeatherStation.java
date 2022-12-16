@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -47,7 +48,7 @@ public class WeatherStation {
 
         Properties consumerProperties = loadConsumerProperties();
         Consumer<String, String> consumer = new KafkaConsumer<>(consumerProperties);
-        consumer.subscribe(Arrays.asList("locationInfo", "stationInfo"));
+        consumer.subscribe(Collections.singletonList("info"));
         
         // String[] weatherStations = {"Coimbra", "Lisboa", "Porto"};
         // String[] locations = {"Alta", "Baixa", "Polo II", "Norton"};
