@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.Serdes.IntegerSerde;
 import org.apache.kafka.streams.KafkaStreams;
@@ -90,7 +91,7 @@ public class KakfaStreams {
             //String result = "{\"station\": " + key + ", \"minTemperature\": " + values[0]  + ", \"maxTemperature\":" + values[1] + "}";
             //writeToFile("3.txt", result);
             return jsonToBDMultipleColumns("station", key, "minTemperature",
-             values[0], "maxTemperature", values[1]);
+             String.valueOf(values[0]), "maxTemperature", String.valueOf(values[1]));
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-3", Produced.with(Serdes.String(), Serdes.String()));
@@ -114,7 +115,7 @@ public class KakfaStreams {
             //String result = "{\"location\": " + key + ", \"minTemperature\": " + celsiusToFahrenheit(values[0]) + ", \"maxTemperature\":" + celsiusToFahrenheit(values[1]) + "}";
             //writeToFile("4.txt", result);
             return jsonToBDMultipleColumns("location", key, "minTemperature",
-             values[0], "maxTemperature", values[1]);
+                    String.valueOf(celsiusToFahrenheit(values[0])), "maxTemperature", String.valueOf(celsiusToFahrenheit(values[1])));
         })
         .toStream()
         .to(OUTPUT_TOPIC + "-4", Produced.with(Serdes.String(), Serdes.String()));
@@ -303,6 +304,28 @@ public class KakfaStreams {
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         
         return props;
+        // Properties props = new Properties();
+        // props.put("bootstrap.servers", "broker1:9092, broker2:9093"); // Set acknowledgements for producer requests.
+        //                                                               // props.put("acks", // "all");
+        // // If the request fails, the producer can automatically retry,
+        // props.put("retries", 1);
+        // // Specify buffer size in config
+        // props.put("batch.size", 16384);
+        // // Reduce the no of requests less than 0
+        // props.put("linger.ms", 1);
+        // // The buffer.memory controls the total amount of memory available to the
+        // // producer for buffering.
+        // props.put("buffer.memory", 33554432);
+        // props.put(ConsumerConfig.GROUP_ID_CONFIG, "WeatherStationConsumer");
+        // props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        // props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+        // // props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG,
+        // // Serdes.String().getClass());
+        // // props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG,
+        // // Serdes.Long().getClass());
+        // props.put("max.poll.records", "10000");
+
+        // return props;
     }
 
     private String convertToJson(String fieldA, String valueA, String fieldB, int valueB) {
@@ -334,7 +357,7 @@ public class KakfaStreams {
         }
     }
 
-    private float celsiusToFahrenheit(int celsius) {
+    private double celsiusToFahrenheit(int celsius) {
         return ((celsius * 9) / 5) + 32;
     }
 
@@ -351,7 +374,7 @@ public class KakfaStreams {
         "\"payload\":{\""+ keyColName +"\":\""+key+"\",\"" + valueColName + "\": "+value+"}}";
     }
 
-    private String jsonToBDMultipleColumns(String keyColName, String key, String valueColName1, int value1, String valueColName2, int value2 ) {
+    private String jsonToBDMultipleColumns(String keyColName, String key, String valueColName1, String value1, String valueColName2, String value2 ) {
 
         return "{\"schema\":{\"type\":\"struct\"," +
                 "\"fields\":[{\"type\":\"string\",\"optional\":false,\"field\":\"" + keyColName + "\"}," +

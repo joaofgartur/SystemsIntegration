@@ -46,8 +46,9 @@ public class WeatherStation {
         Properties producerProperties = loadPProducerProperties();
         Producer<String, String> producer = new KafkaProducer<>(producerProperties);
         
-        // String[] weatherStations = {"Coimbra", "Lisboa", "Porto"};
-        // String[] locations = {"Alta", "Baixa", "Polo II", "Norton"};
+        
+        // ArrayList<String> weatherStations = new ArrayList<>(Arrays.asList("Coimbra","Lisboa","Porto"));
+        // ArrayList<String> locations = new ArrayList<>(Arrays.asList("Alta", "Baixa", "Polo II", "Norton"));
         ArrayList<String> weatherStations = new ArrayList<>(3);
         ArrayList<String> locations = new ArrayList<>(3);
         String[] alertTypes = {"red", "green"};
@@ -111,7 +112,7 @@ public class WeatherStation {
                 Duration d = Duration.ofSeconds(100);
                 ConsumerRecords<String, String> records = consumer.poll(d);
                 for (ConsumerRecord<String, String> record : records) {
-                    System.out.println(record.value());
+                    // System.out.println(record.value());
 
                     JSONObject json = new JSONObject(record.value()).getJSONObject("payload");
                     if(json.has("locationName")){
