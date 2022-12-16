@@ -32,7 +32,7 @@ public class WeatherStation {
 
     private final int MIN_TEMPERATURE = -100, MAX_TEMPERATURE = 100, SLEEP_TIME = 2000;
     private final String STANDARD_WEATHER_TOPIC = "StandardWeatherTopic", WEATHER_ALERTS_TOPIC = "WeatherAlertsTopic";
-    private final boolean TESTING = true;
+    private final boolean TESTING = false;
 
     public WeatherStation() {
         myMain();
@@ -45,10 +45,6 @@ public class WeatherStation {
     private void myMain() {
         Properties producerProperties = loadPProducerProperties();
         Producer<String, String> producer = new KafkaProducer<>(producerProperties);
-
-        Properties consumerProperties = loadConsumerProperties();
-        Consumer<String, String> consumer = new KafkaConsumer<>(consumerProperties);
-        consumer.subscribe(Collections.singletonList("info"));
         
         // String[] weatherStations = {"Coimbra", "Lisboa", "Porto"};
         // String[] locations = {"Alta", "Baixa", "Polo II", "Norton"};
@@ -69,6 +65,7 @@ public class WeatherStation {
             JSONArray solutions = (JSONArray) jsonObject.get("events");
 
             try {
+                
                 for (int i = 0; i < solutions.length(); i++) {
                     JSONObject event = solutions.getJSONObject(i);
                     // event data
@@ -105,14 +102,16 @@ public class WeatherStation {
             return;
         }
        
+        Properties consumerProperties = loadConsumerProperties();
+        Consumer<String, String> consumer = new KafkaConsumer<>(consumerProperties);
+        consumer.subscribe(Collections.singletonList("info"));
+
         try {
             while(true) {
-
-                //read here
                 Duration d = Duration.ofSeconds(100);
                 ConsumerRecords<String, String> records = consumer.poll(d);
                 for (ConsumerRecord<String, String> record : records) {
-                    // System.out.println(record.value());
+                    System.out.println(record.value());
 
                     JSONObject json = new JSONObject(record.value()).getJSONObject("payload");
                     if(json.has("locationName")){
@@ -172,7 +171,7 @@ public class WeatherStation {
         props.put("bootstrap.servers", "broker1:9092, broker2:9093");
         //Set acknowledgements for producer requests. props.put("acks", "all");
         //If the request fails, the producer can automatically retry,
-        props.put("retries", 0);
+        props.put("retries", 1);
         //Specify buffer size in config
         props.put("batch.size", 16384);
         //Reduce the no of requests less than 0
@@ -188,7 +187,7 @@ public class WeatherStation {
         Properties props = new Properties();
         props.put("bootstrap.servers", "broker1:9092, broker2:9093"); // Set acknowledgements for producer requests. props.put("acks", // "all");
         // If the request fails, the producer can automatically retry,
-        props.put("retries", 0);
+        props.put("retries", 1);
         // Specify buffer size in config
         props.put("batch.size", 16384);
         // Reduce the no of requests less than 0
