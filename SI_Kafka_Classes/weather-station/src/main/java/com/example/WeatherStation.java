@@ -31,7 +31,7 @@ public class WeatherStation {
 
     private final int MIN_TEMPERATURE = -100, MAX_TEMPERATURE = 100, SLEEP_TIME = 2000;
     private final String STANDARD_WEATHER_TOPIC = "StandardWeatherTopic", WEATHER_ALERTS_TOPIC = "WeatherAlertsTopic";
-    private final boolean TESTING = false;
+    private final boolean TESTING = true;
 
     public WeatherStation() {
         myMain();
@@ -168,7 +168,7 @@ public class WeatherStation {
 
     private Properties loadPProducerProperties() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "broker1:9092, broker2:9092");
+        props.put("bootstrap.servers", "broker1:9092, broker2:9093");
         //Set acknowledgements for producer requests. props.put("acks", "all");
         //If the request fails, the producer can automatically retry,
         props.put("retries", 0);
@@ -185,7 +185,7 @@ public class WeatherStation {
 
     private Properties loadConsumerProperties() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "broker1:9092"); // Set acknowledgements for producer requests. props.put("acks", // "all");
+        props.put("bootstrap.servers", "broker1:9092, broker2:9093"); // Set acknowledgements for producer requests. props.put("acks", // "all");
         // If the request fails, the producer can automatically retry,
         props.put("retries", 0);
         // Specify buffer size in config
